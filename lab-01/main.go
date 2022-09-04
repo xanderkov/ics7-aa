@@ -24,9 +24,10 @@ func main() {
 
 	fmt.Println()
 
-	distDamNoRec := levenstein.CountDamNoRec(firstWord, secondWord)
+	distDamNoRec, distMat := levenstein.CountDamNoRec(firstWord, secondWord)
 	fmt.Print("Домерау-Левенштейн не рекурсивный: ", distDamNoRec)
-
+	fmt.Println()
+	distMat.PrintMatrix()
 	fmt.Println()
 	
 	distDamRecNoCache := levenstein.CountDamRecNoCache(firstWord, secondWord)
