@@ -28,6 +28,21 @@ func makeMatrix(n, m int) MInt {
 }
 
 
+func makeMatrixInf(n, m int) MInt {
+	matrix := make(MInt, n + 1)
+	
+	for i := range matrix {
+		matrix[i] = make([]int, m + 1)
+	}
+
+	for i := 0; i < n + 1; i++ {
+		for j := 0; j < m + 1; j++ {
+			matrix[i][j] = -1
+		}
+	}
+	return matrix
+}
+
 func (mat MInt) PrintMatrix() {
 	for i := 0; i < len(mat); i++ {
 		for j := 0; j < len(mat[0]); j++ {

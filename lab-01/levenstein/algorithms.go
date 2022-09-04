@@ -105,6 +105,47 @@ func CountDamRecNoCache(src, dest string) int {
 	return _countDamRecElem(srcRune, destRune, n, m)
 }
 
+func _countDamRecElemCache(src, dest []rune, i, j int, distMat MInt) int {
+	if (getMinOfValues(i, j) == 0) {
+		return getMaxOf2Values(i, j)
+	}
+
+	if distMat[i][j] != -1 {
+		return distMat[i][j]
+	}
+	
+	match := 1
+	if (src[i - 1] == dest[j - 1]) {
+		match = 0
+	}
+ 
+	insert := _countDamRecElemCache(src, dest, i, j - 1, distMat) + 1
+	delete := _countDamRecElemCache(src, dest, i - 1, j, distMat) + 1
+	replace := match + _countDamRecElemCache(src, dest, i - 1, j - 1, distMat)
+
+	transpose := -1
+
+	if i > 1 && j > 1 {
+		transpose = _countDamRecElemCache(src, dest, i - 2, j - 2, distMat) + 1
+	}
+
+	min := 0
+	if transpose != -1 && src[i - 1] == dest[j - 2] && src[i - 2] == dest[j - 1] {
+		min = getMinOfValues(insert, delete, replace, transpose)
+	} else {
+		min = getMinOfValues(insert, delete, replace)
+	}
+
+	distMat[i][j] = min
+	return distMat[i][j]
+
+}
+
 func CountDamRecCache(src, dest string) int {
-	return len(src) + len(dest)
+	srcRune, destRune := []rune(src), []rune(dest)
+	n, m := len(srcRune), len(destRune)
+
+	distMat := makeMatrixInf(n, m)
+
+	return _countDamRecElemCache(srcRune, destRune, n, m, distMat)
 }
