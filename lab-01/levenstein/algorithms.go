@@ -2,8 +2,30 @@ package levenstein
 
 // import "math"
 
-func CountLevNoRec(src, dest string) int {
-	return len(src) + len(dest)
+func CountLevNoRec(src, dest string) (int, MInt) {
+	
+	srcRune, destRune := []rune(src), []rune(dest)
+	n, m := len(srcRune), len(destRune)
+
+	distMat := makeMatrix(n, m)
+
+	for i := 1; i < n + 1; i++ {
+		for j := 1; j < m + 1; j++ {
+			insDist := distMat[i][j - 1] + 1
+			delDist := distMat[i - 1][j] + 1
+			eq := 1
+			
+			if srcRune[i - 1] == destRune[j - 1] {
+				eq = 0
+			}
+			eqDist := distMat[i - 1][j - 1] + eq
+
+			dist := getMinOfValues(insDist, delDist, eqDist)
+			distMat[i][j] = dist
+		}
+	}
+	shortDist := distMat[n][m]
+	return shortDist, distMat
 }
 
 func CountDamNoRec(src, dest string) (int, MInt) {
@@ -30,9 +52,9 @@ func CountDamNoRec(src, dest string) (int, MInt) {
 			}
 
 			if transDist != -1 && srcRune[i - 1] == destRune[j - 2] && srcRune[i - 2] == destRune[j - 1] {
-				dist = getMinOfMins(insDist, delDist, eqDist, transDist)
+				dist = getMinOfValues(insDist, delDist, eqDist, transDist)
 			} else {
-				dist = getMinOfMins(insDist, delDist, eqDist)
+				dist = getMinOfValues(insDist, delDist, eqDist)
 			}
 			distMat[i][j] = dist
 		}

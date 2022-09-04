@@ -37,7 +37,7 @@ func (mat MInt) PrintMatrix() {
 	}
 }
 
-func getMinOfMins(values ...int) int {
+func getMinOfValues(values ...int) int {
 	min := values[0]
 
 	for _, i := range values {
