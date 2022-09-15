@@ -1,0 +1,12 @@
+\global \c@tocdepth 2\relax 
+\global \c@secnumdepth 1\relax 
+~\hfill \textnormal {Страница}\par 
+\babel@toc {russian}{}\relax 
+\contentsline {chapter}{\numberline {1}Введение}{2}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Аналитический раздел}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Расстояние Левенштейна}{3}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Матрица расстояний}{4}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Расстояние Дамерау -- Левенштейна}{4}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Рекурсивная формула}{5}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Рекурсивный алгоритм расстояния Левенштейна с мемоизацией}{6}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Вывод}{6}{section.2.6}%
