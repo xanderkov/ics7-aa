@@ -5,8 +5,13 @@
 \contentsline {chapter}{\numberline {1}Введение}{2}{chapter.1}%
 \contentsline {chapter}{\numberline {2}Аналитический раздел}{3}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Расстояние Левенштейна}{3}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Матрица расстояний}{4}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Расстояние Дамерау -- Левенштейна}{4}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Рекурсивная формула}{5}{section.2.4}%
-\contentsline {section}{\numberline {2.5}Рекурсивный алгоритм расстояния Левенштейна с мемоизацией}{6}{section.2.5}%
-\contentsline {section}{\numberline {2.6}Вывод}{6}{section.2.6}%
+\contentsline {section}{\numberline {2.2}Расстояние Дамерау -- Левенштейна}{4}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Рекурсивная формула}{4}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Матрица расстояний}{5}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Рекурсивный алгоритм расстояния Дамерау-Левенштейна с мемоизацией}{6}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Вывод}{7}{section.2.6}%
+\contentsline {chapter}{\numberline {3}Конструкторский раздел}{8}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Матричные итерационные алгоритмы}{8}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Модификация матричных алгоритмов}{8}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Рекурсивные алгоритмы}{8}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Вывод}{9}{section.3.4}%
