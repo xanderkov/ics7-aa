@@ -24,4 +24,9 @@
 *.mtc0
 *.xml
 *.gz
-
+*.mtc
+*.mtc1
+*.mtc2
+*.mtc3
+*.mtc
+*.toc
