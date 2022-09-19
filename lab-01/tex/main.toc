@@ -15,3 +15,11 @@
 \contentsline {section}{\numberline {3.2}Модификация матричных алгоритмов}{8}{section.3.2}%
 \contentsline {section}{\numberline {3.3}Рекурсивные алгоритмы}{8}{section.3.3}%
 \contentsline {section}{\numberline {3.4}Вывод}{9}{section.3.4}%
+\contentsline {chapter}{\numberline {4}Технологический раздел}{13}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Требования к ПО}{13}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Средства реализации}{13}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Листинги кода}{13}{section.4.3}%
+\contentsline {subsection}{Реализация алгоритмов}{13}{subsection*.4}%
+\contentsline {subsection}{Утилиты}{18}{subsection*.5}%
+\contentsline {section}{\numberline {4.4}Тестовые данные}{19}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Вывод}{19}{section.4.5}%

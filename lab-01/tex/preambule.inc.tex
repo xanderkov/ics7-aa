@@ -1,10 +1,11 @@
 \usepackage{cmap}
-\usepackage[T1]{fontenc} 
+\usepackage[T2A]{fontenc} 
 \usepackage[utf8]{inputenc}
 \usepackage[english,russian]{babel}
 
 
 \usepackage{enumitem}
+\usepackage[14pt]{extsizes}
 
 \usepackage{graphicx}
 \usepackage{multirow}
@@ -126,3 +127,38 @@ sorting=none,
 	\array{@{}l@{\quad}l@{}}%
 }
 \makeatother
+
+\usepackage{amsmath}
+
+\usepackage{geometry}
+\geometry{left=30mm}
+\geometry{right=15mm}
+\geometry{top=20mm}
+\geometry{bottom=20mm}
+
+\usepackage{titlesec}
+\titleformat{\section}
+{\normalsize\bfseries}
+{\thesection}
+{1em}{}
+\titlespacing*{\chapter}{0pt}{-30pt}{8pt}
+\titlespacing*{\section}{\parindent}{*4}{*4}
+\titlespacing*{\subsection}{\parindent}{*4}{*4}
+
+\usepackage{setspace}
+\onehalfspacing % Полуторный интервал
+
+\frenchspacing
+\usepackage{indentfirst} % Красная строка
+
+\usepackage{titlesec}
+\titleformat{\chapter}{\LARGE\bfseries}{\thechapter}{20pt}{\LARGE\bfseries}
+\titleformat{\section}{\Large\bfseries}{\thesection}{20pt}{\Large\bfseries}
+
+\usepackage[justification=centering]{caption} % Настройка подписей float объектов
+
+
+\usepackage{csvsimple}
+
+\newcommand{\code}[1]{\texttt{#1}}
+
