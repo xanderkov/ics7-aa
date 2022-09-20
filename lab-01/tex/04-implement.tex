@@ -17,8 +17,7 @@
 
 В качестве представления строковых данных был выбран тип rune\cite{rune} -- псевдоним для типа int32. 
 
-В листингах \ref{matrix-iter} - \ref{damer-lev-rec} приведены реализации алгоритмов, описанных в разделе \ref{analyth}.
-
+В листингах \ref{leven-recursive} - \ref{damer-lev-rec} приведены реализации алгоритмов, описанных в разделе \ref{analyth}.
 
 
 \begin{lstlisting}[label=leven-recursive,caption=Программный код нахождения расстояния Дамерау -- Левенштейна итеративно]
@@ -47,7 +46,8 @@ func CountDamNoRec(src, dest string) (int, MInt) {
 				transDist = distMat[i - 2][j - 2] + 1
 			}
 			
-			if transDist != -1 && srcRune[i - 1] == destRune[j - 2] && srcRune[i - 2] == destRune[j - 1] {
+			if transDist != -1 && srcRune[i - 1] == destRune[j - 2] && 
+			srcRune[i - 2] == destRune[j - 1] {
 				dist = getMinOfValues(insDist, delDist, eqDist, transDist)
 			} else {
 				dist = getMinOfValues(insDist, delDist, eqDist)
@@ -75,7 +75,7 @@ func _countDamRecElem(src, dest []rune, i, j int) int {
 	
 	insert := _countDamRecElem(src, dest, i, j - 1) + 1
 	delete := _countDamRecElem(src, dest, i - 1, j) + 1
-	replace := match + _countDamRecElem(src, dest, i - 1, j - 1)
+	replace := match+_countDamRecElem(src, dest, i - 1, j - 1)
 	
 	transpose := -1
 	
@@ -84,7 +84,8 @@ func _countDamRecElem(src, dest []rune, i, j int) int {
 	}
 	
 	min := 0
-	if transpose != -1 && src[i - 1] == dest[j - 2] && src[i - 2] == dest[j - 1] {
+	if transpose != -1 && src[i - 1] == dest[j - 2] 
+	&& src[i - 2] == dest[j - 1] {
 		min = getMinOfValues(insert, delete, replace, transpose)
 	} else {
 		min = getMinOfValues(insert, delete, replace)
@@ -127,7 +128,8 @@ func _countDamRecElemCache(src, dest []rune, i, j int, distMat MInt) int {
 	}
 	
 	min := 0
-	if transpose != -1 && src[i - 1] == dest[j - 2] && src[i - 2] == dest[j - 1] {
+	if transpose != -1 && src[i - 1] == dest[j - 2] 
+	&& src[i - 2] == dest[j - 1] {
 		min = getMinOfValues(insert, delete, replace, transpose)
 	} else {
 		min = getMinOfValues(insert, delete, replace)

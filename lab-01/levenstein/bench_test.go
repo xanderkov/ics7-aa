@@ -32,6 +32,17 @@ func BenchmarkRecursiveLen80(b *testing.B) {
 
 }
 
+func BenchmarkRecursiveLen160(b *testing.B) {
+	src := "abaoboaobjaobjoajlafjgdsljfl;ajflasjd;ljdasf;ladsj;ldfsajkdasf;ldsfal;dfsjasdkjfabaoboaobjaobjoajlafjgdsljfl;ajflasjd;ljdasf;ladsj;ldfsajkdasf;ldsfal;dfsjasdkjf"
+	dest := "da;ldfjaljdasl;fjalsdjflkadsjflajfhdiofjoijdsodfajodasjodsafjsadoiasdjdzpoijsdajda;ldfjaljdasl;fjalsdjflkadsjflajfhdiofjoijdsodfajodasjodsafjsadoiasdjdzpoijsdaj"
+
+	for i := 0; i < b.N; i++ {
+		CountLevNoRec(src, dest)
+	}
+
+}
+
+
 
 func BenchmarkRecursiveLen240(b *testing.B) {
 	src := "abaoboaobjaobjoajlafjgdsljfl;ajflasjd;ljdasf;ladsj;ldfsajkdasf;ldsfal;dfsjasdkjfabaoboaobjaobjoajlafjgdsljfl;ajflasjd;ljdasf;ladsj;ldfsajkdasf;ldsfal;dfsjasdkjfabaoboaobjaobjoajlafjgdsljfl;ajflasjd;ljdasf;ladsj;ldfsajkdasf;ldsfal;dfsjasdkjf"
@@ -39,6 +50,16 @@ func BenchmarkRecursiveLen240(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		CountLevNoRec(src, dest)
+	}
+
+}
+
+func BenchmarkCountDamNoRec5(b *testing.B) {
+	src := "abaob"
+	dest := "da;ld"
+
+	for i := 0; i < b.N; i++ {
+		CountDamNoRec(src, dest)
 	}
 
 }
@@ -70,8 +91,18 @@ func BenchmarkCountDamNoRec80(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		CountDamNoRec(src, dest)
 	}
+}
+
+func BenchmarkCountDamNoRec160(b *testing.B) {
+	src := "abaoboaobjaobjoajlafjgdsljfl;ajflasjd;ljdasf;ladsj;ldfsajkdasf;ldsfal;dfsjasdkjfabaoboaobjaobjoajlafjgdsljfl;ajflasjd;ljdasf;ladsj;ldfsajkdasf;ldsfal;dfsjasdkjf"
+	dest := "da;ldfjaljdasl;fjalsdjflkadsjflajfhdiofjoijdsodfajodasjodsafjsadoiasdjdzpoijsdajda;ldfjaljdasl;fjalsdjflkadsjflajfhdiofjoijdsodfajodasjodsafjsadoiasdjdzpoijsdaj"
+
+	for i := 0; i < b.N; i++ {
+		CountDamNoRec(src, dest)
+	}
 
 }
+
 
 
 func BenchmarkCountDamNoRec240(b *testing.B) {
@@ -84,6 +115,17 @@ func BenchmarkCountDamNoRec240(b *testing.B) {
 
 }
 
+func BenchmarkCountDamRecCacheLen5(b *testing.B) {
+	src := "abaob"
+	dest := "da;ld"
+
+	for i := 0; i < b.N; i++ {
+		CountDamRecCache(src, dest)
+	}
+
+}
+
+
 func BenchmarkCountDamRecCacheLen10(b *testing.B) {
 	src := "abaoboaobj"
 	dest := "da;ldfjalj"
@@ -94,7 +136,7 @@ func BenchmarkCountDamRecCacheLen10(b *testing.B) {
 
 }
 
-func BenchmarCountDamRecCacheLen40(b *testing.B) {
+func BenchmarkCountDamRecCacheLen40(b *testing.B) {
 	src := "abaoboaobjaobjoajlafjgdsljfl;ajflasjd;lj"
 	dest := "da;ldfjaljdasl;fjalsdjflkadsjflajfhdiofj"
 
@@ -114,6 +156,17 @@ func BenchmarkCountDamRecCacheLen80(b *testing.B) {
 
 }
 
+func BenchmarkCountDamRecCacheLen160(b *testing.B) {
+	src := "abaoboaobjaobjoajlafjgdsljfl;ajflasjd;ljdasf;ladsj;ldfsajkdasf;ldsfal;dfsjasdkjfabaoboaobjaobjoajlafjgdsljfl;ajflasjd;ljdasf;ladsj;ldfsajkdasf;ldsfal;dfsjasdkjf"
+	dest := "da;ldfjaljdasl;fjalsdjflkadsjflajfhdiofjoijdsodfajodasjodsafjsadoiasdjdzpoijsdajda;ldfjaljdasl;fjalsdjflkadsjflajfhdiofjoijdsodfajodasjodsafjsadoiasdjdzpoijsdaj"
+
+	for i := 0; i < b.N; i++ {
+		CountDamRecCache(src, dest)
+	}
+
+}
+
+
 
 func BenchmarkCountDamRecCacheLen240(b *testing.B) {
 	src := "abaoboaobjaobjoajlafjgdsljfl;ajflasjd;ljdasf;ladsj;ldfsajkdasf;ldsfal;dfsjasdkjfabaoboaobjaobjoajlafjgdsljfl;ajflasjd;ljdasf;ladsj;ldfsajkdasf;ldsfal;dfsjasdkjfabaoboaobjaobjoajlafjgdsljfl;ajflasjd;ljdasf;ladsj;ldfsajkdasf;ldsfal;dfsjasdkjf"
@@ -121,6 +174,16 @@ func BenchmarkCountDamRecCacheLen240(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		CountDamRecCache(src, dest)
+	}
+
+}
+
+func BenchmarkCountDamRecNoCacheLen5(b *testing.B) {
+	src := "abaob"
+	dest := "da;ld"
+
+	for i := 0; i < b.N; i++ {
+		CountDamRecNoCache(src, dest)
 	}
 
 }

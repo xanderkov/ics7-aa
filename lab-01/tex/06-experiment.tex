@@ -1,0 +1,161 @@
+\chapter{Исследовательская часть}
+\section{Технические характеристики}
+Тестирование выполнялось на устройстве со следующими техническими характеристиками:
+\begin{itemize}
+	\item Операционная система Pop!\_OS 22.04 LTS;
+	\item Память 16 GiB
+	\item Процессор AMD® Ryzen 7 2700 eight-core processor × 16 
+\end{itemize}
+Во время тестирования устройство было подключено к блоку питания и не нагружено никакими приложениями, кроме встроенных приложений окружения, окружением и системой тестирования.
+\section{Время выполнения алгоритмов}
+Алгоритмы тестировались при помощи профилирования -- сбора характеристик работы программы: времени выполнения и затрат по памяти. Для каждой функции были написаны "бенчмарки"\cite{test}, представленные встроенными в Golang средствами. Бенчмарки, реализованные стандартными средствами Golang автоматически делают некоторое количество замеров, предоставляя результат с некоторой погрешностью.
+\begin{lstlisting}[label=bench,caption=Пример бенчмарка]
+	func BenchmarkCountDamNoRec10(b *testing.B) {
+		src := "abaoboaobj"
+		dest := "da;ldfjalj"
+		for i := 0; i < b.N; i++ {
+			CountDamNoRec(src, dest)
+		}
+	}
+\end{lstlisting}
+Результаты тестирования приведены в таблице. Прочерк в таблице означает что тестирование для этого набора данных не выполнялось.
+
+
+\begin{table}[h!]
+	\begin{center}
+		\caption{Время выполнения алгоритмов}
+		\begin{tabular}{ ||p{1.5cm}||p{2cm}|p{2cm}|p{3.5cm}||  }
+			\hline
+			\multirow{2}{*}{Длина}& \multicolumn{3}{c||}{Время выполнения()} \\[1.5ex]
+			\cline{2-4} 
+			строк& DRecMem & DLIter & DLRec \\ [1.5ex] 
+			\hline\hline
+			5  & 2344 & 1114 & 17228 \\
+			10 & 6747 & 3142 & 109170295 \\
+			40 & 92218 & 36281 & - \\
+			80 & 402839 & 142910 & - \\
+			160 & 1582974 & 646498 & - \\
+			240 & 3505394 & 1348110 & - \\
+			\hline
+		\end{tabular}
+		\label{time-table}
+	\end{center}
+\end{table}
+
+\begin{figure}[h!]
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				legend pos = north west,
+				xlabel=длина строки,
+				ylabel=наносекунды,
+				minor tick num = 1,
+				grid = both,
+				major grid style = {lightgray},
+				minor grid style = {lightgray!25},
+				xtick distance = 40,
+				width = 0.9\textwidth,
+				height = 0.7\textwidth]
+				
+				\addplot[
+				red,
+				semithick,
+				mark = *,
+				] file {assets/d-lev-mem.dat};
+				
+				\addplot[
+				blue,
+				semithick,
+				mark = x,
+				mark size = 3pt,
+				thick,
+				] file {assets/d-lev-iter-perf.dat};	
+				
+				\addplot[
+				green,
+				semithick,
+				mark = *,
+				] file {assets/d-lev-recursive.dat};
+				
+				\legend{
+					мемоизацией,
+					итеративного,
+					рекурсивного,
+				}
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	\caption{Сравнение рекурсивного с мемоизацией, итеративного и рекурсивного расстояния Дамерау -- Левенштейна}
+\end{figure}
+
+
+\begin{figure}[h!]
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				legend pos = north west,
+				xlabel=длина строки,
+				ylabel=наносекунды,
+				minor tick num = 1,
+				grid = both,
+				major grid style = {lightgray},
+				minor grid style = {lightgray!25},
+				xtick distance = 40,
+				width = 0.9\textwidth,
+				height = 0.7\textwidth]
+				
+				\addplot[
+				red,
+				semithick,
+				mark = *,
+				] file {assets/d-lev-mem.dat};
+				
+				\addplot[
+				blue,
+				semithick,
+				mark = x,
+				mark size = 3pt,
+				thick,
+				] file {assets/d-lev-iter-perf.dat};
+				
+				\legend{
+					мемоизацией,
+					итеративного,
+				}
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	\caption{Сравнение рекурсивного с мемоизацией, итеративного расстояния Дамерау -- Левенштейна}
+\end{figure}
+
+
+
+\section{Использование памяти}
+
+Максимальная глубина стека при вызове рекурсивных функций имеет следующий вид:
+\begin{equation}\label{rec-mem}
+	M_{recursive} = (n \cdot lvar + ret + ret_{int}) \cdot depth
+\end{equation}
+Где:
+\[
+\begin{array}{l}
+	n\text{ -- количество аллоцированных локальных переменных}; \\
+	lvar\text{ -- размер переменной типа int} \\
+	ret -- \text{адрес возврата;}\\
+	ret_{int} -- \text{возвращаемое значение;}\\
+	depth\text{ --  максимальная глубина стека вызова, которая равна } \\
+	|S_1| + |S_2|.
+\end{array}
+\]
+
+Использование памяти при итеративных реализациях: 
+\begin{equation}
+	M_{iter} = |S_1| + |S_2| + (|S_1| + 1 \cdot |S_2| + 1) \cdot lvar + n \cdot lvar + ret + ret_{int}
+\end{equation}
+Где $(|S_1| + 1 \cdot |S_2| + 1) \cdot lvar$ -- место в памяти под матрицу расстояний.
+
+\section{Вывод}
+Рекурсивный алгоритм  Дамерау -- Левенштейна работает дольше итеративных реализаций -- время этого алгоритма увеличивается в геометрической прогрессии с ростом размера строк.
+Рекурсивный алгоритм с мемоизацией превосходит простой рекурсивный алгоритм по времени. 
+По расходу памяти все реализации проигрывают рекурсивной за счет большого количества выделенной памяти под матрицу расстояний.
+Стоит отметить, что для языков, где возможна передача указателя на массивы, самым эффективным и по времени, и по памяти будет алгоритм, использующий мемоизацию.
