@@ -20,7 +20,7 @@
 В листингах \ref{leven-recursive} - \ref{damer-lev-rec} приведены реализации алгоритмов, описанных в разделе \ref{analyth}.
 
 
-\begin{lstlisting}[label=leven-recursive,caption=Программный код нахождения расстояния Дамерау -- Левенштейна итеративно]
+\begin{lstlisting}[label=leven-recursive,caption=Программный код нахождения расстояния Дамерау\,--\,Левенштейна итеративно]
 func CountDamNoRec(src, dest string) (int, MInt) {
 	var (n, m, dist, shortDist, transDist int)
 	
@@ -62,7 +62,7 @@ func CountDamNoRec(src, dest string) (int, MInt) {
 }
 \end{lstlisting}
 
-\begin{lstlisting}[label=damer-lev-iter,caption=Программный код нахождения расстояния Дамерау -- Левенштейна рекурсивно]
+\begin{lstlisting}[label=damer-lev-iter,caption=Программный код нахождения расстояния Дамерау\,--\,Левенштейна рекурсивно]
 func _countDamRecElem(src, dest []rune, i, j int) int {
 	if (getMinOfValues(i, j) == 0) {
 		return getMaxOf2Values(i, j)
@@ -102,7 +102,7 @@ func CountDamRecNoCache(src, dest string) int {
 }
 \end{lstlisting}
 
-\begin{lstlisting}[label=damer-lev-rec,caption=Программный код нахождения расстояния Дамерау -- Левенштейна рекурсивно с кэшем]	
+\begin{lstlisting}[label=damer-lev-rec,caption=Программный код нахождения расстояния Дамерау\,--\,Левенштейна рекурсивно с кэшем]	
 func _countDamRecElemCache(src, dest []rune, i, j int, distMat MInt) int {
 	if (getMinOfValues(i, j) == 0) {
 		return getMaxOf2Values(i, j)
