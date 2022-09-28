@@ -48,7 +48,7 @@
 
 % Настройки оглавления
 \usepackage{xcolor}
-
+\usepackage{multirow}
 
 \usepackage[pdftex]{hyperref} % Гиперссылки
 \hypersetup{hidelinks}
@@ -59,19 +59,23 @@
 \definecolor{darkgray}{gray}{0.15}
 
 \usepackage{listings-golang}
-\lstset{ % add your own preferences
-	frame=single,
-	basicstyle=\footnotesize\ttfamily,
-	identifierstyle=\color{darkgray},
-	keywordstyle=\color{black},
-	numbers=left,
-	numbersep=4pt,
-	numberstyle=\tiny,
-	showstringspaces=false, 
-	captionpos=t,
-	tabsize=2,
-	language=Golang
+\lstset{
+	language=go, % выбор языка для подсветки
+	basicstyle=\small\sffamily, % размер и начертание шрифта для подсветки кода
+	numbers=left, % где поставить нумерацию строк (слева\справа)
+	%numberstyle=, % размер шрифта для номеров строк
+	stepnumber=1, % размер шага между двумя номерами строк
+	numbersep=5pt, % как далеко отстоят номера строк от подсвечиваемого кода
+	frame=single, % рисовать рамку вокруг кода
+	tabsize=2, % размер табуляции по умолчанию равен 4 пробелам
+	captionpos=t, % позиция заголовка вверху [t] или внизу [b]
+	breaklines=true,
+	breakatwhitespace=true, % переносить строки только если есть пробел
+	escapeinside={\*}{*)}, % если нужно добавить комментарии в коде
+	backgroundcolor=\color{white},
+	keywordstyle=\color{blue}
 }
+
 
 % для квадратных скобок
 \usepackage{array}
