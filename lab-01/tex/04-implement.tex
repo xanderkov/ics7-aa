@@ -3,19 +3,15 @@
 \section{Требования к ПО}
 Программа должна отвечать следующим требованиям:
 \begin{itemize}
-	\item ПО корректно реагирует на любые действия пользователя;
-	\item ПО возвращает полученное расстояние;
-	\item ПО принимает текстовые данные в любой раскладке.
-	\item Время отклика программы на любое действие пользователя должно быть приемлемым.
-	\item ПО корректно высчитывает время своей работы 
+	\item В программе возможно измерение процессорного времени;
+	\item Программа принимает на вход две строки;
+	\item Программа выдает редакторские расстояние Левенштайна и Дамерау\,--\,Левенштейна. 
 \end{itemize}
 \section{Средства реализации}
 Для реализации ПО был выбран язык программирования Golang\cite{golang}. Данный язык предоставляет следующие возможности:
-\begin{itemize}
-	\item Язык компилируемый, то есть на выходе будет получен исполняемый файл, что позволит точно измерить время работы программы.
-	\item Средства объектно-ориентированного программирования ограничиваются интерфейсами. Это позволяет создавать абстракции, при этом оставаясь высокоскоростным языком.
-	\item Статическая типизация. Позволяет избежать ошибок, допущенных по невнимательности, упрощает чтение и понимание кода.
-	\item Обширная стандартная библиотека. Позволяет использовать уже написанные шаблоны, что уменьшает количество кода, которое необходимо написать. Поддерживает библиотеки C и C++  
+\begin{itemize} 
+	\item Средства объектно-ориентированного программирования ограничиваются интерфейсами, что позволяет создавать абстракции, которые нужны для представления матрицы расстояний;
+	\item Поддерживает библиотеки C и C++, что позволит измерить процессорное время, также имеет свою обширную библиотеку.
 \end{itemize}
 
 В качестве среды разработки была выбрана среда VS Code\cite{rune}, запуск происходил через команду go run main.go.
@@ -23,7 +19,7 @@
 \section{Листинги кода}
 \subsection{Реализация алгоритмов}
 
-В качестве представления строковых данных был выбран тип rune\cite{rune} -- псевдоним для типа int32. 
+
 
 В листингах \ref{leven-recursive} - \ref{damer-lev-rec} приведены реализации алгоритмов, описанных в разделе \ref{analyth}.
 
@@ -115,26 +111,20 @@ func _countDamRecElemCache(src, dest []rune, i, j int, distMat MInt) int {
 	if (getMinOfValues(i, j) == 0) {
 		return getMaxOf2Values(i, j)
 	}
-	
 	if distMat[i][j] != -1 {
 		return distMat[i][j]
 	}
-	
 	match := 1
 	if (src[i - 1] == dest[j - 1]) {
 		match = 0
 	}
-	
 	insert := _countDamRecElemCache(src, dest, i, j - 1, distMat) + 1
 	delete := _countDamRecElemCache(src, dest, i - 1, j, distMat) + 1
 	replace := match + _countDamRecElemCache(src, dest, i - 1, j - 1, distMat)
-	
 	transpose := -1
-	
 	if i > 1 && j > 1 {
 		transpose = _countDamRecElemCache(src, dest, i - 2, j - 2, distMat) + 1
 	}
-	
 	min := 0
 	if transpose != -1 && src[i - 1] == dest[j - 2] 
 	&& src[i - 2] == dest[j - 1] {
@@ -142,18 +132,13 @@ func _countDamRecElemCache(src, dest []rune, i, j int, distMat MInt) int {
 	} else {
 		min = getMinOfValues(insert, delete, replace)
 	}
-	
 	distMat[i][j] = min
 	return distMat[i][j]
-	
 }
-
 func CountDamRecCache(src, dest string) int {
 	srcRune, destRune := []rune(src), []rune(dest)
 	n, m := len(srcRune), len(destRune)
-	
 	distMat := makeMatrixInf(n, m)
-	
 	return _countDamRecElemCache(srcRune, destRune, n, m, distMat)
 }
 \end{lstlisting}
@@ -163,13 +148,11 @@ func CountDamRecCache(src, dest string) int {
 \begin{lstlisting}[label=min3,caption=Функция нахождения минимума из N целых чисел]
 	func getMinOfValues(values ...int) int {
 		min := values[0]
-		
 		for _, i := range values {
 			if min > i {
 				min = i
 			}
 		}
-		
 		return min
 	}
 	
@@ -185,27 +168,27 @@ func CountDamRecCache(src, dest string) int {
 \end{lstlisting}
 
 
-\begin{lstlisting}[label=i-matrix,caption=Определение типа целочисленной матрицы; его инициализация и вывод]
+\begin{lstlisting}[label=i-matrix,caption=Определение типа целочисленной матрицы; его инициализация]
 	type MInt [][]int
-	
 	func makeMatrix(n, m int) MInt {
 		matrix := make(MInt, n + 1)
-		
 		for i := range matrix {
 			matrix[i] = make([]int, m + 1)
 		}
-		
 		for i := 0; i < m + 1; i++ {
 			matrix[0][i] = i
 		}
-		
 		for i := 0; i < n + 1; i++ {
 			matrix[i][0] = i
 		}
 		return matrix
-	}
-	
+	}	
+}
 
+\end{lstlisting}
+
+\begin{lstlisting}[label=out-matrix,caption=Вывод матрицы расстояний]
+	
 	func (mat MInt) PrintMatrix() {
 		for i := 0; i < len(mat); i++ {
 			for j := 0; j < len(mat[0]); j++ {
@@ -213,27 +196,36 @@ func CountDamRecCache(src, dest string) int {
 			}
 			fmt.Printf("\n")
 		}
-}
-
+	}
+	
 \end{lstlisting}
 
-\section{Тестовые данные}
 
-\begin{table}[h!]
+\section{Тестовые данные}
+В таблице 4 алгоритма для поиска редакторского расстояния: 
+
+\begin{itemize}
+	\item DLIter --- Дамерау\,--\,Левенштейн итеративный;
+	\item DLRec --- Дамерау\,--\,Левенштейн рекурсивный;
+	\item DLRecCache --- Дамерау\,--\,Левенштейн рекурсивный с мемоизацией;
+	\item Lev - Левенштейн итеративный.
+\end{itemize}
+
+\begin{table}[ht!]
 	\begin{center}
 		
-		\begin{tabular}{||c c c | c c c||} 
+		\begin{tabular}{||c c c | c c c c||} 
 			\hline
-			№ & $S_1$ & $S_2$ & DLIter & DLRec & DLRecCache \\
+			№ & $S_1$ & $S_2$ & DLIter & DLRec & DLRecCache & Lev\\
 			[0.5ex] 
 			\hline\hline
-			1 & << >> & << >> & 0 & 0 & 0 \\
-			2 & <<book>> & <<bosk>> & 1 & 1 & 1 \\ 
-			3 & <<book>> & <<back>> & 2 & 2 & 2 \\ 
-			4 & <<book>> & <<bacc>> & 3 & 3 & 3 \\ 
-			5 & <<aboba>> & <<acacb>> & 4 & 4 & 4 \\ 
-			6 & <<дверь>> & <<деврь>> & 1 & 1 & 1 \\   
-			6 & <<дверь>> & <<дверь>> & 1 & 1 & 1 \\   
+			1 & << >> & << >> & 0 & 0 & 0 & 0 \\
+			2 & <<book>> & <<bosk>> & 1 & 1 & 1 & 1 \\ 
+			3 & <<book>> & <<back>> & 2 & 2 & 2 & 2 \\ 
+			4 & <<book>> & <<bacc>> & 3 & 3 & 3 & 3 \\ 
+			5 & <<aboba>> & <<acacb>> & 4 & 4 & 4 & 4 \\ 
+			6 & <<дверь>> & <<деврь>> & 1 & 1 & 1 & 2 \\   
+			6 & <<дверь>> & <<дверь>> & 0 & 0 & 0 & 0\\   
 			\hline
 		\end{tabular}
 	\end{center}

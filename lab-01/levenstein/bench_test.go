@@ -2,6 +2,16 @@ package levenstein
 
 import "testing"
 
+func BenchmarkRecursiveLen5(b *testing.B) {
+	src := "abaob"
+	dest := "da;ld"
+
+	for i := 0; i < b.N; i++ {
+		CountLevNoRec(src, dest)
+	}
+
+}
+
 func BenchmarkRecursiveLen10(b *testing.B) {
 	src := "abaoboaobj"
 	dest := "da;ldfjalj"

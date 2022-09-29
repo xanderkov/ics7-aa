@@ -4,7 +4,7 @@
 \begin{itemize}
 	\item Операционная система Pop!\_OS 22.04 LTS \cite{ubuntu} Linux \cite{linux};
 	\item Оперативная память 16 GiB;
-	\item Процессор AMD® Ryzen 7 2700 eight-core processor × 16 \cite{amd};
+	\item Процессор AMD® Ryzen 7 2700 eight-core processor × 16 \cite{amd}.
 \end{itemize}
 Во время тестирования устройство было подключено к блоку питания и не нагружено никакими приложениями, кроме встроенных приложений окружения, окружением и системой тестирования.
 \section{Время выполнения алгоритмов}
@@ -22,28 +22,38 @@
 Результаты тестирования приведены в таблице. Прочерк в таблице означает что тестирование для этого набора данных не выполнялось.
 
 
-\begin{table}[h!]
+В таблице 4 алгоритма для поиска редакторского расстояния: 
+
+\begin{itemize}
+	\item DLIter --- Дамерау\,--\,Левенштейн итеративный;
+	\item DLRec --- Дамерау\,--\,Левенштейн рекурсивный;
+	\item DLRecCache --- Дамерау\,--\,Левенштейн рекурсивный с мемоизацией;
+	\item Lev - Левенштейн итеративный.
+\end{itemize}
+
+
+\begin{table}[ht!]
 	\begin{center}
 		\caption{Время выполнения алгоритмов}
-		\begin{tabular}{ ||p{1.5cm}||p{2cm}|p{2cm}|p{3.5cm}||  }
+		\begin{tabular}{ ||p{1.5cm}||p{2cm}|p{2cm}|p{2cm}|p{3.5cm}||  }
 			\hline
-			\multirow{2}{*}{Длина}& \multicolumn{3}{c||}{Время выполнения()} \\[1.5ex]
-			\cline{2-4} 
-			строк& DRecMem & DLIter & DLRec \\ [1.5ex] 
+			\multirow{2}{*}{Длина}& \multicolumn{4}{c||}{Время выполнения()} \\[1.5ex]
+			\cline{2-5} 
+			строк& DRecMem & DLIter & Lev & DLRec \\ [1.5ex] 
 			\hline\hline
-			5  & 2344 & 1114 & 17228 \\
-			10 & 6747 & 3142 & 109170295 \\
-			40 & 92218 & 36281 & - \\
-			80 & 402839 & 142910 & - \\
-			160 & 1582974 & 646498 & - \\
-			240 & 3505394 & 1348110 & - \\
+			5  & 2344 & 1114 & 1091 & 17228 \\
+			10 & 6747 & 3142 & 2823 & 109170295 \\
+			40 & 92218 & 36281 & 33362 &  - \\
+			80 & 402839 & 142910 & 122148 & - \\
+			160 & 1582974 & 646498 & 499268 & - \\
+			240 & 3505394 & 1348110 & 1122182 & - \\
 			\hline
 		\end{tabular}
 		\label{time-table}
 	\end{center}
 \end{table}
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
 	\begin{center}
 		\begin{tikzpicture}
 			\begin{axis}[
@@ -90,7 +100,7 @@
 \end{figure}
 
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
 	\begin{center}
 		\begin{tikzpicture}
 			\begin{axis}[
