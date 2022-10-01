@@ -1,4 +1,4 @@
-package matrix
+package matr
 
 // SimpleMult used to multiply two matrixes using single multiplication method.
 func SimpleMult(amat, bmat MInt) MInt {

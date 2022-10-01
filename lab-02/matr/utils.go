@@ -1,4 +1,4 @@
-package matrix
+package matr
 import "fmt"
 import "math/rand"
 
@@ -58,3 +58,4 @@ func formResMat(n, m int) MInt {
 
 	return rmat
 }
+
