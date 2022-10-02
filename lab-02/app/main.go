@@ -1,42 +1,44 @@
 package main
 
-import "fmt"
-import matrix "lab-02/matr"
+import (
+	"fmt"
+	"./matrix"
+)
 
 func main() {
 	fmt.Println("Умножение матриц\n")
 
 	fmt.Println("Матриа А")
 	fmt.Print("Введите количество строк: ")
-	an := matrix.ReadNumber()
+	an := matrix.ReadNum()
 	fmt.Print("Введите количество столбцов: ")
-	am := matrix.ReadNumber()
+	am := matrix.ReadNum()
 	fmt.Println("Введите матрицу: ")
 	amat := matrix.ReadMatrix(an, am)
 
 	fmt.Println("\n Матрица B")
 	fmt.Print("Введите количество строк: ")
-	bn := matrix.ReadNumber()
+	bn := matrix.ReadNum()
 
 	if bn != am {
 		fmt.Println("Количество строк матриц не совпадает")
 		return
 	}
 	fmt.Print("Введите количество столбцов: ")
-	bm := matrix.ReadNumber()
+	bm := matrix.ReadNum()
 	fmt.Println("Введите матрицу: ")
-	bmat := matrix.ReadMatrix(bn, bm)	
+	bmat := matrix.ReadMatrix(bn, bm)
 
 	fmt.Println("\n Резулитирующая матрица")
 	fmt.Println("Обычное умножение: ")
 	smmat := matrix.SimpleMult(amat, bmat)
-	smmat.PrintMatirx()
+	smmat.PrintMatrix()
 
 	fmt.Println("\n Умножение по Винограду")
 	wmmat := matrix.WinogradMult(amat, bmat)
-	wmmat.PrintMatirx()
+	wmmat.PrintMatrix()
 
 	fmt.Println("Умножение по Винограду (улучшенное): ")
-	wimmat := matrix.WinogradMultBetter(amat, bmat)
-	wimmat.PrintMatirx()
+	wimmat := matrix.WinogradMult(amat, bmat)
+	wimmat.PrintMatrix()
 }

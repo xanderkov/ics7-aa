@@ -1,4 +1,5 @@
-package matr
+package matrix
+
 import "fmt"
 import "math/rand"
 
@@ -6,7 +7,6 @@ type MInt struct {
 	mat  [][]int
 	n, m int
 }
-
 
 func (mat MInt) PrintMatrix() {
 	for i := 0; i < mat.n; i++ {
@@ -58,4 +58,3 @@ func formResMat(n, m int) MInt {
 
 	return rmat
 }
-
