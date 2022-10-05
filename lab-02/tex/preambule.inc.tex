@@ -13,10 +13,14 @@
 
 \usepackage{tikz}
 \usepackage{pgfplots}
-
+\usepackage{subcaption}
 \usepackage{caption}
 \captionsetup{labelsep=endash}
 \captionsetup[figure]{name={Рисунок}}
+\captionsetup[subtable]{labelformat=simple}
+\captionsetup[subfigure]{labelformat=simple}
+\renewcommand{\thesubtable}{\text{Таблица }\arabic{chapter}\text{.}\arabic{table}\text{.}\arabic{subtable}\text{ --}}
+\renewcommand{\thesubfigure}{\text{Рисунок }\arabic{chapter}\text{.}\arabic{figure}\text{.}\arabic{subfigure}\text{ --}}
 
 \usepackage{amsmath}
 
@@ -71,7 +75,6 @@
 	captionpos=t, % позиция заголовка вверху [t] или внизу [b]
 	breaklines=true,
 	breakatwhitespace=true, % переносить строки только если есть пробел
-	escapeinside={\*}{*)}, % если нужно добавить комментарии в коде
 	backgroundcolor=\color{white},
 	keywordstyle=\color{blue}
 }
@@ -111,4 +114,21 @@
 	\let\@ifnextchar\new@ifnextchar
 	\array{*\c@MaxMatrixCols c}}
 \makeatother
+
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\newcommand{\img}[3] {
+	\begin{figure}[h!]
+		\center{\includegraphics[height=#1]{inc/img/#2}}
+		\caption{#3}
+		\label{img:#2}
+	\end{figure}
+}
+\newcommand{\boximg}[3] {
+	\begin{figure}[h]
+		\center{\fbox{\includegraphics[height=#1]{inc/img/#2}}}
+		\caption{#3}
+		\label{img:#2}
+	\end{figure}
+}
 

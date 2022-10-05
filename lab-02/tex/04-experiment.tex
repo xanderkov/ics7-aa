@@ -1,45 +1,20 @@
-\chapter{Исследовательский раздел}
-
+\chapter{Исследовательская часть}
 \section{Технические характеристики}
-
 Тестирование выполнялось на устройстве со следующими техническими характеристиками:
 \begin{itemize}
-	\item Операционная система Ubuntu 20.04.1 LTS;
-	\item Память 7 GiB
-	\item Процессор Intel(R) Core(TM) i3-8145U CPU @ 2.10GHz \cite{intel}
+	\item Операционная система Pop!\_OS 22.04 LTS \cite{ubuntu} Linux \cite{linux};
+	\item Оперативная память 16 GiB;
+	\item Процессор AMD® Ryzen 7 2700 eight-core processor × 16 \cite{amd}.
 \end{itemize}
 Во время тестирования устройство было подключено к блоку питания и не нагружено никакими приложениями, кроме встроенных приложений окружения, окружением и системой тестирования.
 
-\section{Описание системы тестирования}
-
-Для замеров процессорного времени была написана вставка на языке C, используя пакет cgo \cite{cgo}. Утилита для замера времени приведена на листинге \ref{lst:C}.
-
-\captionsetup{singlelinecheck = false, justification=raggedright}
-\begin{lstlisting}[label=lst:C,caption=Вставка на языке С для замера времени]
-	/*
-	static double GetCpuTime() {
-		struct timespec time;
-		if (clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &time)) {
-			perror("clock_gettime");
-			return 0;
-		}
-		
-		long seconds = time.tv_sec;
-		long nanoseconds = time.tv_nsec;
-		double elapsed = seconds + nanoseconds*1e-9;
-		
-		return elapsed;
-	}
-	*/
-\end{lstlisting}
-
 \section{Таблица времени выполнения алгоритмов}
 Результаты профилирования алгоритмов приведены в таблице \ref{tab:time}. Результаты тестирования приведены в таблице \ref{table:testing}. Здесь CW -- алгоритм Копперсмита -- Винограда, ALG -- классический и CW OPT -- оптимизированный Копперсмита -- Винограда.
-\begin{table}[H]
+\begin{table}[ht!]
 	\captionsetup{singlelinecheck = false, justification=raggedleft}
 	\caption{Время выполнения алгоритмов}
 	\renewcommand{\arraystretch}{1.4}
-	\begin{subtable}[h]{0.45\textwidth}
+	\begin{subtable}[ht!]{0.45\textwidth}
 		\centering
 		\caption{Четная размерность матриц}
 		\begin{tabular}{||l|l|l|l||}
@@ -68,7 +43,7 @@
 		\label{tab:odd}
 	\end{subtable}
 	\hfill
-	\begin{subtable}[h]{0.45\textwidth}
+	\begin{subtable}[ht!]{0.45\textwidth}
 		\centering
 		\caption{Нечетная размерность матриц}
 		\begin{tabular}{||l|l|l|l||}
@@ -101,7 +76,7 @@
 
 \section{Графики функций}
 
-\begin{figure}[H]
+\begin{figure}[ht!]
 	\captionsetup{singlelinecheck = false, justification=centering}
 	\centering
 	\begin{subfigure}[b]{\textwidth}
@@ -168,137 +143,8 @@
 	\label{fig:w-plot}
 \end{figure}
 
-Как было доказано в разделе \ref{win-estimate}, оптимизация дает выигрыш по времени практически незначительный. Выигрыш растет с ростом размерности матрицы -- в случае матриц с четной размерностью, выигрыш на матрице $550\times550$ на 7,94\%, а на матрицах с нечетной ($551\times551$) -- на 7,76\%.
+\clearpage
 
-\begin{figure}[H]
-	\captionsetup{singlelinecheck = false, justification=centering}
-	\centering
-	\begin{subfigure}[b]{\textwidth}
-		\centering
-		\begin{tikzpicture}
-			\begin{axis}[
-				xlabel={размер матрицы},
-				ylabel={время, ns},
-				width = 0.95\textwidth,
-				height=0.3\textheight,
-				xmin=0, xmax=600,
-				legend pos=north west,
-				xmajorgrids=true,
-				grid style=dashed,
-				];
-				\addplot[
-				color=blue,
-				mark=asterisk,
-				]
-				table {assets/o-cw-ev.dat};
-				\addplot[
-				color=red,
-				mark=o,
-				]
-				table {assets/alg-ev.dat};
-				\legend{Виноград, Классический}
-			\end{axis}
-		\end{tikzpicture}
-		\caption{Четная размерность матрицы}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[b]{\textwidth}
-		\centering
-		\begin{tikzpicture}
-			\begin{axis}[
-				xlabel={размер матрицы},
-				ylabel={время, ns},
-				width = 0.95\textwidth,
-				height=0.3\textheight,
-				xmin=0, xmax=500,
-				legend pos=north west,
-				xmajorgrids=true,
-				grid style=dashed,
-				];
-				\addplot[
-				color=blue,
-				mark=asterisk,
-				]
-				table {assets/o-cw-odd.dat};
-				\addplot[
-				color=red,
-				mark=o,
-				]
-				table {assets/alg-odd.dat};
-				\legend{Виноград, Классический}
-			\end{axis}
-		\end{tikzpicture}
-		\caption{Нечетная размерность матрицы}
-	\end{subfigure}
-	\hfill
-	\caption{Сравнение времени выполнения алгоритма Копперсмита -- Винограда с классическим матричным}
-	\label{fig:w-alg-plot}
-\end{figure}
-На практике классический показывает результат хуже (\ref{fig:w-alg-plot}), чем алгоритм Копперсмита -- Винограда. Связано это с меньшим количеством более затратных операций. Эта разница, в среднем, составляет 3\%
-\begin{figure}[H]
-	\captionsetup{singlelinecheck = false, justification=centering}
-	\centering
-	\begin{subfigure}[b]{\textwidth}
-		\centering
-		\begin{tikzpicture}
-			\begin{axis}[
-				xlabel={размер матрицы},
-				ylabel={время, ns},
-				width = 0.9\textwidth,
-				height=0.25\textheight,
-				xmin=0, xmax=600,
-				legend pos=north west,
-				xmajorgrids=true,
-				grid style=dashed,
-				];
-				\addplot[
-				color=blue,
-				mark=asterisk,
-				]
-				table {assets/cw-ev.dat};
-				\addplot[
-				color=red,
-				mark=o,
-				]
-				table {assets/alg-ev.dat};
-				\legend{Виноград, Классический}
-			\end{axis}
-		\end{tikzpicture}
-		\caption{Четная размерность матрицы}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[b]{\textwidth}
-		\centering
-		\begin{tikzpicture}
-			\begin{axis}[
-				xlabel={размер матрицы},
-				ylabel={время, ns},
-				width = 0.9\textwidth,
-				height=0.25\textheight,
-				xmin=0, xmax=600,
-				legend pos=north west,
-				xmajorgrids=true,
-				grid style=dashed,
-				];
-				\addplot[
-				color=blue,
-				mark=asterisk,
-				]
-				table {assets/o-cw-odd.dat};
-				\addplot[
-				color=red,
-				mark=o,
-				]
-				table {assets/alg-odd.dat};
-				\legend{Виноград, Классический}
-			\end{axis}
-		\end{tikzpicture}
-		\caption{Нечетная размерность матрицы}
-	\end{subfigure}
-	\hfill
-	\caption{Сравнение времени выполнения оптимизированного алгоритма Копперсмита -- Винограда с классическим матричным}
-	\label{fig:o-w-alg-plot}
-\end{figure}
-Аналогичная ситуации \ref{fig:w-alg-plot} ситуация наблюдается в случае оптимизированного алгоритма (\ref{fig:o-w-alg-plot}) -- алгоритм имеет примерно такой же выигрыш. 
-\section{Вывод}
-Экспериментально было подтверждено утверждение, установленное в разделе \ref{analyth} -- алгоритм Копперсмита -- Винограда имеет незначительный  выигрыш на матрицах, способных храниться на ЭВМ. Оптимизация стандартного алгоритма так же обеспечивает небольшой выигрыш $\approx 7\%$.	
+\section*{Вывод}
+
+В результате проведенного эксперимента был получен следующий вывод: алгоритм Винограда работает дольше за счет большого количества операций. Оптимизированный алгоритм работает быстрее, так как там меньше операций по сравнению с обычным алгоритмом Винограда и стандартным алгоритмом.  
