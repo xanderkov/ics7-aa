@@ -3,15 +3,17 @@
 \section{Требования к ПО}
 Программа должна отвечать следующим требованиям:
 \begin{itemize}
-	\item В программе возможно измерение процессорного времени;
-	\item Программа принимает на вход две строки;
-	\item Программа выдает редакторские расстояние Левенштайна и Дамерау\,--\,Левенштейна. 
+	\item в программе возможно измерение процессорного времени;
+	\item программа принимает на вход две строки;
+	\item программа выдает редакторские расстояние Левенштайна и Дамерау\,--\,Левенштейна. 
 \end{itemize}
 \section{Средства реализации}
 Для реализации ПО был выбран язык программирования Golang\cite{golang}. Данный язык предоставляет следующие возможности:
 \begin{itemize} 
-	\item Средства объектно-ориентированного программирования ограничиваются интерфейсами, что позволяет создавать абстракции, которые нужны для представления матрицы расстояний;
-	\item Поддерживает библиотеки C и C++, что позволит измерить процессорное время, также имеет свою обширную библиотеку.
+	\item средства объектно-ориентированного программирования ограничиваются интерфейсами, что позволяет создавать абстракции, которые нужны для представления матрицы расстояний;
+	\item поддерживает библиотеки C и C++, что позволит измерить процессорное время, также имеет свою обширную библиотек;
+	\item в Golang реализована система тестирования, позволяет проверить результаты работы алгоритмов на разных данных.
+	%% Нельзя делать из двух пунктов
 \end{itemize}
 
 В качестве среды разработки была выбрана среда VS Code\cite{rune}, запуск происходил через команду go run main.go.
@@ -27,29 +29,22 @@
 \begin{lstlisting}[label=leven-recursive,caption=Программный код нахождения расстояния Дамерау\,--\,Левенштейна итеративно]
 func CountDamNoRec(src, dest string) (int, MInt) {
 	var (n, m, dist, shortDist, transDist int)
-	
 	srcRune, destRune := []rune(src), []rune(dest)
-	
 	n, m = len(srcRune), len(destRune)
-	
 	distMat := makeMatrix(n, m)
-	
 	for i := 1; i < n + 1; i++ {
 		for j := 1; j < m + 1; j++ {
 			insDist := distMat[i][j - 1] + 1
 			delDist := distMat[i - 1][j] + 1
-			
 			match := 1
 			if src[i - 1] == dest[j - 1] {
 				match = 0
 			}
 			eqDist := distMat[i - 1][j - 1] + match
-			
 			transDist = -1
 			if i > 1 && j > 1 {
 				transDist = distMat[i - 2][j - 2] + 1
 			}
-			
 			if transDist != -1 && srcRune[i - 1] == destRune[j - 2] && 
 			srcRune[i - 2] == destRune[j - 1] {
 				dist = getMinOfValues(insDist, delDist, eqDist, transDist)
@@ -59,9 +54,7 @@ func CountDamNoRec(src, dest string) (int, MInt) {
 			distMat[i][j] = dist
 		}
 	}
-	
 	shortDist = distMat[n][m]
-	
 	return shortDist, distMat
 }
 \end{lstlisting}
@@ -202,21 +195,13 @@ func CountDamRecCache(src, dest string) int {
 
 
 \section{Тестовые данные}
-В таблице 4 алгоритма для поиска редакторского расстояния: 
-
-\begin{itemize}
-	\item DLIter --- Дамерау\,--\,Левенштейн итеративный;
-	\item DLRec --- Дамерау\,--\,Левенштейн рекурсивный;
-	\item DLRecCache --- Дамерау\,--\,Левенштейн рекурсивный с мемоизацией;
-	\item Lev - Левенштейн итеративный.
-\end{itemize}
 
 \begin{table}[ht!]
 	\begin{center}
-		
+		\caption{Тестирование строк}
 		\begin{tabular}{||c c c | c c c c||} 
 			\hline
-			№ & $S_1$ & $S_2$ & DLIter & DLRec & DLRecCache & Lev\\
+			№ & $S_1$ & $S_2$ & ДЛ (итер.) & ДЛ (рек.) & ДЛ (кэш) & Лев (итер.)\\
 			[0.5ex] 
 			\hline\hline
 			1 & << >> & << >> & 0 & 0 & 0 & 0 \\
@@ -228,7 +213,9 @@ func CountDamRecCache(src, dest string) int {
 			6 & <<дверь>> & <<дверь>> & 0 & 0 & 0 & 0\\   
 			\hline
 		\end{tabular}
+	\label{table:4}
 	\end{center}
+
 \end{table}
 
 
