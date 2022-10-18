@@ -28,17 +28,17 @@ func main() {
 	fmt.Println()	
 
 	distDamNoRec, distMat := levenstein.CountDamNoRec(firstWord, secondWord)
-	fmt.Print("Домерау-Левенштейн не рекурсивный: ", distDamNoRec)
+	fmt.Print("Дaмерау-Левенштейн не рекурсивный: ", distDamNoRec)
 	fmt.Println()
 	distMat.PrintMatrix()
 	fmt.Println()
 	
 	distDamRecNoCache := levenstein.CountDamRecNoCache(firstWord, secondWord)
-	fmt.Print("Домерау-Левенштейн рекурсивный без кэша: ", distDamRecNoCache)
+	fmt.Print("Дaмерау-Левенштейн рекурсивный без кэша: ", distDamRecNoCache)
 	
 	fmt.Println()
 
 	distDamRecCache := levenstein.CountDamRecCache(firstWord, secondWord)
-	fmt.Print("Домерау-Левенштейн рекурсивный c кэшем: ", distDamRecCache)
+	fmt.Print("Дaмерау-Левенштейн рекурсивный c кэшем: ", distDamRecCache)
 	fmt.Println()
 }
