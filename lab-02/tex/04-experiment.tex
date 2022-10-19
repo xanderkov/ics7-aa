@@ -8,8 +8,27 @@
 \end{itemize}
 Во время тестирования устройство было подключено к блоку питания и не нагружено никакими приложениями, кроме встроенных приложений окружения, окружением и системой тестирования.
 
+\section{Демонстрация работы программы}
+
+
+
+На рисунке \ref{demonstration} представлен результат работы программы.
+
+\begin{figure}[ht!]
+	\begin{center}
+		\captionsetup{singlelinecheck = false, justification=centerfirst}
+		\includegraphics[scale=0.5]{assets/demonstration.png}
+		\caption{Пример работы программы}
+		\label{demonstration}
+	\end{center}
+	
+	
+\end{figure}
+
+\newpage
+
 \section{Таблица времени выполнения алгоритмов}
-Результаты профилирования алгоритмов приведены в таблице \ref{tab:time}. Результаты тестирования приведены в таблице \ref{table:testing}. Здесь CW -- алгоритм Копперсмита -- Винограда, ALG -- классический и CW OPT -- оптимизированный Копперсмита -- Винограда.
+Результаты профилирования алгоритмов приведены в таблице \ref{tab:time}. Результаты тестирования приведены в таблице \ref{table:testing}.
 \begin{table}[ht!]
 	\captionsetup{singlelinecheck = false, justification=raggedleft}
 	\caption{Время выполнения алгоритмов}
@@ -20,7 +39,7 @@
 		\begin{tabular}{||l|l|l|l||}
 			\hline
 			\multirow{2}{*}{n} & \multicolumn{3}{l||}{Время, ns} \\ \cline{2-4} 
-			& ALG & CW & CW OPT \\ \hline\hline
+			&  Класс. & Виноград & Вин. опт. \\ \hline\hline
 			10 & 4.49e-06 & 3.91e-06 & 4.01e-06 \\ \hline 
 			20 & 2.74e-05 & 2.24e-05 & 2.30e-05 \\ \hline 
 			30 & 8.84e-05 & 6.72e-05 & 7.01e-05 \\ \hline 
@@ -49,7 +68,7 @@
 		\begin{tabular}{||l|l|l|l||}
 			\hline
 			\multirow{2}{*}{n} & \multicolumn{3}{l|}{Время, ns} \\ \cline{2-4} 
-			& ALG & CW OPT& CW \\ \hline\hline
+			&  Класс. & Виноград & Вин. опт. \\ \hline\hline
 			11 & 5.17e-06 & 4.56e-06 & 5.05e-06 \\ \hline 
 			21 & 3.25e-05 & 2.58e-05 & 2.59e-05 \\ \hline 
 			31 & 9.63e-05 & 7.23e-05 & 7.69e-05 \\ \hline 
@@ -74,7 +93,10 @@
 	\label{tab:time}
 \end{table} 
 
+\newpage
+
 \section{Графики функций}
+
 
 \begin{figure}[ht!]
 	\captionsetup{singlelinecheck = false, justification=centering}
@@ -137,14 +159,15 @@
 			\end{axis}
 		\end{tikzpicture}
 		\caption{Нечетная размерность матрицы}
+		\label{fig:w-plot}
 	\end{subfigure}
 	\hfill
-	\caption{Время выполнения алгоритма Копперсмита -- Винограда}
-	\label{fig:w-plot}
+	
 \end{figure}
 
 \clearpage
 
 \section*{Вывод}
 
-В результате проведенного эксперимента был получен следующий вывод: алгоритм Винограда работает дольше за счет большого количества операций. Оптимизированный алгоритм работает быстрее, так как там меньше операций по сравнению с обычным алгоритмом Винограда и стандартным алгоритмом.  
+В данном разделе были сравнены алгоритмы по времени.
+Оптимизированный алгоритм Винограда является самым быстрым, за счет проведенных изменений в стандартном алгоритме Винограда.
