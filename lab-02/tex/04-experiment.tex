@@ -27,7 +27,41 @@
 
 \newpage
 
-\section{Таблица времени выполнения алгоритмов}
+\section{Время выполнения алгоритмов}
+
+Алгоритмы тестировались при помощи вставки кода на языке СИ \ref{bench}. Данная команда возвращает значения процессорного времени типа int в наносекундах.
+
+Замеры времени для каждого алгоритма проводились 100 раз.
+
+\begin{lstlisting}[label=bench,caption=Пример теста эффективности]
+	/*
+	#include <pthread.h>
+	#include <time.h>
+	#include <stdio.h>
+	
+	static long long getThreadCpuTimeNs() {
+		struct timespec t;
+		if (clock_gettime(CLOCK_THREAD_CPUTIME_ID, &t)) {
+			perror("clock_gettime");
+			return 0;
+		}
+		return t.tv_sec * 1000000000LL + t.tv_nsec;
+	}
+	*/
+	import "C"	
+	
+	func test(){
+		
+		cputime1 := C.getThreadCpuTimeNs()
+		for i := 0; i < n; i++ {
+			matrix.WinogradMult(amat, bmat)
+		}
+		cputime2 := C.getThreadCpuTimeNs()
+		fmt.Printf(cputime2 - cputime1)
+		
+	}
+\end{lstlisting}
+
 Результаты профилирования алгоритмов приведены в таблице \ref{tab:time}. Результаты тестирования приведены в таблице \ref{table:testing}.
 \begin{table}[ht!]
 	\captionsetup{singlelinecheck = false, justification=raggedleft}

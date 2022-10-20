@@ -15,7 +15,6 @@ func SimpleMult(amat, bmat MInt) MInt {
 	return rmat
 }
 
-// WinogradMult used to multiply two matrixes using Winograd method.
 func WinogradMult(amat, bmat MInt) MInt {
 	rmat := formResMat(amat.n, bmat.m)
 
@@ -68,7 +67,6 @@ func precomputeWinogradCols(mat MInt) MInt {
 	return cf
 }
 
-// WinogradMultImp used to multiply two matrixes using impproved Winograd method.
 func WinogradMultImp(amat, bmat MInt) MInt {
 	rmat := formResMat(amat.n, bmat.m)
 

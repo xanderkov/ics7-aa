@@ -3,11 +3,20 @@ import "fmt"
 import levenstein "lab-01/levenstein"
 
 /*
-	1. Посчитать расстояние Левенштейна не рекурсивно
-	2. Домерау-Левенштейн не рекурсивно
-	3. Домерау-Левенштейн рек. без кэша
-	4. Домерау-Левенштейн рек. с кэшем
+#include <pthread.h>
+#include <time.h>
+#include <stdio.h>
+
+static long long getThreadCpuTimeNs() {
+    struct timespec t;
+    if (clock_gettime(CLOCK_THREAD_CPUTIME_ID, &t)) {
+        perror("clock_gettime");
+        return 0;
+    }
+    return t.tv_sec * 1000000000LL + t.tv_nsec;
+}
 */
+import "C"
 
 func main() {
 	fmt.Println("Расстояние Левенштейна")
