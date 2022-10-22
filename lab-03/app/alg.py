@@ -61,16 +61,16 @@ def counting_sort(alist, largest):
     return result
 
 # Сортировка поразрадяная
-def range_sort(A):
-    length = len(str(max(A)))
+def range_sort(arr):
+    length = len(str(max(arr)))
     rang = 10
     for i in range(length):
         B = [[] for k in range(rang)] #список длины range, состоящий из пустых списков
-        for x in A:
+        for x in arr:
             figure = x // 10**i % 10
             B[figure].append(x)
-        A = []
+        arr= []
         for k in range(rang):
-            A = A + B[k]
+            arr = arr + B[k]
     
-    return A
+    return arr
