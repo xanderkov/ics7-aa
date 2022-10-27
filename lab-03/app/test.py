@@ -1,6 +1,6 @@
 from time import process_time
 from input import generate_arr
-from alg import counting_sort, range_sort, binary_sort
+from alg import counting_sort, radixSort, binary_sort
 
 N = 100
 
@@ -19,7 +19,7 @@ def test_range_sort(arr):
     # Start the stopwatch / counter 
     t1_start = process_time() 
     for i in range(N):
-        range_sort(arr)
+        radixSort(arr)
     # Stop the stopwatch / counter
     t1_stop = process_time()
     

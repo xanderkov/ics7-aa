@@ -61,16 +61,34 @@ def counting_sort(alist, largest):
     return result
 
 # Сортировка поразрадяная
-def range_sort(arr):
-    length = len(str(max(arr)))
-    rang = 10
-    for i in range(length):
-        B = [[] for k in range(rang)] #список длины range, состоящий из пустых списков
-        for x in arr:
-            figure = x // 10**i % 10
-            B[figure].append(x)
-        arr= []
-        for k in range(rang):
-            arr = arr + B[k]
-    
-    return arr
+def countingSort(array, place):
+    size = len(array)
+    output = [0] * size
+    count = [0] * 10
+
+    for i in range(0, size):
+        index = array[i] // place
+        count[index % 10] += 1
+
+    for i in range(1, 10):
+        count[i] += count[i - 1]
+
+    i = size - 1
+    while i >= 0:
+        index = array[i] // place
+        output[count[index % 10] - 1] = array[i]
+        count[index % 10] -= 1
+        i -= 1
+
+    for i in range(0, size):
+        array[i] = output[i]
+
+
+def radixSort(array):
+    max_element = max(array)
+
+    place = 1
+    while max_element // place > 0:
+        countingSort(array, place)
+        place *= 10
+    return array

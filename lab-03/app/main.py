@@ -1,4 +1,4 @@
-from alg import counting_sort, binary_sort, range_sort
+from alg import counting_sort, binary_sort, radixSort
 from input import *
 # подсчет
 # бинарное дерево
@@ -19,7 +19,7 @@ def main():
     arr = binary_sort(alist)
     print(arr)
     
-    arr = range_sort(alist)
+    arr = radixSort(alist)
     print("Range sort: ", end="")
     print(arr)
 
