@@ -3,7 +3,7 @@
 Тестирование выполнялось на устройстве со следующими техническими характеристиками:
 \begin{itemize}
 	\item Операционная система Pop!\_OS 22.04 LTS \cite{ubuntu} Linux \cite{linux};
-	\item Оперативная память 16 GiB;
+	\item Оперативная память 16 Гб;
 	\item Процессор AMD® Ryzen 7 2700 eight-core processor × 16 \cite{amd}.
 \end{itemize}
 Во время тестирования устройство было подключено к блоку питания и не нагружено никакими приложениями, кроме встроенных приложений окружения, окружением и системой тестирования.
@@ -17,7 +17,7 @@
 \begin{figure}[ht!]
 	\begin{center}
 		\captionsetup{singlelinecheck = false, justification=centerfirst}
-		\includegraphics[scale=0.5]{assets/demonstration.png}
+		\includegraphics[scale=0.8]{assets/demonstration.png}
 		\caption{Пример работы программы}
 		\label{demonstration}
 	\end{center}
@@ -29,38 +29,7 @@
 
 \section{Время выполнения алгоритмов}
 
-Алгоритмы тестировались при помощи вставки кода на языке СИ \ref{bench}. Данная команда возвращает значения процессорного времени типа int в наносекундах.
 
-Замеры времени для каждого алгоритма проводились 100 раз.
-
-\begin{lstlisting}[label=bench,caption=Пример теста эффективности]
-	/*
-	#include <pthread.h>
-	#include <time.h>
-	#include <stdio.h>
-	
-	static long long getThreadCpuTimeNs() {
-		struct timespec t;
-		if (clock_gettime(CLOCK_THREAD_CPUTIME_ID, &t)) {
-			perror("clock_gettime");
-			return 0;
-		}
-		return t.tv_sec * 1000000000LL + t.tv_nsec;
-	}
-	*/
-	import "C"	
-	
-	func test(){
-		
-		cputime1 := C.getThreadCpuTimeNs()
-		for i := 0; i < n; i++ {
-			matrix.WinogradMult(amat, bmat)
-		}
-		cputime2 := C.getThreadCpuTimeNs()
-		fmt.Printf(cputime2 - cputime1)
-		
-	}
-\end{lstlisting}
 
 Результаты профилирования алгоритмов приведены в таблице \ref{tab:time}. Результаты тестирования приведены в таблице \ref{table:testing}.
 \begin{table}[ht!]
@@ -143,22 +112,36 @@
 				ylabel={время, ns},
 				width = 0.95\textwidth,
 				height=0.3\textheight,
-				xmin=0, xmax=600,
+				xmin=0, xmax=1000,
 				legend pos=north west,
 				xmajorgrids=true,
 				grid style=dashed,
 				]
 				\addplot[
-				color=blue,
-				mark=asterisk,
-				]
-				table {assets/cw-ev.dat};
+				blue,
+				semithick,
+				mark = x,
+				mark size = 3pt,
+				thick,
+				] file {assets/simple_even};
+				
 				\addplot[
-				color=red,
-				mark=o,
-				]
-				table {assets/o-cw-ev.dat};
-				\legend{Неоптимизированный, Оптимизированный}
+				red,
+				semithick,
+				mark = *,
+				] file {assets/win_even};
+				
+				\addplot[
+				green,
+				semithick,
+				mark = *,
+				] file {assets/opt_even};
+				
+				\legend{
+					Стандартный алгоритм,
+					Алгоритм Винограда,
+					Оптимизированнй алгоритм Винограда,
+				}
 			\end{axis}
 		\end{tikzpicture}
 		\caption{Четная размерность матрицы}
@@ -173,23 +156,37 @@
 				ylabel={время, ns},
 				width = 0.95\textwidth,
 				height=0.3\textheight,
-				xmin=0, xmax=600,
+				xmin=0, xmax=1000,
 				legend pos=north west,
 				xmajorgrids=true,
 				grid style=dashed,
-				];
+				]
 				
 				\addplot[
-				color=blue,
-				mark=asterisk,
-				]
-				table {assets/cw-odd.dat};
+				blue,
+				semithick,
+				mark = x,
+				mark size = 3pt,
+				thick,
+				] file {assets/simple_odd};
+				
 				\addplot[
-				color=red,
-				mark=o,
-				]
-				table {assets/o-cw-odd.dat};
-				\legend{Неоптимизированный, Оптимизированный}
+				red,
+				semithick,
+				mark = *,
+				] file {assets/win_odd};
+				
+				\addplot[
+				green,
+				semithick,
+				mark = *,
+				] file {assets/opt_odd};
+				
+				\legend{
+					Стандартный алгоритм,
+					Алгоритм Винограда,
+					Оптимизированный алгоритм Винограда
+				}
 			\end{axis}
 		\end{tikzpicture}
 		\caption{Нечетная размерность матрицы}

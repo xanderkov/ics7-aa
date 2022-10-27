@@ -41,14 +41,6 @@
 	\item Трудоемкость вызова функции равна 0.
 \end{enumerate}
 
-\section{Оптимизация алгоритма Копперсмита -- Винограда}\label{sect:optimize}
-Алгоритм Копперсмита -- Винограда можно оптимизировать следующим образом:
-\begin{itemize}
-	\item Счетчики цикла можно объявить единожды и обнулять их по требованию. В этом случае стоимость инициализации при расчете трудоемкости цикла сократится;
-	\item Увеличение числа на определенное число можно заменить на операцию $+=$, поскольку она имеет меньший вес чем в сумме сложение и присвоение;
-	\item Для алгоритма худшим случаем являются матрицы с нечётным общим размером, а лучшим - с четным. Соответственно, алгоритм можно ускорить в соответствии с четностью размера.
-\end{itemize}
-
 \section{Трудоемкость алгоритмов}
 
 \subsection{Классический алгоритм}
@@ -56,7 +48,7 @@
 Пусть на вход алгоритму поступают матрицы $M_{left}$ и $M_{right}$ с размерностью $n \times m$ и $m \times q$. Тогда трудоемкость классического алгоритма определяется по формуле \ref{math:alg}
 \begin{multline}\label{math:alg}
 	f_{alg} = f_{loop_i} = 2 + n\left(2 + f_{loop_j}\right) = 2 + n\left(2 + 2 + q\left(2 + f_{loop_k}\right)\right) = \\
-	= 2 + n\left(2 + 2 + q\left(2 + +2 + 14 \cdot m\right)\right) \approx 14mnq = 14MNK
+	= 2 + n\left(2 + 2 + q\left(2 + +2 + 14 \cdot m\right)\right) \approx 14mnq = 14MNQ
 \end{multline}
 \subsection{Алгоритм Копперсмита — Винограда}
 
@@ -71,27 +63,27 @@
 	\item заполнения массива MH, трудоёмкость которого (\ref{for:MH}):
 	\begin{equation}
 		\label{for:MH}
-		f_{MH} = 2 + K (2 + \frac{M}{2} \cdot 11);
+		f_{MH} = \frac{19}{2}MN +6M +2;
 	\end{equation}
 	
 	\item заполнения массива MV, трудоёмкость которого (\ref{for:MV}):
 	\begin{equation}
 		\label{for:MV}
-		f_{MV} = 2 + K (2 + \frac{N}{2} \cdot 11);
+		f_{MV} = \frac{19}{2}QN +6Q +2);
 	\end{equation}
 	
 	\item цикла заполнения для чётных размеров, трудоёмкость которого (\ref{for:cycle}):
 	\begin{equation}
 		\label{for:cycle}
-		f_{cycle} = 2 + M \cdot (4 + N \cdot (11 + \frac{K}{2} \cdot 23));
+		f_{cycle} = 16MQN + 13MQ + 4M + 2;
 	\end{equation}
 	
 	\item цикла, для дополнения умножения суммой последних нечётных строки и столбца, если общий размер нечётный, трудоемкость которого (\ref{for:last}):
 	\begin{equation}
 		\label{for:last}
-		f_{last} = \begin{cases}
-			2, & \text{чётная,}\\
-			4 + M \cdot (4 + 14N), & \text{иначе.}
+		f_{last} = 3 + \begin{cases}
+			0, & \text{чётная,}\\
+			16MQ + 4M + 2, & \text{иначе.}
 		\end{cases}
 	\end{equation}
 \end{itemize}
@@ -99,13 +91,13 @@
 Итого, для худшего случая (нечётный общий размер матриц) имеем (\ref{for:bad}):
 \begin{equation}
 	\label{for:bad}
-	f =  f_{MH} + f_{MV} + f_{cycle} + f_{last}\approx 11.5 \cdot MNK
+	f =  f_{MH} + f_{MV} + f_{cycle} + f_{last}\approx 16 \cdot MNQ
 \end{equation}
 
 Для лучшего случая (чётный общий размер матриц) имеем (\ref{for:good}):
 \begin{equation}
 	\label{for:good}
-	f =  f_{MH} + f_{MV} + f_{cycle} + f_{last} \approx 11.5 \cdot MNK
+	f =  f_{MH} + f_{MV} + f_{cycle} + f_{last} \approx 16 \cdot MNQ
 \end{equation}
 
 
@@ -115,8 +107,7 @@
 \begin{itemize}
 	\item вычисление происходит заранее;
 	\item используется битовый сдвиг, вместо деления на 2;
-	\item последний цикл для нечётных элементов включён в основной цикл,
-	используя дополнительные операции в случае нечётности N.
+	\item используется битовый сдвиг, вместо умножения на 2.
 \end{itemize}
 
 
@@ -131,28 +122,28 @@
 	\item заполнения массива MH, трудоёмкость которого (\ref{for:impr_MH}):
 	\begin{equation}
 		\label{for:impr_MH}
-		f_{MH} =  2 + K (2 + \frac{M}{2} \cdot 8);
+		f_{MH} =  \frac{13}{2}MN + 4M + 5;
 	\end{equation}
 	
 	\item заполнения массива MV, трудоёмкость которого (\ref{for:impr_MV}):
 	\begin{equation}
 		\label{for:impr_MV}
-		f_{MV} =  2 + K (2 + \frac{M}{2} \cdot 8);
+		f_{MV} =  \frac{13}{2}QN + 4Q + 5;
 	\end{equation}
 	
 	\item цикла заполнения для чётных размеров, трудоёмкость которого (\ref{for:impr_cycle}):
 	\begin{equation}
 		\label{for:impr_cycle}
-		f_{cycle} =2 + M \cdot (4 + N \cdot (11 + \frac{K}{2} \cdot 18));
+		f_{cycle} =2 + M \cdot (4 + N \cdot (11 + \frac{Q}{2} \cdot 21));
 	\end{equation}
 	
 	\item условие, для дополнения умножения суммой последних нечётных строки и столбца, если общий размер нечётный, трудоемкость которого (\ref{for:impr_last}):
 	\begin{equation}
 		\label{for:impr_last}
-		f_{last} = 
+		f_{last} = 3 + 
 		\begin{cases}
-			1, & \text{чётная,}\\
-			4 + M \cdot (4 + 10N), & \text{иначе.}
+			0, & \text{чётная,}\\
+			13MQ + 4M + 2, & \text{иначе.}
 		\end{cases}
 	\end{equation}
 \end{itemize}
@@ -160,13 +151,13 @@
 Итого, для худшего случая (нечётный общий размер матриц) имеем (\ref{for:bad_impr}):
 \begin{equation}
 	\label{for:bad_impr}
-	f = f_{MH} + f_{MV} + f_{cycle} + f_{last} \approx 9MNK
+	f = f_{MH} + f_{MV} + f_{cycle} + f_{last} \approx 10.5MNK
 \end{equation}
 
 Для лучшего случая (чётный общий размер матриц) имеем (\ref{for:good_impr}):
 \begin{equation}
 	\label{for:good_impr}
-	f = f_{MH} + f_{MV} + f_{cycle} + f_{last} \approx 9MNK
+	f = f_{MH} + f_{MV} + f_{cycle} + f_{last} \approx 10.5MNK
 \end{equation}
 
 \section{Схемы алгоритмов}
@@ -182,21 +173,21 @@
 
 \begin{figure}[ht!]
 	\centering
-	\includegraphics[width=0.95\linewidth]{assets/mtx-win1.pdf}
+	\includegraphics[width=0.90\linewidth]{assets/mtx-win1.pdf}
 	\caption{Схема алгоритма умножения матриц Копперсмита -- Винограда}
 	\label{fig:win-1}
 \end{figure}
 
 \begin{figure}[ht!]
 	\centering
-	\includegraphics[width=0.95\linewidth]{assets/mtx-win2.pdf}
+	\includegraphics[width=0.80\linewidth]{assets/mtx-win2.pdf}
 	\caption{Схема оптимизированного алгоритма умножения матриц Копперсмита -- Винограда}
 	\label{fig:win-2}
 \end{figure}
 
 
 \subsection{Вывод}
-Алгоритмы были проанализированы с точки зрения временных затрат. Было выявлено, что алгоритм Копперсмита -- Винограда работает на \\ $1.5MNK$ быстрее, чем классический матричный. Оптимизация алгоритма же дает выигрыш на $2.5MNK$. 
+Алгоритмы были проанализированы с точки зрения временных затрат. Было выявлено, что оптимизированный алгоритм Копперсмита -- Винограда работает в 1.5 раза быстрее, чем классический алгоритм Копперсмита-Винограда.
 
 
-Были построены схемы алгоритмов. Теоретически были исследованы способы оптимизации алгоритма Копперсмита -- Винограда. Было получено достаточно теоретических сведений для разработки ПО, решающего поставленную задачу.
+Были построены схемы алгоритмов. Теоретически были исследованы способы оптимизации алгоритма Копперсмита - Винограда. Было получено достаточно теоретических сведений для разработки ПО, решающего поставленную задачу.
