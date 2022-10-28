@@ -6,8 +6,8 @@
 
 Программное обеспечение должно удовлетворять следующим требованиям:
 \begin{itemize}
-	\item программа получает на вход с клавиатуры две матрицы размеров в пределах $10000 \times 10000$ либо получает два числа -- размерность матрицы в пределах $10000$;
-	\item программа выдает матрицу - произведение двух полученных матриц;
+	\item на вход подается массив целых чисел в диапозоне от $0$ до $10000$;
+	\item возвращается отсортированный по возрастанию массив;
 	\item в программе возможно измерение процессорного времени.
 \end{itemize}
 
@@ -23,7 +23,7 @@
 Алгоритмы тестировались при помощи функции process\_time библиотеки time \ref{bench}. Данная команда возвращает значения процессорного времени типа int в наносекундах.
 
 Замеры времени для каждого алгоритма проводились 100 раз.
-
+\newpage
 \begin{lstlisting}[label=bench,caption=Пример теста эффективности]
 	def test_simple_mult(A, B):
 	# Start the stopwatch / counter 
@@ -37,122 +37,115 @@
 
 
 \section{Листинги кода}
-Листинг \ref{lst:algebr} демонстрирует классический алгоритм умножения. 
+Листинг \ref{lst:algebr} демонстрирует алгоритм сортировки подсчетом. 
 
 
 \captionsetup{singlelinecheck = false, justification=raggedright}
-\begin{lstlisting}[label=lst:algebr,caption=Классический алгоритм умножения]
-	def simple_mult(mat1, m, mat2, n, q):
-	res = np.zeros([m, q])
-	for i in range(m):
-	for j in range(q):
-	for k in range(n):
-	res[i][j] = res[i][j] + mat1[i][k] * mat2[k][j]
-	return res
+\begin{lstlisting}[label=lst:algebr,caption=Алгоритм сортировки подсчетомя]
+def counting_sort(alist, largest):
+	c = [0]*(largest + 1)
+	for i in range(len(alist)):
+		c[alist[i]] += 1
+	c[0] -= 1
+	for i in range(1, largest + 1):
+		c[i] += c[i - 1]
+	result = [0]*len(alist)
+	for x in reversed(alist):
+		result[c[x]] = x
+		c[x] -= 1
+	return result
 \end{lstlisting}
 
-\newpage
-Листинг \ref{lst:winograd} -- умножение матриц алгоритмом Винограда.
 
-\begin{lstlisting}[label=lst:winograd,caption=Алгоритм умнложения Виноградом]
-	def precompile\_rows\_win(mat, n, m):
-	mh = np.zeros([n])
-	for i in range(n):
-	for j in range(m // 2):
-	mh[i] = mh[i] + mat[i][j * 2] * mat[i][j * 2 + 1]
-	return mh
+Листинг \ref{lst:winograd} --- алгоритм сортировки бинарным деревом.
+
+\begin{lstlisting}[label=lst:winograd,caption=Алгоритм сортировки бинарным дерево]
+def binary_sort(alist):
+	tree = TreeNode()
 	
-	def precompile\_cols\_win(mat, n, m):
-	mv = np.zeros([m])
+	for i in alist:
+		tree.inpurt_in_tree(i)
 	
-	for i in range(m):
-	for j in range(n // 2):
-	mv[i] = mv[i] + mat[j * 2][i] * mat[j * 2 + 1][i]
-	return mv
+	arr = []
+	tree.pre_order(arr)
 	
-	def winograd\_mult(A, m, B, n, q):
-	res = np.zeros([m, q])
-	mh = precompile\_rows\_win(A, m, n)
-	mv = precompile\_cols\_win(B, n, q)
-	for i in range(m):
-	for j in range(q):
-	res[i][j] = -mh[i] - mv[j]
-	for k in range(n // 2):
-	res[i][j] = res[i][j] + (A[i][k*2] + B[k*2+1][j])*(A[i][k*2+1] + B[k*2][j])
-	if n \% 2 != 0:
-	for i in range(n):
-	for j in range(m):
-	res[i][j] = res[i][j] + A[i][n-1]*B[n-1][j]
-	return res
+	return arr
+\end{lstlisting}	
+
+Листинг \ref{lst:Tree} --- класс бинарного дерева.
+
+\begin{lstlisting}[label=lst:Tree,caption=Класс бинарного дерев]
+	class TreeNode:
+	def __init__(self, value=None):
+		self.value = value
+		self.left = None
+		self.right = None
 	
+	def inpurt_in_tree(self, elem):
+		if self.value is None:
+			self.value = elem
+			return
+		
+		if elem < self.value:
+			if self.left is None:
+				self.left = TreeNode(elem)
+			else:
+				self.left.inpurt_in_tree(elem)
+			
+		elif elem >= self.value:
+			if self.right is None:
+				self.right = TreeNode(elem)
+			else:
+				self.right.inpurt_in_tree(elem)
+	
+	def pre_order(self, arr):
+		if self.value:
+			if self.left:
+				self.left.pre_order(arr)
+			if self.value: 
+				arr.append(self.value)
+			
+			if self.right:
+				self.right.pre_order(arr)
 \end{lstlisting}	
 
 \newpage
-Листинг \ref{lst:winograd-optimized} -- умножение оптимизированным алгоритмом Винограда.
-\begin{lstlisting}[label=lst:winograd-optimized,caption=Оптимизированный алгоритм умножения Виноградом]
-	def precompile_rows_win_opt(mat, n, m):
-	mh = np.zeros([n])
-	opt = m // 2
-	for i in range(n):
-	for j in range(opt):
-	t = j << 1
-	mh[i] += mat[i][t] * mat[i][t + 1]
-	return mh
-	
-	def precompile_cols_win(mat, n, m):
-	mv = np.zeros([m])
-	
-	opt = n // 2
-	for i in range(m):
-	for j in range(opt):
-	t = j << 1
-	mv[i] += mat[t][i] * mat[t + 1][i]
-	return mv
-	
-	def winograd_mult_opt(A, m, B, n, q):
-	res = np.zeros([m, q])
-	mh = precompile_rows_win(A, m, n)
-	mv = precompile_cols_win(B, n, q)
-	
-	opt = n // 2
-	for i in range(m):
-	for j in range(q):
-	res[i][j] = -mh[i] - mv[j]
-	for k in range(n // 2):
-	t = k << 1
-	res[i][j] += (A[i][t] + B[t+1][j])*(A[i][t+1] + B[t][j])
-	if n % 2 != 0:
-	for i in range(n):
-	for j in range(m):
-	res[i][j] += A[i][n-1]*B[n-1][j]
-	return res
-\end{lstlisting}
+Листинг \ref{lst:winograd-optimized} --- алгоритм поразрядной сортировки.
+\begin{lstlisting}[label=lst:winograd-optimized,caption=Алгоритм поразрядной сортировки]
+	def radixSort(array):
+    max_element = max(array)
 
-
-\captionsetup{singlelinecheck = false, justification=raggedleft}
-
-
+    place = 1
+    while max_element // place > 0:
+        countingSort(array, place)
+        place *= 10
+    return array
+    
+\end{lstlisting}	
 
 \section{Тестовые данные}
 
+В таблице \ref{tbl:functional_test} приведены тесты для функций, реализующих алгоритмы сортировки. Тесты для всех сортировок пройдены \textit{успешно}.
+
+
 
 \begin{table}[ht!]
-	\renewcommand{\arraystretch}{1.8}
-	\caption{Тестовые случаи}
-	\resizebox{\textwidth}{!}{
-		\begin{tabular}{||c|c|c|c|c|c||}
+	\begin{center}
+		\captionsetup{justification=raggedleft,singlelinecheck=off}
+		\caption{\label{tbl:functional_test} Функциональные тесты}
+		\begin{tabular}{|c|c|c|}
 			\hline
-			\multirow{2}{*}{№} & \multirow{2}{*}{Вход. матрица №1} & \multirow{2}{*}{Вход. матрица №2} & \multicolumn{3}{c|}{Результат} \\ \cline{4-6} 
-			&  &  & Классический & Виноград & Виноград оптимизированный \\ \hline\hline
-			1 & \begin{tabular}[c]{@{}l@{}}$\begin{matrix}[0.6] \\ -3 & 5 & -1 & 7 \\\\ -8 & 2 & -2 & 1 \\\\ 0 & -3 & -4 & 0 \\\\ -6 & 0 & 5 & 1 \\\\ \end{matrix}$\end{tabular} & \begin{tabular}[c]{@{}l@{}}$\begin{matrix}[0.6] \\ -3 & 5 & -1 & 7 \\\\ -8 & 2 & -2 & 1 \\\\ 0 & -3 & -4 & 0 \\\\ -6 & 0 & 5 & 1 \\\\ \end{matrix}$\end{tabular} & \begin{tabular}[c]{@{}l@{}}$\begin{matrix}[0.6] \\ -73 & -2 & 32 & -9 \\\\ 2 & -30 & 17 & -53 \\\\ 24 & 6 & 22 & -3 \\\\ 12 & -45 & -9 & -41 \\\\ \end{matrix}$\end{tabular} & \begin{tabular}[c]{@{}l@{}}$\begin{matrix}[0.6] \\ -73 & -2 & 32 & -9 \\\\ 2 & -30 & 17 & -53 \\\\ 24 & 6 & 22 & -3 \\\\ 12 & -45 & -9 & -41 \\\\ \end{matrix}$\end{tabular} & \begin{tabular}[c]{@{}l@{}}$\begin{matrix}[0.6] \\ -73 & -2 & 32 & -9 \\\\ 2 & -30 & 17 & -53 \\\\ 24 & 6 & 22 & -3 \\\\ 12 & -45 & -9 & -41 \\\\ \end{matrix}$\end{tabular} \\ 
-			2 & \begin{tabular}[c]{@{}l@{}}$\begin{matrix}[0.6] \\ 0 & 0 & -2 \\\\ 2 & 3 & 2 \\\\ -4 & 0 & -1 \\\\ \end{matrix}$\end{tabular} & \begin{tabular}[c]{@{}l@{}}$\begin{matrix}[0.6] \\ 0 & 0 & -2 \\\\ 2 & 3 & 2 \\\\ -4 & 0 & -1 \\\\ \end{matrix}$\end{tabular} & \begin{tabular}[c]{@{}l@{}}$\begin{matrix}[0.6] \\ 8 & 0 & 2 \\\\ -2 & 9 & 0 \\\\ 4 & 0 & 9 \\\\ \end{matrix}$\end{tabular} & \begin{tabular}[c]{@{}l@{}}$\begin{matrix}[0.6] \\ 8 & 0 & 2 \\\\ -2 & 9 & 0 \\\\ 4 & 0 & 9 \\\\ \end{matrix}$\end{tabular} & \begin{tabular}[c]{@{}l@{}}$\begin{matrix}[0.6] \\ 8 & 0 & 2 \\\\ -2 & 9 & 0 \\\\ 4 & 0 & 9 \\\\ \end{matrix}$\end{tabular} \\ 
-			3 & \begin{tabular}[c]{@{}l@{}}$\begin{matrix}[0.6] \\ 5 & 7 \\\\ 7 & 0 \\\\ 3 & 1 \\\\ \end{matrix}$\end{tabular} & \begin{tabular}[c]{@{}l@{}}$\begin{matrix}[0.6] \\ 5 & 7 & 7 & 0 \\\\ 3 & 1 & -7 & 5 \\\\ \end{matrix}$\end{tabular} & \begin{tabular}[c]{@{}l@{}}$\begin{matrix}[0.6] \\ 46 & 42 & -14 & 35 \\\\ 35 & 49 & 49 & 0 \\\\ 18 & 22 & 14 & 5 \\\\ \end{matrix}$\end{tabular} & \begin{tabular}[c]{@{}l@{}}$\begin{matrix}[0.6] \\ 46 & 42 & -14 & 35 \\\\ 35 & 49 & 49 & 0 \\\\ 18 & 22 & 14 & 5 \\\\ \end{matrix}$\end{tabular} & \begin{tabular}[c]{@{}l@{}}$\begin{matrix}[0.6] \\ 46 & 42 & -14 & 35 \\\\ 35 & 49 & 49 & 0 \\\\ 18 & 22 & 14 & 5 \\\\ \end{matrix}$\end{tabular} \\ 
-			4 & \begin{tabular}[c]{@{}l@{}}$\begin{matrix}[0.6] \\ -4 & 9 \\\\ -4 & -1 \\\\ -1 & 5 \\\\ 5 & 3 \\\\ \end{matrix}$\end{tabular} & \begin{tabular}[c]{@{}l@{}}$\begin{matrix}[0.6] \\ -4 & 9 & -4 \\\\ -1 & -1 & 5 \\\\ \end{matrix}$\end{tabular} & \begin{tabular}[c]{@{}l@{}}$\begin{matrix}[0.6] \\ 7 & -45 & 61 \\\\ 17 & -35 & 11 \\\\ -1 & -14 & 29 \\\\ -23 & 42 & -5 \\\\ \end{matrix}$\end{tabular} & \begin{tabular}[c]{@{}l@{}}$\begin{matrix}[0.6] \\ 7 & -45 & 61 \\\\ 17 & -35 & 11 \\\\ -1 & -14 & 29 \\\\ -23 & 42 & -5 \\\\ \end{matrix}$\end{tabular} & \begin{tabular}[c]{@{}l@{}}$\begin{matrix}[0.6] \\ 7 & -45 & 61 \\\\ 17 & -35 & 11 \\\\ -1 & -14 & 29 \\\\ -23 & 42 & -5 \\\\ \end{matrix}$\end{tabular} \\ \hline
+			Входной массив & Ожидаемый результат & Результат \\ 
+			\hline
+			$[1, 2, 3, 4, 5, 6, 7]$ & $[1, 2, 3, 4, 5, 6, 7]$  & $[1, 2, 3, 4, 5, 6, 7]$\\
+			$[7, 6, 5, 4, 3, 2, 1]$  & $[1, 2, 3, 4, 5, 6, 7]$ & $[1, 2, 3, 4, 5, 6, 7]$\\
+			$[9, 7, 5, 1, 4]$  & $[1, 4, 5, 7, 9]$  & $[1, 4, 5, 7, 9]$\\
+			$[69]$  & $[69]$  & $[69]$\\
+			$[]$  & $[]$  & $[]$\\
+			\hline
 		\end{tabular}
-	}
-	\label{table:testing}
+	\end{center}
 \end{table}
 
-\newpage
 \section{Вывод}
 Было написано и протестировано программное обеспечение для решения поставленной задачи.

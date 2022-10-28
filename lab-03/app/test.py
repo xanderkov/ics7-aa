@@ -23,7 +23,7 @@ def test_range_sort(arr):
     # Stop the stopwatch / counter
     t1_stop = process_time()
     
-    print("Range sort in sec:", t1_stop-t1_start)
+    print("Radix sort in sec:", t1_stop-t1_start)
 
 
 def test_binary_sort(arr):
@@ -35,6 +35,16 @@ def test_binary_sort(arr):
     t1_stop = process_time()
     
     print("Binary sort in sec:", t1_stop-t1_start)
+
+def generate_arr_posl(n):
+    arr = [0]*n
+    for i in range(n):
+        arr[i] = i
+
+def generate_arr_vniz(n):
+    arr = [0]*n
+    for i in range(n):
+        arr[i] = n - i
 
 def main():
     n = 100

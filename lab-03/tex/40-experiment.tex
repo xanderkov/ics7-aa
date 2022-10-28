@@ -17,7 +17,7 @@
 \begin{figure}[ht!]
 	\begin{center}
 		\captionsetup{singlelinecheck = false, justification=centerfirst}
-		\includegraphics[scale=0.8]{assets/demonstration.png}
+		\includegraphics[scale=0.8]{assets/demonstation.png}
 		\caption{Пример работы программы}
 		\label{demonstration}
 	\end{center}
@@ -29,86 +29,107 @@
 
 \section{Время выполнения алгоритмов}
 
+Результаты замеров времени работы реализаций алгоритмов сортировки на различных входных данных (в мс) приведены в таблицах \ref{tbl:best}, \ref{tbl:worth} и \ref{tbl:random}.
 
-
-Результаты профилирования алгоритмов приведены в таблице \ref{tab:time}. Результаты тестирования приведены в таблице \ref{table:testing}.
 \begin{table}[ht!]
-	\captionsetup{singlelinecheck = false, justification=raggedleft}
-	\caption{Время выполнения алгоритмов}
-	\renewcommand{\arraystretch}{1.4}
-	\begin{subtable}[ht!]{0.45\textwidth}
-		\centering
-		\caption{Четная размерность матриц}
-		\begin{tabular}{||l|l|l|l||}
-			\hline
-			\multirow{2}{*}{n} & \multicolumn{3}{l||}{Время, ns} \\ \cline{2-4} 
-			&  Класс. & Виноград & Вин. опт. \\ \hline\hline
-			10 & 4.49e-06 & 3.91e-06 & 4.01e-06 \\ \hline 
-			20 & 2.74e-05 & 2.24e-05 & 2.30e-05 \\ \hline 
-			30 & 8.84e-05 & 6.72e-05 & 7.01e-05 \\ \hline 
-			40 & 2.09e-04 & 1.49e-04 & 1.58e-04 \\ \hline 
-			50 & 3.96e-04 & 2.98e-04 & 3.14e-04 \\ \hline 
-			60 & 6.58e-04 & 4.95e-04 & 5.15e-04 \\ \hline 
-			70 & 1.07e-03 & 7.95e-04 & 8.43e-04 \\ \hline 
-			80 & 1.60e-03 & 1.20e-03 & 1.22e-03 \\ \hline 
-			90 & 2.26e-03 & 1.68e-03 & 1.77e-03 \\ \hline 
-			100 & 3.14e-03 & 2.25e-03 & 2.38e-03 \\ \hline 
-			150 & 1.06e-02 & 7.88e-03 & 8.33e-03 \\ \hline 
-			200 & 2.84e-02 & 2.20e-02 & 2.34e-02 \\ \hline 
-			250 & 6.73e-02 & 5.34e-02 & 5.74e-02 \\ \hline 
-			300 & 1.14e-01 & 8.97e-02 & 9.60e-02 \\ \hline 
-			350 & 1.80e-01 & 1.39e-01 & 1.50e-01 \\ \hline 
-			400 & 2.67e-01 & 2.05e-01 & 2.21e-01 \\ \hline 
-			450 & 4.17e-01 & 3.23e-01 & 3.48e-01 \\ \hline 
-			500 & 5.71e-01 & 4.42e-01 & 4.75e-01 \\ \hline 
-		\end{tabular}
-		\label{tab:odd}
-	\end{subtable}
-	\hfill
-	\begin{subtable}[ht!]{0.45\textwidth}
-		\centering
-		\caption{Нечетная размерность матриц}
-		\begin{tabular}{||l|l|l|l||}
-			\hline
-			\multirow{2}{*}{n} & \multicolumn{3}{l|}{Время, ns} \\ \cline{2-4} 
-			&  Класс. & Виноград & Вин. опт. \\ \hline\hline
-			11 & 5.17e-06 & 4.56e-06 & 5.05e-06 \\ \hline 
-			21 & 3.25e-05 & 2.58e-05 & 2.59e-05 \\ \hline 
-			31 & 9.63e-05 & 7.23e-05 & 7.69e-05 \\ \hline 
-			41 & 2.14e-04 & 1.64e-04 & 1.73e-04 \\ \hline 
-			51 & 4.10e-04 & 3.15e-04 & 3.38e-04 \\ \hline 
-			61 & 7.13e-04 & 5.37e-04 & 5.70e-04 \\ \hline 
-			71 & 1.11e-03 & 8.36e-04 & 8.79e-04 \\ \hline 
-			81 & 1.67e-03 & 1.28e-03 & 1.35e-03 \\ \hline 
-			91 & 2.33e-03 & 1.73e-03 & 1.85e-03 \\ \hline 
-			101 & 3.23e-03 & 2.36e-03 & 2.49e-03 \\ \hline 
-			151 & 1.08e-02 & 8.03e-03 & 8.50e-03 \\ \hline 
-			201 & 2.74e-02 & 2.13e-02 & 2.29e-02 \\ \hline 
-			251 & 6.80e-02 & 5.27e-02 & 5.66e-02 \\ \hline 
-			301 & 1.16e-01 & 9.13e-02 & 9.82e-02 \\ \hline 
-			351 & 1.82e-01 & 1.40e-01 & 1.52e-01 \\ \hline 
-			401 & 2.58e-01 & 1.99e-01 & 2.14e-01 \\ \hline 
-			451 & 4.21e-01 & 3.26e-01 & 3.50e-01 \\ \hline 
-			501 & 5.74e-01 & 4.43e-01 & 4.76e-01 \\ \hline 
-		\end{tabular}
-		\label{tab:even}
-	\end{subtable}
-	\label{tab:time}
-\end{table} 
+	\begin{center}
+			\captionsetup{justification=raggedleft,singlelinecheck=off}
+			\caption{Результаты замеров реализаций сортировок, входными данными явллялись отсортированные по возрастанию значений массивы.}
+			\label{tbl:best}
+			\begin{tabular}{|c|c|c|c|}
+				\hline
+				Размер & Подсчетом &  Поразрядная &  Бинарным деревом \\
+				\hline
+				100 & 0.1662 & 0.0714 & 0.8650 \\ 
+				\hline
+				200 & 0.5113 & 0.2058 & 3.3357 \\ 
+				\hline
+				300 & 1.1026 & 0.3131 & 7.6464 \\ 
+				\hline
+				400 & 2.0140 & 0.4364 & 13.6841 \\ 
+				\hline
+				500 & 3.3046 & 0.5591 & 21.5524 \\ 
+				\hline
+				600 & 5.0567 & 0.6798 & 31.3052 \\ 
+				\hline
+				700 & 6.6944 & 0.7852 & 43.0406 \\ 
+				\hline
+				800 & 8.5163 & 0.8766 & 56.4318 \\ 
+				\hline
+			\end{tabular}
+	\end{center}
+\end{table}
+
+
+\begin{table}[ht!]
+	\begin{center}
+			\captionsetup{justification=raggedleft,singlelinecheck=off}
+			\caption{Результаты замеров реализаций сортировок, входными данными явллялись отсортированные по убыванию значений массивы.}
+			\label{tbl:worth}
+			\begin{tabular}{|c|c|c|c|}
+				\hline
+				Размер & Подсчетом &  Поразрядная &  Бинарным деревом \\
+				\hline
+				100 & 0.1606 & 0.1048 & 0.7138 \\ 
+				\hline
+				200 & 0.5005 & 0.2008 & 2.7633 \\ 
+				\hline
+				300 & 1.0747 & 0.3110 & 6.3060 \\ 
+				\hline
+				400 & 1.9383 & 0.4312 & 11.3831 \\ 
+				\hline
+				500 & 3.1148 & 0.5427 & 18.0577 \\ 
+				\hline
+				600 & 4.6409 & 0.6693 & 26.0260 \\ 
+				\hline
+				700 & 6.7969 & 0.8317 & 36.7397 \\ 
+				\hline
+				800 & 8.7922 & 0.9583 & 47.2628 \\ 
+				\hline
+			\end{tabular}
+	\end{center}
+\end{table}
 
 \newpage
 
+\begin{table}[ht!]
+	\begin{center}
+			\captionsetup{justification=raggedleft,singlelinecheck=off}
+			\caption{Результаты замеров реализаций сортировок, входными данными явллялись заполненные числами со случайными значениями массивы.}
+			\label{tbl:random}
+			\begin{tabular}{|c|c|c|c|}
+				\hline
+				Размер & Подсчетом &  Поразрядная &  Бинарным деревом \\
+				\hline
+				100 & 0.2734 & 0.1043 & 0.1560 \\ 
+				\hline
+				200 & 0.8321 & 0.2090 & 0.3756 \\ 
+				\hline
+				300 & 1.6837 & 0.3142 & 0.6025 \\ 
+				\hline
+				400 & 2.8938 & 0.4281 & 0.9785 \\ 
+				\hline
+				500 & 4.4438 & 0.5419 & 1.1784 \\ 
+				\hline
+				600 & 6.4153 & 0.6704 & 1.5523 \\ 
+				\hline
+				700 & 8.6692 & 0.7678 & 1.9018 \\ 
+				\hline
+				800 & 11.3752 & 0.8992 & 2.2986 \\ 
+				\hline
+			\end{tabular}
+	\end{center}
+\end{table}
+
+\newpage
 \section{Графики функций}
 
 
-\begin{figure}[ht!]
-	\captionsetup{singlelinecheck = false, justification=centering}
-	\centering
-	\begin{subfigure}[b]{\textwidth}
+	\begin{figure}[b]{\textwidth}
 		\centering
 		\begin{tikzpicture}
 			\begin{axis}[
-				xlabel={размер матрицы},
+				xlabel={размер массива},
 				ylabel={время, ns},
 				width = 0.95\textwidth,
 				height=0.3\textheight,
@@ -123,80 +144,122 @@
 				mark = x,
 				mark size = 3pt,
 				thick,
-				] file {assets/simple_even};
+				] file {assets/count_r.dat};
 				
 				\addplot[
 				red,
 				semithick,
 				mark = *,
-				] file {assets/win_even};
+				] file {assets/count_r.dat};
 				
 				\addplot[
 				green,
 				semithick,
 				mark = *,
-				] file {assets/opt_even};
+				] file {assets/count_r.dat};
 				
 				\legend{
-					Стандартный алгоритм,
-					Алгоритм Винограда,
-					Оптимизированнй алгоритм Винограда,
+					Сортировка подсчетом,
+					Сортировка поразрядная,
+					Сортировка бинарным деревом,
 				}
 			\end{axis}
 		\end{tikzpicture}
-		\caption{Четная размерность матрицы}
-	\end{subfigure}
+		\caption{Результаты замеров реализаций сортировок, входными данными явллялись заполненные числами со случайными значениями массивы.}
+	\end{figure}
 	\hfill
 	\newline
-	\begin{subfigure}[b]{\textwidth}
-		\centering
-		\begin{tikzpicture}
-			\begin{axis}[
-				xlabel={размер матрицы},
-				ylabel={время, ns},
-				width = 0.95\textwidth,
-				height=0.3\textheight,
-				xmin=0, xmax=1000,
-				legend pos=north west,
-				xmajorgrids=true,
-				grid style=dashed,
-				]
-				
-				\addplot[
-				blue,
-				semithick,
-				mark = x,
-				mark size = 3pt,
-				thick,
-				] file {assets/simple_odd};
-				
-				\addplot[
-				red,
-				semithick,
-				mark = *,
-				] file {assets/win_odd};
-				
-				\addplot[
-				green,
-				semithick,
-				mark = *,
-				] file {assets/opt_odd};
-				
-				\legend{
-					Стандартный алгоритм,
-					Алгоритм Винограда,
-					Оптимизированный алгоритм Винограда
-				}
-			\end{axis}
-		\end{tikzpicture}
-		\caption{Нечетная размерность матрицы}
-		\label{fig:w-plot}
-	\end{subfigure}
+	\begin{figure}[b]{\textwidth}
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[
+			xlabel={размер массива},
+			ylabel={время, ns},
+			width = 0.95\textwidth,
+			height=0.3\textheight,
+			xmin=0, xmax=1000,
+			legend pos=north west,
+			xmajorgrids=true,
+			grid style=dashed,
+			]
+			\addplot[
+			blue,
+			semithick,
+			mark = x,
+			mark size = 3pt,
+			thick,
+			] file {assets/count_r.dat};
+			
+			\addplot[
+			red,
+			semithick,
+			mark = *,
+			] file {assets/count_r.dat};
+			
+			\addplot[
+			green,
+			semithick,
+			mark = *,
+			] file {assets/count_r.dat};
+			
+			\legend{
+				Сортировка подсчетом,
+				Сортировка поразрядная,
+				Сортировка бинарным деревом,
+			}
+		\end{axis}
+	\end{tikzpicture}
+	\caption{Результаты замеров реализаций сортировок, входными данными явллялись заполненные числами со случайными значениями массивы.}
+\end{figure}
+	\begin{figure}[b]{\textwidth}
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[
+			xlabel={размер массива},
+			ylabel={время, ns},
+			width = 0.95\textwidth,
+			height=0.3\textheight,
+			xmin=0, xmax=1000,
+			legend pos=north west,
+			xmajorgrids=true,
+			grid style=dashed,
+			]
+			\addplot[
+			blue,
+			semithick,
+			mark = x,
+			mark size = 3pt,
+			thick,
+			] file {assets/count_r.dat};
+			
+			\addplot[
+			red,
+			semithick,
+			mark = *,
+			] file {assets/count_r.dat};
+			
+			\addplot[
+			green,
+			semithick,
+			mark = *,
+			] file {assets/count_r.dat};
+			
+			\legend{
+				Сортировка подсчетом,
+				Сортировка поразрядная,
+				Сортировка бинарным деревом,
+			}
+		\end{axis}
+	\end{tikzpicture}
+	\caption{Результаты замеров реализаций сортировок, входными данными явллялись заполненные числами со случайными значениями массивы.}
+\end{figure}
+\hfill
+\hfill
 	\hfill
 	
 \end{figure}
 
-\clearpage
+\newpage
 
 \section*{Вывод}
 
