@@ -121,12 +121,55 @@
 	\end{center}
 \end{table}
 
-\newpage
+
 \section{Графики функций}
 
 
-	\begin{figure}[b]{\textwidth}
-		\centering
+\begin{figure}[ht!]
+	\begin{center}
+	\begin{tikzpicture}
+		\begin{axis}[
+			xlabel={размер массива},
+			ylabel={время, ns},
+			width = 0.95\textwidth,
+			height=0.3\textheight,
+			xmin=0, xmax=1000,
+			legend pos=north west,
+			xmajorgrids=true,
+			grid style=dashed,
+			]
+			\addplot[
+			blue,
+			semithick,
+			mark = x,
+			mark size = 3pt,
+			thick,
+			] file {assets/count_r.dat};
+			
+			\addplot[
+			red,
+			semithick,
+			mark = *,
+			] file {assets/count_r.dat};
+			
+			\addplot[
+			green,
+			semithick,
+			mark = *,
+			] file {assets/count_r.dat};
+			
+			\legend{
+				Сортировка подсчетом,
+				Сортировка поразрядная,
+				Сортировка бинарным деревом,
+			}
+		\end{axis}
+	\end{tikzpicture}
+\end{center}
+	\caption{Результаты замеров реализаций сортировок, входными данными явллялись заполненные числами со случайными значениями массивы.}
+\end{figure}
+\begin{figure}[ht!]
+	\begin{center}
 		\begin{tikzpicture}
 			\begin{axis}[
 				xlabel={размер массива},
@@ -165,98 +208,51 @@
 				}
 			\end{axis}
 		\end{tikzpicture}
-		\caption{Результаты замеров реализаций сортировок, входными данными явллялись заполненные числами со случайными значениями массивы.}
-	\end{figure}
-	\hfill
-	\newline
-	\begin{figure}[b]{\textwidth}
-	\centering
-	\begin{tikzpicture}
-		\begin{axis}[
-			xlabel={размер массива},
-			ylabel={время, ns},
-			width = 0.95\textwidth,
-			height=0.3\textheight,
-			xmin=0, xmax=1000,
-			legend pos=north west,
-			xmajorgrids=true,
-			grid style=dashed,
-			]
-			\addplot[
-			blue,
-			semithick,
-			mark = x,
-			mark size = 3pt,
-			thick,
-			] file {assets/count_r.dat};
-			
-			\addplot[
-			red,
-			semithick,
-			mark = *,
-			] file {assets/count_r.dat};
-			
-			\addplot[
-			green,
-			semithick,
-			mark = *,
-			] file {assets/count_r.dat};
-			
-			\legend{
-				Сортировка подсчетом,
-				Сортировка поразрядная,
-				Сортировка бинарным деревом,
-			}
-		\end{axis}
-	\end{tikzpicture}
-	\caption{Результаты замеров реализаций сортировок, входными данными явллялись заполненные числами со случайными значениями массивы.}
+	\end{center}
+	\caption{Результаты замеров реализаций сортировок, входными данными явллялись отсортированные по возрастанию значений массивы.}
 \end{figure}
-	\begin{figure}[b]{\textwidth}
-	\centering
-	\begin{tikzpicture}
-		\begin{axis}[
-			xlabel={размер массива},
-			ylabel={время, ns},
-			width = 0.95\textwidth,
-			height=0.3\textheight,
-			xmin=0, xmax=1000,
-			legend pos=north west,
-			xmajorgrids=true,
-			grid style=dashed,
-			]
-			\addplot[
-			blue,
-			semithick,
-			mark = x,
-			mark size = 3pt,
-			thick,
-			] file {assets/count_r.dat};
-			
-			\addplot[
-			red,
-			semithick,
-			mark = *,
-			] file {assets/count_r.dat};
-			
-			\addplot[
-			green,
-			semithick,
-			mark = *,
-			] file {assets/count_r.dat};
-			
-			\legend{
-				Сортировка подсчетом,
-				Сортировка поразрядная,
-				Сортировка бинарным деревом,
-			}
-		\end{axis}
-	\end{tikzpicture}
-	\caption{Результаты замеров реализаций сортировок, входными данными явллялись заполненные числами со случайными значениями массивы.}
-\end{figure}
-\hfill
-\hfill
-	\hfill
-	
+\begin{figure}[ht!]
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				xlabel={размер массива},
+				ylabel={время, ns},
+				width = 0.95\textwidth,
+				height=0.3\textheight,
+				xmin=0, xmax=1000,
+				legend pos=north west,
+				xmajorgrids=true,
+				grid style=dashed,
+				]
+				\addplot[
+				blue,
+				semithick,
+				mark = x,
+				mark size = 3pt,
+				thick,
+				] file {assets/count_r.dat};
+				
+				\addplot[
+				red,
+				semithick,
+				mark = *,
+				] file {assets/count_r.dat};
+				
+				\addplot[
+				green,
+				semithick,
+				mark = *,
+				] file {assets/count_r.dat};
+				
+				\legend{
+					Сортировка подсчетом,
+					Сортировка поразрядная,
+					Сортировка бинарным деревом,
+				}
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	\caption{Результаты замеров реализаций сортировок, входными данными явллялись отсортированные по убыванию значений массивы.}
 \end{figure}
 
 \newpage
@@ -264,4 +260,6 @@
 \section*{Вывод}
 
 В данном разделе были сравнены алгоритмы по времени.
-Оптимизированный алгоритм Винограда является самым быстрым, за счет проведенных изменений в стандартном алгоритме Винограда.
+Сортировка бинарным деревом на отсортированных массивах и сортировка подсчетом работает на случайном массиве дольше всех.
+Самая быстрая сортировка поразрядная на любых данных.
+Теоритические результаты оценки трудоемкости и полученные практическим образом результаты замеров совпадают. 
