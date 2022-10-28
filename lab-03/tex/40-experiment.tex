@@ -150,13 +150,13 @@
 			red,
 			semithick,
 			mark = *,
-			] file {assets/count_r.dat};
+			] file {assets/radix_r.dat};
 			
 			\addplot[
 			green,
 			semithick,
 			mark = *,
-			] file {assets/count_r.dat};
+			] file {assets/binary_r.dat};
 			
 			\legend{
 				Сортировка подсчетом,
@@ -193,13 +193,13 @@
 				red,
 				semithick,
 				mark = *,
-				] file {assets/count_r.dat};
+				] file {assets/radix_u.dat};
 				
 				\addplot[
 				green,
 				semithick,
 				mark = *,
-				] file {assets/count_r.dat};
+				] file {assets/binary_u.dat};
 				
 				\legend{
 					Сортировка подсчетом,
@@ -236,13 +236,13 @@
 				red,
 				semithick,
 				mark = *,
-				] file {assets/count_r.dat};
+				] file {assets/radix_d.dat};
 				
 				\addplot[
 				green,
 				semithick,
 				mark = *,
-				] file {assets/count_r.dat};
+				] file {assets/binary_d.dat};
 				
 				\legend{
 					Сортировка подсчетом,
@@ -261,5 +261,8 @@
 
 В данном разделе были сравнены алгоритмы по времени.
 Сортировка бинарным деревом на отсортированных массивах и сортировка подсчетом работает на случайном массиве дольше всех.
+
 Самая быстрая сортировка поразрядная на любых данных.
+
+
 Теоритические результаты оценки трудоемкости и полученные практическим образом результаты замеров совпадают. 
