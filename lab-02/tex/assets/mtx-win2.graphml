@@ -17,20 +17,20 @@
     <node id="n0">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.terminator">
-          <y:Geometry height="80.0" width="190.0" x="345.0" y="0.0"/>
+          <y:Geometry height="80.0" width="190.0" x="564.0" y="0.0"/>
           <y:Fill color="#FFFFFF" color2="#FFFFFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="47.908294677734375" x="71.04585266113281" xml:space="preserve" y="29.827942848205566">Начало<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="49.83203125" x="70.083984375" xml:space="preserve" y="31.015625">Начало<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
         </y:GenericNode>
       </data>
     </node>
     <node id="n1">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.annotation">
-          <y:Geometry height="80.0" width="190.0" x="569.0" y="0.0"/>
+          <y:Geometry height="80.0" width="190.0" x="340.0" y="0.0"/>
           <y:Fill color="#FFFFFF" color2="#FFFFFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="36.688228607177734" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="138.48492431640625" x="25.757537841796875" xml:space="preserve" y="21.655885696411133">ВиноградУлучшенный
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="31.9375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="145.29296875" x="22.353515625" xml:space="preserve" y="24.03125">ВиноградУлучшенный
 (amat, bmat)<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:StyleProperties>
             <y:Property class="java.lang.Byte" name="com.yworks.flowchart.style.orientation" value="0"/>
@@ -41,10 +41,10 @@
     <node id="n2">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.process">
-          <y:Geometry height="80.0" width="190.0" x="345.0" y="110.0"/>
+          <y:Geometry height="80.0" width="190.0" x="564.0" y="110.0"/>
           <y:Fill color="#FFFFFF" color2="#FFFFFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="36.688228607177734" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="153.28099060058594" x="18.35950469970703" xml:space="preserve" y="21.655885696411133">Создать матрицу rmat
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="31.9375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="164.693359375" x="12.6533203125" xml:space="preserve" y="24.03125">Создать матрицу rmat
 размера amat.n x bmat.m<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
         </y:GenericNode>
       </data>
@@ -52,65 +52,65 @@
     <node id="n3">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.loopLimit">
-          <y:Geometry height="80.0" width="190.0" x="345.0" y="330.0"/>
+          <y:Geometry height="80.0" width="190.0" x="564.0" y="330.0"/>
           <y:Fill color="#FFFFFF" color2="#FFFFFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="137.0329132080078" x="26.483543395996094" xml:space="preserve" y="29.827942848205566">Цикл i от 0 до amat.n-1<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="150.53125" x="19.734375" xml:space="preserve" y="31.015625">Цикл i от 0 до amat.n-1<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
         </y:GenericNode>
       </data>
     </node>
     <node id="n4">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.loopLimitEnd">
-          <y:Geometry height="80.0" width="190.0" x="345.0" y="880.0"/>
+          <y:Geometry height="80.0" width="190.0" x="564.0" y="990.0"/>
           <y:Fill color="#FFFFFF" color2="#FFFFFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="36.688228607177734" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="101.42868041992188" x="44.28565979003906" xml:space="preserve" y="21.655885696411133">Увеличить i на 1
-Цикл i<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="31.9375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="111.4140625" x="39.29296875" xml:space="preserve" y="24.03125">Увеличить k на 1
+Цикл k<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
         </y:GenericNode>
       </data>
     </node>
     <node id="n5">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.loopLimit">
-          <y:Geometry height="80.0" width="190.0" x="345.0" y="440.0"/>
+          <y:Geometry height="80.0" width="190.0" x="564.0" y="440.0"/>
           <y:Fill color="#FFFFFF" color2="#FFFFFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="141.48495483398438" x="24.257522583007812" xml:space="preserve" y="29.827942848205566">Цикл j от 0 до bmat.m-1<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="154.87890625" x="17.560546875" xml:space="preserve" y="31.015625">Цикл j от 0 до bmat.m-1<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
         </y:GenericNode>
       </data>
     </node>
     <node id="n6">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.loopLimit">
-          <y:Geometry height="80.0" width="190.0" x="345.0" y="550.0"/>
+          <y:Geometry height="80.0" width="190.0" x="564.0" y="660.0"/>
           <y:Fill color="#FFFFFF" color2="#FFFFFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="144.1489715576172" x="22.925514221191406" xml:space="preserve" y="29.827942848205566">Цикл k от 0 до amat.m-1<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="158.23046875" x="15.884765625" xml:space="preserve" y="31.015625">Цикл k от 0 до amat.m-1<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
         </y:GenericNode>
       </data>
     </node>
     <node id="n7">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.process">
-          <y:Geometry height="80.0" width="190.0" x="345.0" y="770.0"/>
+          <y:Geometry height="80.0" width="190.0" x="564.0" y="880.0"/>
           <y:Fill color="#FFFFFF" color2="#FFFFFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="85.72057151794434" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="164.99314880371094" x="12.503425598144531" xml:space="preserve" y="-2.860285758972168">rmat.mat[i][j]+= 
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="73.84375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="131.728515625" x="29.1357421875" xml:space="preserve" y="3.078125">rmat.mat[i][j]+= 
 (amat.mat[i][k]+ 
 bmat.mat[k+1][j])*
 (amat.mat[i][k+1] + 
-bmat.mat[k][j]) -MH[i] - MV[i]<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+bmat.mat[k][j])<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
         </y:GenericNode>
       </data>
     </node>
     <node id="n8">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.loopLimitEnd">
-          <y:Geometry height="80.0" width="190.0" x="345.0" y="990.0"/>
+          <y:Geometry height="80.0" width="190.0" x="564.0" y="1100.0"/>
           <y:Fill color="#FFFFFF" color2="#FFFFFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="36.688228607177734" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="101.42868041992188" x="44.28565979003906" xml:space="preserve" y="21.655885696411133">Увеличить j на 1
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="31.9375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="107.798828125" x="41.1005859375" xml:space="preserve" y="24.03125">Увеличить j на 1
 Цикл j<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
         </y:GenericNode>
       </data>
@@ -118,21 +118,21 @@ bmat.mat[k][j]) -MH[i] - MV[i]<y:LabelModel><y:SmartNodeLabelModel distance="4.0
     <node id="n9">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.loopLimitEnd">
-          <y:Geometry height="80.0" width="190.0" x="345.0" y="1100.0"/>
+          <y:Geometry height="80.0" width="190.0" x="564.0" y="1210.0"/>
           <y:Fill color="#FFFFFF" color2="#FFFFFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="36.688228607177734" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="104.74070739746094" x="42.62964630126953" xml:space="preserve" y="21.655885696411133">Увеличить k на 1
-Цикл k<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="31.9375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="107.798828125" x="41.1005859375" xml:space="preserve" y="24.03125">Увеличить i на 1
+Цикл i<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
         </y:GenericNode>
       </data>
     </node>
     <node id="n10">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.process">
-          <y:Geometry height="80.0" width="190.0" x="345.0" y="220.0"/>
+          <y:Geometry height="80.0" width="190.0" x="564.0" y="220.0"/>
           <y:Fill color="#FFFFFF" color2="#FFFFFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="69.37645721435547" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="175.49319458007812" x="7.2534027099609375" xml:space="preserve" y="5.311771392822266">Создать и заполнить
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="59.875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="189.625" x="0.1875" xml:space="preserve" y="10.0625">Создать и заполнить
 массивы MH и MV (для
 хранения разности соседних
 элементов строк и столбцов)<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
@@ -142,70 +142,70 @@ bmat.mat[k][j]) -MH[i] - MV[i]<y:LabelModel><y:SmartNodeLabelModel distance="4.0
     <node id="n11">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.start2">
-          <y:Geometry height="80.0" width="190.0" x="345.0" y="1210.0"/>
+          <y:Geometry height="80.0" width="190.0" x="564.0" y="1320.0"/>
           <y:Fill color="#FFFFFF" color2="#FFFFFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="10.864044189453125" x="89.56797790527344" xml:space="preserve" y="29.827942848205566">1<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="11.634765625" x="89.1826171875" xml:space="preserve" y="31.015625">1<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
         </y:GenericNode>
       </data>
     </node>
     <node id="n12">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.terminator">
-          <y:Geometry height="80.0" width="190.0" x="125.0" y="880.0"/>
+          <y:Geometry height="80.0" width="190.0" x="10.0" y="880.0"/>
           <y:Fill color="#FFFFFF" color2="#FFFFFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="40.672271728515625" x="74.66386413574219" xml:space="preserve" y="29.827942848205566">Конец<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="43.2578125" x="73.37109375" xml:space="preserve" y="31.015625">Конец<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
         </y:GenericNode>
       </data>
     </node>
     <node id="n13">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.start2">
-          <y:Geometry height="80.0" width="190.0" x="15.0" y="0.0"/>
+          <y:Geometry height="80.0" width="190.0" x="120.0" y="0.0"/>
           <y:Fill color="#FFFFFF" color2="#FFFFFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="10.864044189453125" x="89.56797790527344" xml:space="preserve" y="29.827942848205566">1<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="11.634765625" x="89.1826171875" xml:space="preserve" y="31.015625">1<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
         </y:GenericNode>
       </data>
     </node>
     <node id="n14">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.decision">
-          <y:Geometry height="80.0" width="190.0" x="15.0" y="110.0"/>
+          <y:Geometry height="80.0" width="190.0" x="120.0" y="110.0"/>
           <y:Fill color="#FFFFFF" color2="#FFFFFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="119.33282470703125" x="35.333587646484375" xml:space="preserve" y="29.827942848205566">bmat.m - нечетное?<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="128.458984375" x="30.7705078125" xml:space="preserve" y="31.015625">bmat.m - нечетное?<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
         </y:GenericNode>
       </data>
     </node>
     <node id="n15">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.loopLimit">
-          <y:Geometry height="80.0" width="190.0" x="125.0" y="220.0"/>
+          <y:Geometry height="80.0" width="190.0" x="340.0" y="220.0"/>
           <y:Fill color="#FFFFFF" color2="#FFFFFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="137.0329132080078" x="26.483543395996094" xml:space="preserve" y="29.827942848205566">Цикл i от 0 до amat.n-1<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="150.53125" x="19.734375" xml:space="preserve" y="31.015625">Цикл i от 0 до amat.n-1<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
         </y:GenericNode>
       </data>
     </node>
     <node id="n16">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.loopLimit">
-          <y:Geometry height="80.0" width="190.0" x="125.0" y="330.0"/>
+          <y:Geometry height="80.0" width="190.0" x="340.0" y="330.0"/>
           <y:Fill color="#FFFFFF" color2="#FFFFFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="141.48495483398438" x="24.257522583007812" xml:space="preserve" y="29.827942848205566">Цикл j от 0 до bmat.m-1<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="154.87890625" x="17.560546875" xml:space="preserve" y="31.015625">Цикл j от 0 до bmat.m-1<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
         </y:GenericNode>
       </data>
     </node>
     <node id="n17">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.process">
-          <y:Geometry height="80.0" width="190.0" x="125.0" y="440.0"/>
+          <y:Geometry height="80.0" width="190.0" x="340.0" y="440.0"/>
           <y:Fill color="#FFFFFF" color2="#FFFFFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="53.0323429107666" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="145.3369598388672" x="22.331520080566406" xml:space="preserve" y="13.4838285446167">rmat.mat[i][j] += 
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="45.90625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="161.2421875" x="14.37890625" xml:space="preserve" y="17.046875">rmat.mat[i][j] += 
 amat.mat[i][bmat.m-1] + 
 bmat.mat[bmat.m-1][j]<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
         </y:GenericNode>
@@ -214,10 +214,10 @@ bmat.mat[bmat.m-1][j]<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:La
     <node id="n18">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.loopLimitEnd">
-          <y:Geometry height="80.0" width="190.0" x="125.0" y="550.0"/>
+          <y:Geometry height="80.0" width="190.0" x="340.0" y="550.0"/>
           <y:Fill color="#FFFFFF" color2="#FFFFFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="36.688228607177734" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="101.42868041992188" x="44.28565979003906" xml:space="preserve" y="21.655885696411133">Увеличить i на 1
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="31.9375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="107.798828125" x="41.1005859375" xml:space="preserve" y="24.03125">Увеличить i на 1
 Цикл i<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
         </y:GenericNode>
       </data>
@@ -225,10 +225,10 @@ bmat.mat[bmat.m-1][j]<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:La
     <node id="n19">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.loopLimitEnd">
-          <y:Geometry height="80.0" width="190.0" x="125.0" y="660.0"/>
+          <y:Geometry height="80.0" width="190.0" x="340.0" y="660.0"/>
           <y:Fill color="#FFFFFF" color2="#FFFFFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="36.688228607177734" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="101.42868041992188" x="44.28565979003906" xml:space="preserve" y="21.655885696411133">Увеличить j на 1
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="31.9375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="107.798828125" x="41.1005859375" xml:space="preserve" y="24.03125">Увеличить j на 1
 Цикл j<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
         </y:GenericNode>
       </data>
@@ -236,17 +236,17 @@ bmat.mat[bmat.m-1][j]<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:La
     <node id="n20">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.process">
-          <y:Geometry height="80.0" width="190.0" x="345.0" y="660.0"/>
+          <y:Geometry height="80.0" width="190.0" x="564.0" y="770.0"/>
           <y:Fill color="#FFFFFF" color2="#FFFFFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="54.676361083984375" x="67.66181945800781" xml:space="preserve" y="29.827942848205566">t = k &lt;&lt; 1<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="68.7109375" x="60.64453125" xml:space="preserve" y="31.015625">t = k &lt;&lt; 1<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
         </y:GenericNode>
       </data>
     </node>
     <node id="n21">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.process">
-          <y:Geometry height="1.0" width="1.0" x="219.5" y="809.5"/>
+          <y:Geometry height="1.0" width="1.0" x="104.5" y="809.5"/>
           <y:Fill color="#FFFFFF" color2="#FFFFFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="-1.5" y="-1.5">
@@ -260,18 +260,28 @@ bmat.mat[bmat.m-1][j]<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:La
         </y:GenericNode>
       </data>
     </node>
+    <node id="n22">
+      <data key="d6">
+        <y:GenericNode configuration="com.yworks.flowchart.process">
+          <y:Geometry height="80.0" width="190.0" x="564.0" y="550.0"/>
+          <y:Fill color="#FFFFFF" color2="#FFFFFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="182.9453125" x="3.52734375" xml:space="preserve" y="31.015625">rmat.mat[i][j] = -MH[i] - MV[j]<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+        </y:GenericNode>
+      </data>
+    </node>
     <edge id="e0" source="n1" target="n0">
       <data key="d10">
         <y:PolyLineEdge>
-          <y:Path sx="-95.0" sy="0.0" tx="95.0" ty="0.0"/>
+          <y:Path sx="95.0" sy="0.0" tx="-95.0" ty="0.0"/>
           <y:LineStyle color="#000000" type="dashed" width="1.0"/>
           <y:Arrows source="none" target="none"/>
-          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="-14.091796875" y="-6.0">
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="10.125" y="-6.0">
             <y:LabelModel>
               <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
             </y:LabelModel>
             <y:ModelParameter>
-              <y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="2.0" distanceToCenter="false" position="right" ratio="0.25625" segment="-1"/>
+              <y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="2.0" distanceToCenter="false" position="left" ratio="0.25625" segment="-1"/>
             </y:ModelParameter>
             <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
           </y:EdgeLabel>
@@ -299,7 +309,7 @@ bmat.mat[bmat.m-1][j]<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:La
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e3" source="n5" target="n6">
+    <edge id="e3" source="n7" target="n4">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="40.0" tx="0.0" ty="-40.0"/>
@@ -309,7 +319,7 @@ bmat.mat[bmat.m-1][j]<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:La
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e4" source="n7" target="n4">
+    <edge id="e4" source="n8" target="n9">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="40.0" tx="0.0" ty="-40.0"/>
@@ -319,7 +329,7 @@ bmat.mat[bmat.m-1][j]<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:La
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e5" source="n8" target="n9">
+    <edge id="e5" source="n4" target="n8">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="40.0" tx="0.0" ty="-40.0"/>
@@ -329,7 +339,7 @@ bmat.mat[bmat.m-1][j]<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:La
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e6" source="n4" target="n8">
+    <edge id="e6" source="n2" target="n10">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="40.0" tx="0.0" ty="-40.0"/>
@@ -339,7 +349,7 @@ bmat.mat[bmat.m-1][j]<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:La
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e7" source="n2" target="n10">
+    <edge id="e7" source="n10" target="n3">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="40.0" tx="0.0" ty="-40.0"/>
@@ -349,7 +359,7 @@ bmat.mat[bmat.m-1][j]<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:La
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e8" source="n10" target="n3">
+    <edge id="e8" source="n9" target="n11">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="40.0" tx="0.0" ty="-40.0"/>
@@ -359,30 +369,20 @@ bmat.mat[bmat.m-1][j]<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:La
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e9" source="n9" target="n11">
-      <data key="d10">
-        <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="40.0" tx="0.0" ty="-40.0"/>
-          <y:LineStyle color="#000000" type="line" width="1.0"/>
-          <y:Arrows source="none" target="standard"/>
-          <y:BendStyle smoothed="false"/>
-        </y:PolyLineEdge>
-      </data>
-    </edge>
-    <edge id="e10" source="n14" target="n15">
+    <edge id="e9" source="n14" target="n15">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="95.0" sy="0.0" tx="0.0" ty="-40.0">
-            <y:Point x="220.0" y="150.0"/>
+            <y:Point x="435.0" y="150.0"/>
           </y:Path>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="none" target="standard"/>
-          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="19.024093627929688" x="2.5504531860351562" xml:space="preserve" y="-22.344114303588867">Да<y:LabelModel><y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/></y:LabelModel><y:ModelParameter><y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="2.0" distanceToCenter="false" position="left" ratio="0.6083333333333333" segment="0"/></y:ModelParameter><y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="20.728515625" x="10.125" xml:space="preserve" y="-19.96875">Да<y:LabelModel><y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/></y:LabelModel><y:ModelParameter><y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="2.0" distanceToCenter="false" position="left" ratio="0.04674570443674455" segment="0"/></y:ModelParameter><y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
           <y:BendStyle smoothed="false"/>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e11" source="n13" target="n14">
+    <edge id="e10" source="n13" target="n14">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="40.0" tx="0.0" ty="-40.0"/>
@@ -392,7 +392,7 @@ bmat.mat[bmat.m-1][j]<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:La
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e12" source="n15" target="n16">
+    <edge id="e11" source="n15" target="n16">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="40.0" tx="0.0" ty="-40.0"/>
@@ -402,7 +402,7 @@ bmat.mat[bmat.m-1][j]<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:La
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e13" source="n16" target="n17">
+    <edge id="e12" source="n16" target="n17">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="40.0" tx="0.0" ty="-40.0"/>
@@ -412,7 +412,7 @@ bmat.mat[bmat.m-1][j]<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:La
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e14" source="n17" target="n18">
+    <edge id="e13" source="n17" target="n18">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="40.0" tx="0.0" ty="-40.0"/>
@@ -422,7 +422,7 @@ bmat.mat[bmat.m-1][j]<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:La
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e15" source="n18" target="n19">
+    <edge id="e14" source="n18" target="n19">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="40.0" tx="0.0" ty="-40.0"/>
@@ -432,8 +432,7 @@ bmat.mat[bmat.m-1][j]<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:La
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e16" source="n6" target="n20">
-      <data key="d9"/>
+    <edge id="e15" source="n20" target="n7">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="40.0" tx="0.0" ty="-40.0"/>
@@ -443,33 +442,20 @@ bmat.mat[bmat.m-1][j]<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:La
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e17" source="n20" target="n7">
-      <data key="d9"/>
+    <edge id="e16" source="n14" target="n21">
       <data key="d10">
         <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="40.0" tx="0.0" ty="-40.0"/>
-          <y:LineStyle color="#000000" type="line" width="1.0"/>
-          <y:Arrows source="none" target="standard"/>
-          <y:BendStyle smoothed="false"/>
-        </y:PolyLineEdge>
-      </data>
-    </edge>
-    <edge id="e18" source="n14" target="n21">
-      <data key="d9"/>
-      <data key="d10">
-        <y:PolyLineEdge>
-          <y:Path sx="-95.0" sy="0.0" tx="-0.5" ty="0.0">
-            <y:Point x="0.0" y="150.0"/>
-            <y:Point x="0.0" y="810.0"/>
+          <y:Path sx="-95.0" sy="0.0" tx="0.0" ty="-0.5">
+            <y:Point x="105.0" y="150.0"/>
           </y:Path>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="none" target="none"/>
-          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="-14.033203125" y="1.9999999999999716">
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="-14.033203125" y="2.0">
             <y:LabelModel>
               <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
             </y:LabelModel>
             <y:ModelParameter>
-              <y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="0.9375" distanceToCenter="false" position="left" ratio="0.006060606060606061" segment="1"/>
+              <y:SmartEdgeLabelModelParameter angle="6.283185307179586" distance="0.9375" distanceToCenter="false" position="left" ratio="0.006130268199233717" segment="-1"/>
             </y:ModelParameter>
             <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
           </y:EdgeLabel>
@@ -477,22 +463,55 @@ bmat.mat[bmat.m-1][j]<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:La
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e19" source="n19" target="n21">
-      <data key="d9"/>
+    <edge id="e17" source="n19" target="n21">
       <data key="d10">
         <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="40.0" tx="0.0" ty="-0.5"/>
+          <y:Path sx="-95.0" sy="0.0" tx="0.0" ty="-0.5">
+            <y:Point x="105.0" y="700.0"/>
+          </y:Path>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="none" target="none"/>
           <y:BendStyle smoothed="false"/>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e20" source="n21" target="n12">
-      <data key="d9"/>
+    <edge id="e18" source="n21" target="n12">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.5" tx="0.0" ty="-40.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e19" source="n6" target="n20">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="40.0" tx="0.0" ty="-40.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e20" source="n5" target="n22">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="40.0" tx="0.0" ty="-40.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e21" source="n22" target="n6">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="40.0" tx="0.0" ty="-40.0"/>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="none" target="standard"/>
           <y:BendStyle smoothed="false"/>
