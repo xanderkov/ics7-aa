@@ -16,28 +16,18 @@
 	\begin{equation*}\label{math:complex}
 		*, /, \char`\\ , \%
 	\end{equation*}	
-	\item Трудоемкость конструкции ветвления определяется согласно формуле \ref{math:if}
+	\item Трудоемкость конструкции ветвления определяется согласно формуле \ref{math:if}.
 	\begin{equation}\label{math:if}
-		f_{if} = f_{condition} + 
+		f_{if} = f_{\text{условие}} + 
 		\begin{sqcases}
 			min\left(f_{true} , f_{false}\right) \text{ в лучшем случае,} \\
 			max\left(f_{true} , f_{false}\right) \text{ в худшем случае.} \\
 		\end{sqcases}
 	\end{equation}
-	\item Трудоемкость цикла расчитывается по формуле \ref{math:loop}
+	\item Трудоемкость цикла расчитывается по формуле \ref{math:loop}.
 	\begin{equation}\label{math:loop}
-		f_{loop} = f_{init} + f_{cmp} + N \left(f_{body} + f_{inc} + f_{cmp}\right),
+		f_{\text{цикл}} = f_{\text{инициализация}} + f_{\text{сравнение}} + N \left(f_{\text{тело}} + f_{\text{инкремент}} + f_{\text{сравнение}}\right);
 	\end{equation}
-	\begin{equation*}
-		\begin{array}{lllll}
-			\text{где} \\
-			f_{init} - \text{трудоемкость инициализации,} \\
-			f_{body} - \text{трудоемкость тела цикла,} \\
-			f_{iter} - \text{трудоемкость инкремента,} \\
-			f_{cmp} - \text{трудоемкость сравнения,} \\
-			N - \text{количество повторов.}
-		\end{array}
-	\end{equation*}
 	\item Трудоемкость вызова функции равна 0.
 \end{enumerate}
 
@@ -51,7 +41,7 @@
 \begin{align}
 	\begin{split}
 		\label{for:binary_sort_perf}
-		f_{radix} &= size \cdot \log_{2}(size)
+		f_{radix} &= size \cdot \log_{2}(size);
 	\end{split}
 \end{align}
 
@@ -64,7 +54,7 @@
 		\label{for:count_sort_perf}
 		f_{count} &= size + 10  + 2 + size \cdot 8 + 2 + 10 \cdot 6 + 3 \\
 		&+ size \cdot 14 + 1 + size \cdot 5 \\
-		&= 78 + 28 \cdot size
+		&= 78 + 28 \cdot size = O(n);
 	\end{split}
 \end{align}
 
@@ -73,11 +63,14 @@
 Трудоёмкость алгоритма поразрядной сортировки равна %(\ref{for:radix_sort_perf}):
 \begin{align}
 	\label{for:radix_sort_perf}
-	f_{radix} = 1 + 2 + 5 \cdot size + 1 + 2 + m * (f_{count} + 1 + 2),
+	f_{radix} = 1 + 2 + 5 \cdot size + 1 + 2 + m * (f_{count} + 1 + 2);
 \end{align}
 где $m$ - количество разрядов в максимальном элементе, $f_{count}$ - трудоёмкость алгоритма сортировки подсчётом.
 
-Итоговая трудоёмкость порязрядной сортировки, использующей сортировку подсчётом в рамках одного разряда: %(\ref{for:total_radix})
+Итоговая трудоёмкость порязрядной сортировки, использующей сортировку подсчётом в рамках одного разряда: 
+\begin{align}
+	f_{radix} = 28 \cdot m \cdot size = O(n);
+\end{align}
 
 \section{Схемы алгоритмов}
 На рисунке \ref{fig:alg} приведена схема алгоритма сортировки бинарным деревом. На рисунке \ref{fig:win-1} приведена схема алгоритма сортировки подсчетом. Рисунок  
@@ -92,7 +85,7 @@
 
 \begin{figure}[ht!]
 	\centering
-	\includegraphics[width=0.45\linewidth]{assets/range.pdf}
+	\includegraphics[width=0.47\linewidth]{assets/range.pdf}
 	\caption{Схема алгоритма поразряндной сортировки}
 	\label{fig:win-2}
 \end{figure}
@@ -106,5 +99,5 @@
 
 
 
-\subsection{Вывод}
+\section*{Вывод}
 Были разработаны схемы всех трех алгоритмов сортировки. Также для каждого из них были рассчитаны трудоёмкости по введённой модели вычислений с учётом лучших и худших случаев.
