@@ -26,7 +26,7 @@
 	\end{equation}
 	\item Трудоемкость цикла расчитывается по формуле \ref{math:loop}.
 	\begin{equation}\label{math:loop}
-		f_{\text{цикл}} = f_{\text{инициализация}} + f_{\text{сравнение}} + N \left(f_{\text{тело}} + f_{\text{инкремент}} + f_{\text{сравнение}}\right);
+		f_{\text{цикл}} = f_{\text{инициал.}} + f_{\text{сравн.}} + N \left(f_{\text{тело}} + f_{\text{инкремент}} + f_{\text{сравн.}}\right);
 	\end{equation}
 	\item Трудоемкость вызова функции равна 0.
 \end{enumerate}
@@ -35,56 +35,56 @@
 
 \subsection{Классический алгоритм}
 
-Пусть на вход алгоритму поступают матрицы $M_{left}$ и $M_{right}$ с размерностью $n \times m$ и $m \times q$. Тогда трудоемкость классического алгоритма определяется по формуле \ref{math:alg}
-\begin{multline}\label{math:alg}
-	f_{alg} = f_{{цикл_i}} = 2 + n\left(2 + f_{цикл_j}\right) = 2 + n\left(2 + 2 + q\left(2 + f_{цикл_k}\right)\right) = \\
-	= 2 + n\left(2 + 2 + q\left(2 + +2 + 14 \cdot m\right)\right) \approx 14mnq = 14MNQ;
-\end{multline}
+Пусть на вход алгоритму поступают матрицы $M_{left}$ и $M_{right}$ с размерностью $n \times m$ и $m \times q$. Тогда трудоемкость классического алгоритма определяется по формуле \ref{math:alg}.
+
+\begin{equation}\label{math:alg}
+	f_{alg} = f_{{цикл_i}} = 2 + n\left(2 + f_{цикл_j}\right) \approx 14mnq = 14MNQ;
+\end{equation}
 \subsection{Алгоритм Копперсмита — Винограда}
 
 Трудоёмкость алгоритма Копперсмита — Винограда состоит из:
 \begin{itemize}
-	\item создания и инициализации массивов MH и MV, трудоёмкость которого (\ref{for:init}):
+	\item создания и инициализации массивов MH и MV, трудоёмкость которого (\ref{for:init}).
 	\begin{equation}
 		\label{for:init}
 		f_{инициализация} = M + N;
 	\end{equation}
 	
-	\item заполнения массива MH, трудоёмкость которого (\ref{for:MH}):
+	\item заполнения массива MH, трудоёмкость которого (\ref{for:MH}).
 	\begin{equation}
 		\label{for:MH}
 		f_{MH} = \frac{19}{2}MN +6M +2;
 	\end{equation}
 	
-	\item заполнения массива MV, трудоёмкость которого (\ref{for:MV}):
+	\item заполнения массива MV, трудоёмкость которого (\ref{for:MV}).
 	\begin{equation}
 		\label{for:MV}
 		f_{MV} = \frac{19}{2}QN +6Q +2);
 	\end{equation}
 	
-	\item цикла заполнения для чётных размеров, трудоёмкость которого (\ref{for:cycle}):
+	\item цикла заполнения для чётных размеров, трудоёмкость которого (\ref{for:cycle}).
 	\begin{equation}
 		\label{for:cycle}
-		f_{cycle} = 16MQN + 13MQ + 4M + 2;
+		f_{\text{цикл}} = 16MQN + 13MQ + 4M + 2;
 	\end{equation}
 	
-	\item цикла, для дополнения умножения суммой последних нечётных строки и столбца, если общий размер нечётный, трудоемкость которого (\ref{for:last}):
+	\item цикла, для дополнения умножения суммой последних нечётных строки и столбца, если общий размер нечёт., трудоемкость которого (\ref{for:last}).
 	\begin{equation}
 		\label{for:last}
-		f_{last} = 3 + \begin{cases}
+		f_{\text{последний}} = 3 + \begin{cases}
 			0, & \text{чётная,}\\
 			16MQ + 4M + 2, & \text{иначе.}
 		\end{cases}
 	\end{equation}
 \end{itemize}
 
-Итого, для худшего случая (нечётный общий размер матриц) имеем (\ref{for:bad}):
+Итого, для худшего случая (нечётный общий размер матриц) имеем (\ref{for:bad}).
 \begin{equation}
 	\label{for:bad}
 	f =  f_{MH} + f_{MV} + f_{cycle} + f_{last}\approx 16 \cdot MNQ;
 \end{equation}
 
-Для лучшего случая (чётный общий размер матриц) имеем (\ref{for:good}):
+Для лучшего случая (чётный общий размер матриц) имеем (\ref{for:good}).
 \begin{equation}
 	\label{for:good}
 	f =  f_{MH} + f_{MV} + f_{cycle} + f_{last} \approx 16 \cdot MNQ;
@@ -103,34 +103,34 @@
 
 Трудоёмкость улучшенного алгоритма Копперсмита — Винограда состоит из:
 \begin{itemize}
-	\item создания и инициализации массивов MH и MV, трудоёмкость которого (\ref{for:impr_init}):
+	\item создания и инициализации массивов MH и MV, трудоёмкость которого (\ref{for:impr_init}).
 	\begin{equation}
 		\label{for:impr_init}
 		f_{инициализация} = M + N;
 	\end{equation}
 	
-	\item заполнения массива MH, трудоёмкость которого (\ref{for:impr_MH}):
+	\item заполнения массива MH, трудоёмкость которого (\ref{for:impr_MH}).
 	\begin{equation}
 		\label{for:impr_MH}
 		f_{MH} =  \frac{13}{2}MN + 4M + 5;
 	\end{equation}
 	
-	\item заполнения массива MV, трудоёмкость которого (\ref{for:impr_MV}):
+	\item заполнения массива MV, трудоёмкость которого (\ref{for:impr_MV}).
 	\begin{equation}
 		\label{for:impr_MV}
 		f_{MV} =  \frac{13}{2}QN + 4Q + 5;
 	\end{equation}
 	
-	\item цикла заполнения для чётных размеров, трудоёмкость которого (\ref{for:impr_cycle}):
+	\item цикла заполнения для чётных размеров, трудоёмкость которого (\ref{for:impr_cycle}).
 	\begin{equation}
 		\label{for:impr_cycle}
-		f_{cycle} =2 + M \cdot (4 + N \cdot (11 + \frac{Q}{2} \cdot 21));
+		f_{\text{цикл}} =2 + M \cdot (4 + N \cdot (11 + \frac{Q}{2} \cdot 21));
 	\end{equation}
 	
-	\item условие, для дополнения умножения суммой последних нечётных строки и столбца, если общий размер нечётный, трудоемкость которого (\ref{for:impr_last}):
+	\item условие, для дополнения умножения суммой последних нечётных строки и столбца, если общий размер нечётный, трудоемкость которого (\ref{for:impr_last}).
 	\begin{equation}
 		\label{for:impr_last}
-		f_{last} = 3 + 
+		f_{\text{последний}} = 3 + 
 		\begin{cases}
 			0, & \text{чётная,}\\
 			13MQ + 4M + 2, & \text{иначе.}
@@ -138,19 +138,19 @@
 	\end{equation}
 \end{itemize}
 
-Итого, для худшего случая (нечётный общий размер матриц) имеем (\ref{for:bad_impr}):
+Итого, для худшего случая (нечётный общий размер матриц) имеем (\ref{for:bad_impr}).
 \begin{equation}
 	\label{for:bad_impr}
-	f = f_{MH} + f_{MV} + f_{cycle} + f_{last} \approx 10.5MNK;
+	f = f_{MH} + f_{MV} + f_{\text{цикл}} + f_{\text{последний}} \approx 10.5MNK;
 \end{equation}
 
-Для лучшего случая (чётный общий размер матриц) имеем (\ref{for:good_impr}):
+Для лучшего случая (чётный общий размер матриц) имеем (\ref{for:good_impr}).
 \begin{equation}
 	\label{for:good_impr}
-	f = f_{MH} + f_{MV} + f_{cycle} + f_{last} \approx 10.5MNK;
+	f = f_{MH} + f_{MV} + f_{\text{цикл}} + f_{\text{последний}} \approx 10.5MNK;
 \end{equation}
 
-\section{Схемы алгоритмов}
+\section{Разработка алгоритмов}
 На рисунке \ref{fig:alg} приведена схема классического алгоритма умножения матриц. На рисунке \ref{fig:win-1} приведена схема алгоритма Копперсмита -- Винограда. Рисунок  
 \ref{fig:win-2} демонстрируют схему оптимизированного алгоритма Копперсмита -- Винограда.\newpage
 

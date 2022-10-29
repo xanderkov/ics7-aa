@@ -29,16 +29,14 @@
 
 \section{Время выполнения алгоритмов}
 
-
-
-Результаты профилирования алгоритмов приведены в таблице \ref{tab:time}. Результаты тестирования приведены в таблице \ref{table:testing}.
+Результаты профилирования алгоритмов приведены в таблице \ref{tab:time}.
 \begin{table}[ht!]
 	\captionsetup{singlelinecheck = false, justification=raggedleft}
 	\caption{Время выполнения алгоритмов}
 	\renewcommand{\arraystretch}{1.4}
 	\begin{subtable}[ht!]{0.45\textwidth}
 		\centering
-		\caption{Четная размерность матриц}
+		\caption{Время выполнения алгоритмов при четной размерности матриц}
 		\begin{tabular}{||l|l|l|l||}
 			\hline
 			\multirow{2}{*}{n} & \multicolumn{3}{l||}{Время, ns} \\ \cline{2-4} 
@@ -67,7 +65,7 @@
 	\hfill
 	\begin{subtable}[ht!]{0.45\textwidth}
 		\centering
-		\caption{Нечетная размерность матриц}
+		\caption{Время выполнения алгоритмов при нечетном размерности матриц}
 		\begin{tabular}{||l|l|l|l||}
 			\hline
 			\multirow{2}{*}{n} & \multicolumn{3}{l|}{Время, ns} \\ \cline{2-4} 
@@ -101,11 +99,11 @@
 \section{Графики функций}
 
 
+На графике \ref{fig:c-plot} представлено время выполнения программы матрицы с четной размерности.
+
+
 \begin{figure}[ht!]
-	\captionsetup{singlelinecheck = false, justification=centering}
-	\centering
-	\begin{subfigure}[b]{\textwidth}
-		\centering
+	\begin{center}
 		\begin{tikzpicture}
 			\begin{axis}[
 				xlabel={размер матрицы},
@@ -144,12 +142,15 @@
 				}
 			\end{axis}
 		\end{tikzpicture}
-		\caption{Четная размерность матрицы}
-	\end{subfigure}
-	\hfill
-	\newline
-	\begin{subfigure}[b]{\textwidth}
-		\centering
+	\end{center}
+\caption{Четная размерность матрицы}
+\label{fig:c-plot}
+\end{figure}
+
+На графике \ref{fig:w-plot} представлен время выполнения программы с матрицами нечетной размерности.
+
+\begin{figure}[ht!]
+	\begin{center}
 		\begin{tikzpicture}
 			\begin{axis}[
 				xlabel={размер матрицы},
@@ -188,12 +189,10 @@
 					Оптимизированный алгоритм Винограда
 				}
 			\end{axis}
-		\end{tikzpicture}
-		\caption{Нечетная размерность матрицы}
-		\label{fig:w-plot}
-	\end{subfigure}
-	\hfill
-	
+\end{tikzpicture}
+\end{center}
+\caption{Нечетная размерность матрицы}
+\label{fig:w-plot}
 \end{figure}
 
 \clearpage

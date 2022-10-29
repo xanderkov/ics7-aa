@@ -36,8 +36,8 @@
 
 
 
-\section{Листинги кода}
-Листинг \ref{lst:algebr} демонстрирует алгоритм сортировки подсчетом. 
+\section{Реализации алгоритма}
+На листинг \ref{lst:algebr} демонстрируется алгоритм сортировки подсчетом. 
 
 
 \captionsetup{singlelinecheck = false, justification=raggedright}
@@ -57,22 +57,20 @@ def counting_sort(alist, largest):
 \end{lstlisting}
 
 
-Листинг \ref{lst:winograd} --- алгоритм сортировки бинарным деревом.
+На листинге \ref{lst:winograd} демонстрируется алгоритм сортировки бинарным деревом.
 
 \begin{lstlisting}[label=lst:winograd,caption=Алгоритм сортировки бинарным дерево]
 def binary_sort(alist):
 	tree = TreeNode()
-	
 	for i in alist:
 		tree.inpurt_in_tree(i)
-	
 	arr = []
 	tree.pre_order(arr)
 	
 	return arr
 \end{lstlisting}	
 
-Листинг \ref{lst:Tree} --- класс бинарного дерева.
+На листинге \ref{lst:Tree} демонстрируется класс бинарного дерева.
 
 \begin{lstlisting}[label=lst:Tree,caption=Класс бинарного дерев]
 	class TreeNode:
@@ -110,7 +108,7 @@ def binary_sort(alist):
 \end{lstlisting}	
 
 \newpage
-Листинг \ref{lst:winograd-optimized} --- алгоритм поразрядной сортировки.
+На листинге \ref{lst:winograd-optimized} демонстрируется алгоритм поразрядной сортировки.
 \begin{lstlisting}[label=lst:winograd-optimized,caption=Алгоритм поразрядной сортировки]
 	def radixSort(array):
     max_element = max(array)

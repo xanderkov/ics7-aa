@@ -52,7 +52,7 @@ def simple_mult(mat1, m, mat2, n, q):
 \end{lstlisting}
 
 \newpage
-Листинг \ref{lst:winograd} -- умножение матриц алгоритмом Винограда.
+Листинг \ref{lst:winograd} демонстрирует умножение матриц алгоритмом Винограда.
 
 \begin{lstlisting}[label=lst:winograd,caption=Алгоритм умнложения Виноградом]
 def precompile\_rows\_win(mat, n, m):
@@ -88,7 +88,7 @@ def winograd\_mult(A, m, B, n, q):
 \end{lstlisting}	
 
 \newpage
-Листинг \ref{lst:winograd-optimized} -- умножение оптимизированным алгоритмом Винограда.
+Листинг \ref{lst:winograd-optimized} демонстрирует умножение оптимизированным алгоритмом Винограда.
 \begin{lstlisting}[label=lst:winograd-optimized,caption=Оптимизированный алгоритм умножения Виноградом]
 def precompile_rows_win_opt(mat, n, m):
 	mh = np.zeros([n])
@@ -135,19 +135,117 @@ def winograd_mult_opt(A, m, B, n, q):
 
 \section{Тестовые данные}
 
+На таблице \ref{tbl:functional_test} представлены тестовые данные.
 
 \begin{table}[ht!]
-	\renewcommand{\arraystretch}{1.8}
-	\caption{Тестовые случаи}
-	\resizebox{\textwidth}{!}{
-		\begin{tabular}{||c|c|c|c|c|c||}
-			\hline
-			\multirow{2}{*}{№} & \multirow{2}{*}{Вход. матрица №1} & \multirow{2}{*}{Вход. матрица №2} & \multicolumn{3}{c|}{Результат} \\ \cline{4-6} 
-			&  &  & Классический & Виноград & Виноград оптимизированный \\ \hline\hline
-			1 & \begin{tabular}[c]{@{}l@{}}$\begin{matrix}[0.6] \\ -3 & 5 & -1 & 7 \\\\ -8 & 2 & -2 & 1 \\\\ 0 & -3 & -4 & 0 \\\\ -6 & 0 & 5 & 1 \\\\ \end{matrix}$\end{tabular} & \begin{tabular}[c]{@{}l@{}}$\begin{matrix}[0.6] \\ -3 & 5 & -1 & 7 \\\\ -8 & 2 & -2 & 1 \\\\ 0 & -3 & -4 & 0 \\\\ -6 & 0 & 5 & 1 \\\\ \end{matrix}$\end{tabular} & \begin{tabular}[c]{@{}l@{}}$\begin{matrix}[0.6] \\ -73 & -2 & 32 & -9 \\\\ 2 & -30 & 17 & -53 \\\\ 24 & 6 & 22 & -3 \\\\ 12 & -45 & -9 & -41 \\\\ \end{matrix}$\end{tabular} & \begin{tabular}[c]{@{}l@{}}$\begin{matrix}[0.6] \\ -73 & -2 & 32 & -9 \\\\ 2 & -30 & 17 & -53 \\\\ 24 & 6 & 22 & -3 \\\\ 12 & -45 & -9 & -41 \\\\ \end{matrix}$\end{tabular} & \begin{tabular}[c]{@{}l@{}}$\begin{matrix}[0.6] \\ -73 & -2 & 32 & -9 \\\\ 2 & -30 & 17 & -53 \\\\ 24 & 6 & 22 & -3 \\\\ 12 & -45 & -9 & -41 \\\\ \end{matrix}$\end{tabular} \\ \hline
-		\end{tabular}
-	}
-	\label{table:testing}
+	\begin{center}
+			\captionsetup{justification=raggedright,singlelinecheck=off}
+			\caption{\label{tbl:functional_test} Функциональные тесты}
+			\begin{tabular}{|c|c|c|}
+				\hline
+				1-ая матрица & 2-ая матрица & Ожидаемый результат 
+				\\ \hline
+				$\begin{pmatrix}
+					\\
+				\end{pmatrix}$ &
+				$\begin{pmatrix}
+					\\
+				\end{pmatrix}$ &
+				Сообщение об ошибке
+				
+				\\ \hline
+				$\begin{pmatrix}
+					\\
+				\end{pmatrix}$ &
+				$\begin{pmatrix}
+					1 & 1\\
+					1 & 1
+				\end{pmatrix}$ &
+				Сообщение об ошибке
+				
+				\\ \hline
+				$\begin{pmatrix}
+					0 & 1
+				\end{pmatrix}$ &
+				$\begin{pmatrix}
+					0 & 1
+				\end{pmatrix}$ &
+				Сообщение об ошибке 
+				
+				\\ \hline
+				$\begin{pmatrix}
+					5
+				\end{pmatrix}$ &
+				$\begin{pmatrix}
+					5
+				\end{pmatrix}$ &
+				$\begin{pmatrix}
+					25
+				\end{pmatrix}$
+				
+				\\ \hline
+				$\begin{pmatrix}
+					1 & 2 & 3\\
+					4 & 5 & 6\\
+					7 & 8 & 9
+				\end{pmatrix}$ &
+				$\begin{pmatrix}
+					1 & 2 & 3\\
+					4 & 5 & 6\\
+					7 & 8 & 9
+				\end{pmatrix}$ &
+				$\begin{pmatrix}
+					30 & 36 & 42\\
+					66 & 81 & 96\\
+					102 & 126 & 150
+				\end{pmatrix}$ 
+				
+				\\ \hline
+				$\begin{pmatrix}
+					4 & 3 \\
+					2 & 1 
+				\end{pmatrix}$ &
+				$\begin{pmatrix}
+					1 & 2\\
+					3 & 4
+				\end{pmatrix}$ &
+				$\begin{pmatrix}
+					13 & 20 \\
+					5 & 8 
+				\end{pmatrix}$                  
+				
+				\\ \hline
+				$\begin{pmatrix}
+					1 & 2 & 3
+				\end{pmatrix}$ &
+				$\begin{pmatrix}
+					1\\
+					2\\
+					3
+				\end{pmatrix}$ &
+				$\begin{pmatrix}
+					14
+				\end{pmatrix}$ 
+				
+				\\ \hline
+				$\begin{pmatrix}
+					1 & 2 & 3 \\
+					4 & 5 & 6 \\
+					7 & 8 & 9
+				\end{pmatrix}$ &
+				$\begin{pmatrix}
+					1 & 4\\
+					2 & 5\\
+					3 & 6
+				\end{pmatrix}$ &
+				$\begin{pmatrix}
+					14 & 32 \\
+					32 & 77 \\
+					50 & 122
+				\end{pmatrix}$                  
+				\\ \hline
+			\end{tabular}
+	\end{center}
 \end{table}
 
 \newpage
