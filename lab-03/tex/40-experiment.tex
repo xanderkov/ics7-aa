@@ -31,15 +31,15 @@
 \section{Процессорное время выполнения реализации алгоритмов}
 
 Результаты замеров времени работы реализаций алгоритмов сортировки на различных входных данных (в мс) приведены в таблицах \ref{tbl:best}, \ref{tbl:worth} и \ref{tbl:random}.
-
+\newcolumntype{d}[1]{D{.}{.}{-1}}
 \begin{table}[ht!]
 	\begin{center}
-			\captionsetup{justification=raggedleft,singlelinecheck=off}
+			\captionsetup{justification=raggedright,singlelinecheck=off}
 			\caption{Результаты замеров реализаций сортировок, входными данными явллялись отсортированные по возрастанию значений массивы.}
 			\label{tbl:best}
-			\begin{tabular}{|c|c|c|c|}
+			\begin{tabular}{|c|d{6.3}|d{6.3}|d{6.3}|}
 				\hline
-				Размер & Подсчетом &  Поразрядная &  Бинарным деревом \\
+				Размер & \multicolumn{1}{c|}{\text{Подсчетом}} &  \multicolumn{1}{c|}{\text{Поразрядная}} & \multicolumn{1}{c|}{\text{Бинарным деревом}}  \\
 				\hline
 				100 & 0.1662 & 0.0714 & 0.8650 \\ 
 				\hline
@@ -61,16 +61,16 @@
 	\end{center}
 \end{table}
 
-
+\newcolumntype{d}[1]{D{.}{.}{-1}}
 \begin{table}[ht!]
 	\begin{center}
-			\captionsetup{justification=raggedleft,singlelinecheck=off}
+			\captionsetup{justification=raggedright,singlelinecheck=off}
 			\caption{Результаты замеров реализаций сортировок, входными данными явллялись отсортированные по убыванию значений массивы.}
 			\label{tbl:worth}
-			\begin{tabular}{|c|c|c|c|}
-				\hline
-				Размер & Подсчетом &  Поразрядная &  Бинарным деревом \\
-				\hline
+			\begin{tabular}{|c|d{6.3}|d{6.3}|d{6.3}|}
+	\hline
+	Размер & \multicolumn{1}{c|}{\text{Подсчетом}} &  \multicolumn{1}{c|}{\text{Поразрядная}} & \multicolumn{1}{c|}{\text{Бинарным деревом}}  \\
+	\hline
 				100 & 0.1606 & 0.1048 & 0.7138 \\ 
 				\hline
 				200 & 0.5005 & 0.2008 & 2.7633 \\ 
@@ -92,16 +92,16 @@
 \end{table}
 
 \newpage
-
+\newcolumntype{d}[1]{D{.}{.}{-1}}
 \begin{table}[ht!]
 	\begin{center}
-			\captionsetup{justification=raggedleft,singlelinecheck=off}
+			\captionsetup{justification=raggedright,singlelinecheck=off}
 			\caption{Результаты замеров реализаций сортировок, входными данными явллялись заполненные числами со случайными значениями массивы.}
 			\label{tbl:random}
-			\begin{tabular}{|c|c|c|c|}
-				\hline
-				Размер & Подсчетом &  Поразрядная &  Бинарным деревом \\
-				\hline
+			\begin{tabular}{|c|d{6.3}|d{6.3}|d{6.3}|}
+	\hline
+	Размер & \multicolumn{1}{c|}{\text{Подсчетом}} &  \multicolumn{1}{c|}{\text{Поразрядная}} & \multicolumn{1}{c|}{\text{Бинарным деревом}}  \\
+	\hline
 				100 & 0.2734 & 0.1043 & 0.1560 \\ 
 				\hline
 				200 & 0.8321 & 0.2090 & 0.3756 \\ 
@@ -116,22 +116,23 @@
 				\hline
 				700 & 8.6692 & 0.7678 & 1.9018 \\ 
 				\hline
-				800 & 11.3752 & 0.8992 & 2.2986 \\ 
+				800 & 9.3752 & 0.8992 & 2.2986 \\ 
 				\hline
 			\end{tabular}
 	\end{center}
 \end{table}
 
 
-\section{Графики функций}
+\section{Результаты выполнения реализаций алгоритмов}
 
 На графике \ref{graph:r} представлено время работы сортировок, входными данными явллялись заполненные числами со случайными значениями массивы.
 
 \begin{figure}[ht!]
 	\begin{center}
+		\captionsetup{singlelinecheck = false, justification=centerfirst}
 	\begin{tikzpicture}
 		\begin{axis}[
-			xlabel={размер массива},
+			xlabel={количество элементов массива},
 			ylabel={время, нс},
 			width = 0.95\textwidth,
 			height=0.3\textheight,
@@ -167,17 +168,20 @@
 			}
 		\end{axis}
 	\end{tikzpicture}
+\centering
+\caption{Результаты c числами со случайными значениями массивов.}
 \end{center}
-	\caption{Результаты замеров реализаций сортировок, входными данными являлись заполненные числами со случайными значениями массивы.}
+
 \end{figure}
 
 На графике \ref{graph:r} представлено время работы сортировок, входными данными являлись отсортированные по возрастанию значений массивы.
 
 \begin{figure}[ht!]
 	\begin{center}
+		\captionsetup{singlelinecheck = false, justification=centerfirst}
 		\begin{tikzpicture}
 			\begin{axis}[
-				xlabel={размер массива},
+				xlabel={количество элементов массива},
 				ylabel={время, нс},
 				width = 0.95\textwidth,
 				height=0.3\textheight,
@@ -213,18 +217,21 @@
 				}
 			\end{axis}
 		\end{tikzpicture}
-	\end{center}
+	\centering
 	\caption{Результаты замеров реализаций сортировок, входными данными являлись отсортированные по возрастанию значений массивы.}
 	\label{graph:r}
+	\end{center}
+	
 \end{figure}
 
 На графике \ref{graph:r} представлено время работы сортировок, входными данными являлись отсортированные по убыванию значений массивы.
 
 \begin{figure}[ht!]
 	\begin{center}
+		\captionsetup{singlelinecheck = false, justification=centerfirst}
 		\begin{tikzpicture}
 			\begin{axis}[
-				xlabel={размер массива},
+				xlabel={количество элементов массива},
 				ylabel={время, нс},
 				width = 0.95\textwidth,
 				height=0.3\textheight,
@@ -260,8 +267,10 @@
 				}
 			\end{axis}
 		\end{tikzpicture}
-	\end{center}
+	\centering
 	\caption{Результаты замеров реализаций сортировок, входными данными являлись отсортированные по убыванию значений массивы.}
+	\end{center}
+	
 \end{figure}
 
 \newpage
