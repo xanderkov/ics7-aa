@@ -89,11 +89,11 @@ pub fn dbscan(points: &Vec<Vec<bool>>, min_ptx: usize, width: u32, height: u32, 
 }
 
 
-pub fn parallel_for(points_guard: Arc<Mutex<Vec<Vec<bool>>>>, min_ptx: usize, eps: f64, range: std::ops::Range<usize>, n: usize) -> u32 {
+pub fn parallel_for(points_guard: Arc<Mutex<Vec<Vec<bool>>>>, min_ptx: usize, eps: f64, range: std::ops::Range<usize>, n: usize, current_point_guard: Arc<Mutex<Vec<Vec<bool>>>>) -> u32 {
     let mut cluster_count = 0;
 
     let mut full_point = points_guard.lock().unwrap();
-    let mut current_point = full_point.clone();
+    let mut current_point = current_point_guard.lock().unwrap();
     let mut current_color = get_random_color();
 
     for i in range {
@@ -151,16 +151,21 @@ pub fn dbscan_parallel(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, nofth:
         let mut threads = Vec::with_capacity(nofth);
 
         let size = points.len() / (nofth + 1);
+
+        let cur_points_guard = Arc::new(Mutex::new(points.clone()));
+
         let points_guard = Arc::new(Mutex::new(points.clone()));
         for i in 0..nofth {
             let range = (i * size)..((i + 1) * size);
             let guard_copy = points_guard.clone();
-            threads.push(s.spawn(move |_| result += parallel_for(guard_copy, min_ptx, eps, range, size)));
+            let cur_points_guard_copy = cur_points_guard.clone();
+            threads.push(s.spawn(move |_| result += parallel_for(guard_copy, min_ptx, eps, range, points.len(), cur_points_guard_copy)));
         }
 
         let range = (nofth * size)..points.len();
         let guard_copy = points_guard.clone();
-        result += parallel_for(guard_copy, min_ptx, eps, range, size);
+        let cur_points_guard_copy = cur_points_guard.clone();
+        result += parallel_for(guard_copy, min_ptx, eps, range, points.len(), cur_points_guard_copy);
         for th in threads {
             th.join().unwrap();
         }
