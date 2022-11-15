@@ -54,7 +54,7 @@ pub fn dbscan(points: &Vec<Vec<bool>>, min_ptx: usize, width: u32, height: u32, 
     let mut current_color = get_random_color();
 
     for i in 0..points.len() {
-        for j in 0..points[0].len() {
+        for j in 0..points[i].len() {
             if current_point[i][j] {
 
                 let mut v = Vec::<[usize; 2]>::new();
@@ -89,15 +89,14 @@ pub fn dbscan(points: &Vec<Vec<bool>>, min_ptx: usize, width: u32, height: u32, 
 }
 
 
-pub fn parallel_for(points_guard: Arc<Mutex<Vec<Vec<bool>>>>, min_ptx: usize, eps: f64, range: std::ops::Range<usize>, n: usize, current_point_guard: Arc<Mutex<Vec<Vec<bool>>>>) -> u32 {
+pub fn parallel_for(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, range: std::ops::Range<usize>, guard_copy: Arc<Mutex<Vec<Vec<bool>>>>) -> u32 {
     let mut cluster_count = 0;
 
-    let mut full_point = points_guard.lock().unwrap();
-    let mut current_point = current_point_guard.lock().unwrap();
+    let mut current_point = guard_copy.lock().unwrap();
     let mut current_color = get_random_color();
 
-    for i in range {
-        for j in 0..full_point[i].len() {
+    for i in 0..points.len() {
+        for j in 0..points[i].len() {
             if current_point[i][j] {
 
                 let mut v = Vec::<[usize; 2]>::new();
@@ -112,20 +111,7 @@ pub fn parallel_for(points_guard: Arc<Mutex<Vec<Vec<bool>>>>, min_ptx: usize, ep
                     
                     let mut neighbor_count = 0;
                     
-                    let start_x = cmp::max(0, p[0] - min_ptx);
-                    let start_y = cmp::max(0, p[1] - min_ptx);
-                    let end_x = cmp::min(n, p[0] + min_ptx + 1);
-                    let end_y = cmp::min(full_point[0].len(), p[1] + min_ptx + 1);
-                    for _i in start_x..end_x {
-
-                        for _j in start_y..end_y {
-                            let distance = get_eculid_distance(_i as i32, _j as i32, p[0] as i32, p[1] as i32);
-                            if distance <= eps && full_point[_i][_j] {
-                                neighbor_count += 1;
-                                v.push([_i, _j]);
-                            }
-                        }
-                    }
+                    regionquery(points, min_ptx, &mut v, &mut neighbor_count, p, eps);
 
                     if neighbor_count >= min_ptx {
                         //if neighbor_count_check was hold
@@ -151,21 +137,17 @@ pub fn dbscan_parallel(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, nofth:
         let mut threads = Vec::with_capacity(nofth);
 
         let size = points.len() / (nofth + 1);
-
-        let cur_points_guard = Arc::new(Mutex::new(points.clone()));
-
         let points_guard = Arc::new(Mutex::new(points.clone()));
+
         for i in 0..nofth {
             let range = (i * size)..((i + 1) * size);
             let guard_copy = points_guard.clone();
-            let cur_points_guard_copy = cur_points_guard.clone();
-            threads.push(s.spawn(move |_| result += parallel_for(guard_copy, min_ptx, eps, range, points.len(), cur_points_guard_copy)));
+            threads.push(s.spawn(move |_| result += parallel_for(points, min_ptx, eps, range, guard_copy)));
         }
 
         let range = (nofth * size)..points.len();
         let guard_copy = points_guard.clone();
-        let cur_points_guard_copy = cur_points_guard.clone();
-        result += parallel_for(guard_copy, min_ptx, eps, range, points.len(), cur_points_guard_copy);
+        result += parallel_for(points, min_ptx, eps, range, guard_copy);
         for th in threads {
             th.join().unwrap();
         }
