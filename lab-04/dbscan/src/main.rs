@@ -22,7 +22,7 @@ fn main() {
         points.push(_p);
     }
 
-    
-    let cluster_count = algorithms::dbscan(points, min_ptx, width, height, eps);
-    println!("cluster {}", cluster_count);
+    algorithms::run_tests(points, min_ptx, width, height, eps);
+    //let cluster_count = algorithms::dbscan(points, min_ptx, width, height, eps);
+    //println!("cluster {}", cluster_count);
 }
