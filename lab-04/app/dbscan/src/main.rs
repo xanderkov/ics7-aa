@@ -33,32 +33,6 @@ fn regionquery(points: &Vec<Vec<bool>>, min_ptx: usize, v: &mut Vec::<[usize; 2]
     }
 }
 
-fn expand_cluster(current_point: &Vec<Vec<bool>>, min_ptx: usize, imgbuf : &mut ImageBuffer, i: u32, j: u32) {
-    let mut v = Vec::<[usize; 2]>::new();
-    v.push([i, j]);
-    let mut neighbor_count_check = 0;
-    while !v.is_empty() {
-        let p = v.pop().unwrap();
-        if !current_point[p[0]][p[1]] {
-            continue;
-        }
-        current_point[p[0]][p[1]] = false;
-        
-        let mut neighbor_count = 0;
-        
-        regionquery(&points, min_ptx, &mut v, &mut neighbor_count, p, eps);
-
-        if neighbor_count >= min_ptx {
-            //if neighbor_count_check was hold
-            neighbor_count_check += 1;
-            *imgbuf.get_pixel_mut(p[1] as u32, p[0] as u32) = image::Rgb(current_color);
-        }
-    }
-    if neighbor_count_check > 0 {
-        cluster_count += 1;
-        current_color = get_random_color();
-    }
-}
 
 
 fn dbscan(points: Vec<Vec<bool>>, min_ptx: usize, mut cluster_count: u32, width: u32, height: u32, eps: f64) -> u32 {
@@ -70,14 +44,36 @@ fn dbscan(points: Vec<Vec<bool>>, min_ptx: usize, mut cluster_count: u32, width:
 
     let mut current_point = points.clone();
     let mut current_color = get_random_color();
+    println!("{}", points[0][0]);
 
     for i in 0..points.len() {
         for j in 0..points[i].len() {
             if current_point[i][j] {
-                
-                expand_cluster(current_point, min_ptx, imgbuf, i, j);
-                
-                
+
+                let mut v = Vec::<[usize; 2]>::new();
+                v.push([i, j]);
+                let mut neighbor_count_check = 0;
+                while !v.is_empty() {
+                    let p = v.pop().unwrap();
+                    if !current_point[p[0]][p[1]] {
+                        continue;
+                    }
+                    current_point[p[0]][p[1]] = false;
+                    
+                    let mut neighbor_count = 0;
+                    
+                    regionquery(&points, min_ptx, &mut v, &mut neighbor_count, p, eps);
+
+                    if neighbor_count >= min_ptx {
+                        //if neighbor_count_check was hold
+                        neighbor_count_check += 1;
+                        *imgbuf.get_pixel_mut(p[1] as u32, p[0] as u32) = image::Rgb(current_color);
+                    }
+                }
+                if neighbor_count_check > 0 {
+                    cluster_count += 1;
+                    current_color = get_random_color();
+                }
                 current_point[i][j] = false;
             }
         }
