@@ -2,7 +2,7 @@ extern crate image;
 extern crate rand;
 
 
-use crossbeam::thread as cthread;
+use crossbeam::thread;
 use std::sync::{ Arc, Mutex };
 use image::GenericImageView;
 use rand::Rng;
@@ -140,7 +140,7 @@ pub fn dbscan_parallel(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, nofth:
     let current_point = Arc::new(Mutex::new(points.clone()));
     let size = points.len() / (nofth + 1);
 
-    cthread::scope(|s| {
+    thread::scope(|s| {
         let mut threads = Vec::with_capacity(nofth);
 
         for i in 0..nofth {
@@ -150,11 +150,6 @@ pub fn dbscan_parallel(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, nofth:
             threads.push(s.spawn(move |_| parallel_for(points, min_ptx, eps, range, guard_copy, counter_copy)));
         }
 
-        let guard_copy = current_point.clone();
-        let range = (nofth * size)..points.len();
-        let counter_copy = counter.clone();
-
-        parallel_for(points, min_ptx, eps, range, guard_copy, counter_copy);
         for th in threads {
             th.join().unwrap();
         }
@@ -173,12 +168,13 @@ pub fn dbscan_p(points: &Vec<Vec<bool>>, min_ptx: usize, width: u32, height: u32
 }
 
 pub fn run_tests(points: Vec<Vec<bool>>, min_ptx: usize, width: u32, height: u32, eps: f64) {
+    let n = 100;
     for j in 1..5 {
-        println!("Количество замеров: {} \n", j * 100);
+        println!("Количество замеров: {} \n", j * n);
         for (algorithm, description) in MULTS_ARRAY.iter().zip(MULTS_DESCRIPTIONS.iter()) {
             let time = Instant::now();
             let mut result = 0;
-            for i in 0..j * 100 {
+            for i in 0..j * n {
                 // println!("Замер №{}", i + 1);
                 result = algorithm(&points, min_ptx, width, height, eps);
             }
