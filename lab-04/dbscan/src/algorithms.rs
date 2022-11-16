@@ -173,18 +173,22 @@ pub fn dbscan_p(points: &Vec<Vec<bool>>, min_ptx: usize, width: u32, height: u32
 }
 
 pub fn run_tests(points: Vec<Vec<bool>>, min_ptx: usize, width: u32, height: u32, eps: f64) {
-    for (algorithm, description) in MULTS_ARRAY.iter().zip(MULTS_DESCRIPTIONS.iter()) {
-        let time = Instant::now();
-        let mut result = 0;
-        for i in 0..3    {
-            println!("Замер №{}", i + 1);
-            result = algorithm(&points, min_ptx, width, height, eps);
-        }
+    for j in 1..5 {
+        println!("Количество замеров: {} \n", j * 100);
+        for (algorithm, description) in MULTS_ARRAY.iter().zip(MULTS_DESCRIPTIONS.iter()) {
+            let time = Instant::now();
+            let mut result = 0;
+            for i in 0..j * 100 {
+                // println!("Замер №{}", i + 1);
+                result = algorithm(&points, min_ptx, width, height, eps);
+            }
 
+            
+            let time = time.elapsed().as_nanos();
+            println!("Алгоритм: {}", description);
+            println!("Результат: {} ", result);
+            println!("Время: {} нс \n", time);
+        }
         
-        let time = time.elapsed().as_nanos();
-        println!("\n Алгоритм: {}", description);
-        println!("Результат: {} ", result);
-        println!("\n Время: {} нс \n", time);
     }
 }
