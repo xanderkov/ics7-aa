@@ -89,13 +89,13 @@ pub fn dbscan(points: &Vec<Vec<bool>>, min_ptx: usize, width: u32, height: u32, 
 }
 
 
-pub fn parallel_for(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, range: std::ops::Range<usize>, guard_copy: Arc<Mutex<Vec<Vec<bool>>>>) -> u32 {
-    let mut cluster_count = 0;
+pub fn parallel_for(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, range: std::ops::Range<usize>, guard_copy: Arc<Mutex<Vec<Vec<bool>>>>, n: Arc<Mutex<u32>>) {
+    let mut cluster_count = n.lock().unwrap();
 
     let mut current_point = guard_copy.lock().unwrap();
     let mut current_color = get_random_color();
 
-    for i in 0..points.len() {
+    for i in range {
         for j in 0..points[i].len() {
             if current_point[i][j] {
 
@@ -119,38 +119,44 @@ pub fn parallel_for(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, range: st
                     }
                 }
                 if neighbor_count_check > 0 {
-                    cluster_count += 1;
+                    *cluster_count += 1;
                     current_color = get_random_color();
                 }
                 current_point[i][j] = false;
             }
         }
     }
-    cluster_count
 
 }
 
 pub fn dbscan_parallel(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, nofth: usize) -> u32 {
 
-    let mut result = 0;
+    let counter = Arc::new(Mutex::new(0));
+    let clone_p = Arc::new(Mutex::new(points.clone()));
     cthread::scope(|s| {
         let mut threads = Vec::with_capacity(nofth);
+        let counter = Arc::clone(&counter);
         let size = points.len() / (nofth + 1);
+        let guard = Arc::clone(&clone_p);
 
         for i in 0..nofth {
             let range = (i * size)..((i + 1) * size);
-            let guard_copy = Arc::new(Mutex::new(points.clone()));
-            threads.push(s.spawn(move |_| result += parallel_for(points, min_ptx, eps, range, guard_copy)));
+            let guard_copy = guard.clone();
+            let counter_copy = counter.clone();
+            threads.push(s.spawn(move |_| parallel_for(points, min_ptx, eps, range, ?guard_copy, counter_copy)));
         }
 
+        let guard_copy = guard.clone();
         let range = (nofth * size)..points.len();
-        let guard_copy = Arc::new(Mutex::new(points.clone()));
-        result += parallel_for(points, min_ptx, eps, range, guard_copy);
+        let counter_copy = counter.clone();
+        parallel_for(points, min_ptx, eps, range, guard_copy, counter_copy);
         for th in threads {
             th.join().unwrap();
         }
-        
-        result
+
+        let counter_copy = counter.clone();
+        let mut cluster_count = counter_copy.lock().unwrap();
+        *cluster_count
     }).unwrap()
 
     
