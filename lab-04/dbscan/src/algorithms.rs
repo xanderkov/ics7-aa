@@ -89,7 +89,12 @@ pub fn dbscan(points: &Vec<Vec<bool>>, min_ptx: usize, width: u32, height: u32, 
 }
 
 
-pub fn parallel_for(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, range: std::ops::Range<usize>, guard_copy: Arc<Mutex<Vec<Vec<bool>>>>, n: Arc<Mutex<u32>>) {
+pub fn parallel_for(points: &Vec<Vec<bool>>, 
+    min_ptx: usize, eps: f64, 
+    range: std::ops::Range<usize>, 
+    guard_copy: Arc<Mutex<Vec<Vec<bool>>>>, 
+    n: Arc<Mutex<u32>>) 
+{
     let mut cluster_count = n.lock().unwrap();
 
     let mut current_point = guard_copy.lock().unwrap();
@@ -132,30 +137,30 @@ pub fn parallel_for(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, range: st
 pub fn dbscan_parallel(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, nofth: usize) -> u32 {
 
     let counter = Arc::new(Mutex::new(0));
-    let clone_p = Arc::new(Mutex::new(points.clone()));
+    let current_point = Arc::new(Mutex::new(points.clone()));
+    let size = points.len() / (nofth + 1);
+
     cthread::scope(|s| {
         let mut threads = Vec::with_capacity(nofth);
-        let counter = Arc::clone(&counter);
-        let size = points.len() / (nofth + 1);
-        let guard = Arc::clone(&clone_p);
 
         for i in 0..nofth {
             let range = (i * size)..((i + 1) * size);
-            let guard_copy = guard.clone();
+            let guard_copy = current_point.clone();
             let counter_copy = counter.clone();
-            threads.push(s.spawn(move |_| parallel_for(points, min_ptx, eps, range, ?guard_copy, counter_copy)));
+            threads.push(s.spawn(move |_| parallel_for(points, min_ptx, eps, range, guard_copy, counter_copy)));
         }
 
-        let guard_copy = guard.clone();
+        let guard_copy = current_point.clone();
         let range = (nofth * size)..points.len();
         let counter_copy = counter.clone();
+
         parallel_for(points, min_ptx, eps, range, guard_copy, counter_copy);
         for th in threads {
             th.join().unwrap();
         }
 
         let counter_copy = counter.clone();
-        let mut cluster_count = counter_copy.lock().unwrap();
+        let cluster_count = counter_copy.lock().unwrap();
         *cluster_count
     }).unwrap()
 
@@ -178,8 +183,8 @@ pub fn run_tests(points: Vec<Vec<bool>>, min_ptx: usize, width: u32, height: u32
 
         
         let time = time.elapsed().as_nanos();
-        println!("{}: ", description);
-        println!("{}: ", result);
-        println!("\nВремя: {} нс", time);
+        println!("\n Алгоритм: {}", description);
+        println!("Результат: {} ", result);
+        println!("\n Время: {} нс \n", time);
     }
 }
