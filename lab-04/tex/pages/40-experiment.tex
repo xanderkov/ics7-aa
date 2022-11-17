@@ -15,16 +15,6 @@
 
 На рисунке \ref{demonstration} представлен результат работы программы, в которой выводится исходный массив сгенерированный программой и три отсортированных массива.
 
-\begin{figure}[ht!]
-	\begin{center}
-		\captionsetup{singlelinecheck = false, justification=centerfirst}
-		\includegraphics[scale=0.8]{assets/demonstation.png}
-		\caption{Пример работы программы}
-		\label{demonstration}
-	\end{center}
-	
-	
-\end{figure}
 
 \newpage
 
@@ -127,151 +117,15 @@
 
 На графике \ref{graph:r} представлено время работы сортировок, входными данными явллялись заполненные числами со случайными значениями массивы.
 
-\begin{figure}[ht!]
-	\begin{center}
-		\captionsetup{singlelinecheck = false, justification=centerfirst}
-	\begin{tikzpicture}
-		\begin{axis}[
-			xlabel={количество элементов массива},
-			ylabel={время, нс},
-			width = 0.95\textwidth,
-			height=0.3\textheight,
-			xmin=0, xmax=1000,
-			legend pos=north west,
-			xmajorgrids=true,
-			grid style=dashed,
-			]
-			\addplot[
-			blue,
-			semithick,
-			mark = x,
-			mark size = 3pt,
-			thick,
-			] file {assets/count_r.dat};
-			
-			\addplot[
-			red,
-			semithick,
-			mark = *,
-			] file {assets/radix_r.dat};
-			
-			\addplot[
-			green,
-			semithick,
-			mark = *,
-			] file {assets/binary_r.dat};
-			
-			\legend{
-				Сортировка подсчетом,
-				Сортировка поразрядная,
-				Сортировка бинарным деревом,
-			}
-		\end{axis}
-	\end{tikzpicture}
-\centering
-\caption{Результаты c числами со случайными значениями массивов.}
-\end{center}
 
-\end{figure}
 
 На графике \ref{graph:r} представлено время работы сортировок, входными данными являлись отсортированные по возрастанию значений массивы.
 
-\begin{figure}[ht!]
-	\begin{center}
-		\captionsetup{singlelinecheck = false, justification=centerfirst}
-		\begin{tikzpicture}
-			\begin{axis}[
-				xlabel={количество элементов массива},
-				ylabel={время, нс},
-				width = 0.95\textwidth,
-				height=0.3\textheight,
-				xmin=0, xmax=1000,
-				legend pos=north west,
-				xmajorgrids=true,
-				grid style=dashed,
-				]
-				\addplot[
-				blue,
-				semithick,
-				mark = x,
-				mark size = 3pt,
-				thick,
-				] file {assets/count_u.dat};
-				
-				\addplot[
-				red,
-				semithick,
-				mark = *,
-				] file {assets/radix_u.dat};
-				
-				\addplot[
-				green,
-				semithick,
-				mark = *,
-				] file {assets/binary_u.dat};
-				
-				\legend{
-					Сортировка подсчетом,
-					Сортировка поразрядная,
-					Сортировка бинарным деревом,
-				}
-			\end{axis}
-		\end{tikzpicture}
-	\centering
-	\caption{Результаты замеров реализаций сортировок, входными данными являлись отсортированные по возрастанию значений массивы.}
-	\label{graph:r}
-	\end{center}
-	
-\end{figure}
+
 
 На графике \ref{graph:r} представлено время работы сортировок, входными данными являлись отсортированные по убыванию значений массивы.
 
-\begin{figure}[ht!]
-	\begin{center}
-		\captionsetup{singlelinecheck = false, justification=centerfirst}
-		\begin{tikzpicture}
-			\begin{axis}[
-				xlabel={количество элементов массива},
-				ylabel={время, нс},
-				width = 0.95\textwidth,
-				height=0.3\textheight,
-				xmin=0, xmax=1000,
-				legend pos=north west,
-				xmajorgrids=true,
-				grid style=dashed,
-				]
-				\addplot[
-				blue,
-				semithick,
-				mark = x,
-				mark size = 3pt,
-				thick,
-				] file {assets/count_d.dat};
-				
-				\addplot[
-				red,
-				semithick,
-				mark = *,
-				] file {assets/radix_d.dat};
-				
-				\addplot[
-				green,
-				semithick,
-				mark = *,
-				] file {assets/binary_d.dat};
-				
-				\legend{
-					Сортировка подсчетом,
-					Сортировка поразрядная,
-					Сортировка бинарным деревом,
-				}
-			\end{axis}
-		\end{tikzpicture}
-	\centering
-	\caption{Результаты замеров реализаций сортировок, входными данными являлись отсортированные по убыванию значений массивы.}
-	\end{center}
-	
-\end{figure}
+
 
 \newpage
 
