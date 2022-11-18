@@ -9,7 +9,7 @@ fn main() {
     let eps = 2.0;
     let min_ptx = 2;
     
-    let img = image::open("./data/1kme.bmp").unwrap();
+    let img = image::open("./data/me.bmp").unwrap();
     let target = [0, 0, 0, 255];
     let mut points = Vec::<Vec<bool>>::new();
     let (width, height) = img.dimensions();

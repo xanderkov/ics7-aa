@@ -168,18 +168,16 @@ pub fn dbscan_p(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, imgbuf: RgbIm
 
 pub fn run_tests(points: Vec<Vec<bool>>, min_ptx: usize, eps: f64, imgbuf: RgbImage) {
     let n = 10;
-    
+    let img_guard = imgbuf.clone();
     for j in 1..5 {
         println!("Количество замеров: {} \n", j * n);
         for (algorithm, description) in MULTS_ARRAY.iter().zip(MULTS_DESCRIPTIONS.iter()) {
             let time = Instant::now();
             let mut result = 0;
             for _ in 0..j * n {
-                let img_clone = imgbuf.clone();
+                let img_clone = img_guard.clone();
                 result = algorithm(&points, min_ptx, eps, img_clone);
             }
-
-            
             let time = time.elapsed().as_nanos();
             println!("Алгоритм: {}", description);
             println!("Результат: {} ", result);
@@ -187,5 +185,5 @@ pub fn run_tests(points: Vec<Vec<bool>>, min_ptx: usize, eps: f64, imgbuf: RgbIm
         }
         
     }
-    imgbuf.save("./data/dbscan.png").unwrap();
+    // imgbuf.save("./data/dbscan.png").unwrap();
 }
