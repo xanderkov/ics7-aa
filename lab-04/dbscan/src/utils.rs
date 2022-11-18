@@ -1,14 +1,13 @@
 extern crate image;
 extern crate rand;
 
-
+use image::RgbImage;
 use crossbeam::thread;
 use std::sync::{ Arc, Mutex };
-use image::GenericImageView;
-use rand::Rng;
-use std::cmp;
 use std::time::Instant;
-type MultFnPtr = fn(&Vec<Vec<bool>>, usize, u32, u32, f64) -> u32;
+type MultFnPtr = fn(&Vec<Vec<bool>>, usize, f64, RgbImage) -> u32;
+use crate::rand::Rng;
+use std::cmp;
 
 pub static MULTS_ARRAY: [MultFnPtr; 2] = [dbscan, dbscan_p];
 pub static MULTS_DESCRIPTIONS: [&str; 2] = ["Простой dbscan", "Параллельный dbscan"];
@@ -41,15 +40,9 @@ fn regionquery(points: &Vec<Vec<bool>>, min_ptx: usize, v: &mut Vec::<[usize; 2]
 }
 
 
-
-pub fn dbscan(points: &Vec<Vec<bool>>, min_ptx: usize, width: u32, height: u32, eps: f64) -> u32 {
+pub fn dbscan(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, mut imgbuf: RgbImage) -> u32 {
 
     let mut cluster_count = 0;
-    let mut imgbuf = image::ImageBuffer::new(width, height);
-    for (_, _, pixel) in imgbuf.enumerate_pixels_mut() {
-        *pixel = image::Rgb([255, 255, 255]);
-    }
-
     let mut current_point = points.clone();
     let mut current_color = get_random_color();
 
@@ -73,7 +66,7 @@ pub fn dbscan(points: &Vec<Vec<bool>>, min_ptx: usize, width: u32, height: u32, 
 
                     if neighbor_count >= min_ptx {
                         neighbor_count_check += 1;
-                        // *imgbuf.get_pixel_mut(p[1] as u32, p[0] as u32) = image::Rgb(current_color);
+                        *imgbuf.get_pixel_mut(p[1] as u32, p[0] as u32) = image::Rgb(current_color);
                     }
                 }
                 if neighbor_count_check > 0 {
@@ -84,7 +77,7 @@ pub fn dbscan(points: &Vec<Vec<bool>>, min_ptx: usize, width: u32, height: u32, 
             }
         }
     }
-    //imgbuf.save("./data/dbscan.png").unwrap();
+    
     cluster_count
 }
 
@@ -93,7 +86,8 @@ pub fn parallel_for(points: &Vec<Vec<bool>>,
     min_ptx: usize, eps: f64, 
     range: std::ops::Range<usize>, 
     guard_copy: Arc<Mutex<Vec<Vec<bool>>>>, 
-    n: Arc<Mutex<u32>>) 
+    n: Arc<Mutex<u32>>,
+    mut imgbuf: RgbImage) 
 {
     let mut cluster_count = n.lock().unwrap();
 
@@ -121,6 +115,7 @@ pub fn parallel_for(points: &Vec<Vec<bool>>,
                     if neighbor_count >= min_ptx {
                         //if neighbor_count_check was hold
                         neighbor_count_check += 1;
+                        *imgbuf.get_pixel_mut(p[1] as u32, p[0] as u32) = image::Rgb(current_color);
                     }
                 }
                 if neighbor_count_check > 0 {
@@ -134,7 +129,7 @@ pub fn parallel_for(points: &Vec<Vec<bool>>,
 
 }
 
-pub fn dbscan_parallel(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, nofth: usize) -> u32 {
+pub fn dbscan_parallel(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, imgbuf: RgbImage, nofth: usize) -> u32 {
 
     let counter = Arc::new(Mutex::new(0));
     let current_point = Arc::new(Mutex::new(points.clone()));
@@ -147,9 +142,14 @@ pub fn dbscan_parallel(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, nofth:
             let range = (i * size)..((i + 1) * size);
             let guard_copy = current_point.clone();
             let counter_copy = counter.clone();
-            threads.push(s.spawn(move |_| parallel_for(points, min_ptx, eps, range, guard_copy, counter_copy)));
+            let img_clone = imgbuf.clone();
+            threads.push(s.spawn(move |_| parallel_for(points, min_ptx, eps, range, guard_copy, counter_copy, img_clone)));
         }
-
+        let range = (size * nofth)..points.len();
+        let guard_copy = current_point.clone();
+        let counter_copy = counter.clone();
+        let img_clone = imgbuf.clone();
+        parallel_for(points, min_ptx, eps, range, guard_copy, counter_copy, img_clone);
         for th in threads {
             th.join().unwrap();
         }
@@ -158,25 +158,25 @@ pub fn dbscan_parallel(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, nofth:
         let cluster_count = counter_copy.lock().unwrap();
         *cluster_count
     }).unwrap()
-
-    
 }
 
-pub fn dbscan_p(points: &Vec<Vec<bool>>, min_ptx: usize, width: u32, height: u32, eps: f64) -> u32 {
-    let res = dbscan_parallel(points, min_ptx, eps, NUMBER_OF_THREADS - 1);
+
+pub fn dbscan_p(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, imgbuf: RgbImage) -> u32 {
+    let res = dbscan_parallel(points, min_ptx, eps, imgbuf, NUMBER_OF_THREADS - 1);
     res
 }
 
-pub fn run_tests(points: Vec<Vec<bool>>, min_ptx: usize, width: u32, height: u32, eps: f64) {
-    let n = 100;
+pub fn run_tests(points: Vec<Vec<bool>>, min_ptx: usize, eps: f64, imgbuf: RgbImage) {
+    let n = 10;
+    
     for j in 1..5 {
         println!("Количество замеров: {} \n", j * n);
         for (algorithm, description) in MULTS_ARRAY.iter().zip(MULTS_DESCRIPTIONS.iter()) {
             let time = Instant::now();
             let mut result = 0;
-            for i in 0..j * n {
-                // println!("Замер №{}", i + 1);
-                result = algorithm(&points, min_ptx, width, height, eps);
+            for _ in 0..j * n {
+                let img_clone = imgbuf.clone();
+                result = algorithm(&points, min_ptx, eps, img_clone);
             }
 
             
@@ -187,4 +187,5 @@ pub fn run_tests(points: Vec<Vec<bool>>, min_ptx: usize, width: u32, height: u32
         }
         
     }
+    imgbuf.save("./data/dbscan.png").unwrap();
 }

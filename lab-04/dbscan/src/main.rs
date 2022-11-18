@@ -2,8 +2,7 @@ extern crate image;
 extern crate rand;
 
 use image::GenericImageView;
-mod algorithms;
-
+mod utils;
 
 fn main() {
 
@@ -22,7 +21,12 @@ fn main() {
         points.push(_p);
     }
 
-    algorithms::run_tests(points, min_ptx, width, height, eps);
+    let mut imgbuf = image::RgbImage::new(width, height);
+    for (_, _, pixel) in imgbuf.enumerate_pixels_mut() {
+        *pixel = image::Rgb([255, 255, 255]);
+    }
+    //algorithms::dbscan(&points, min_ptx, width,height,eps, &imgbuf);
+    utils::run_tests(points, min_ptx, eps, imgbuf);
     //let cluster_count = algorithms::dbscan(points, min_ptx, width, height, eps);
     //println!("cluster {}", cluster_count);
 }
