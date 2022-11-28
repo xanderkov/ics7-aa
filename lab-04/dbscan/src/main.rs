@@ -12,7 +12,7 @@ fn main() {
     let img = image::open("./data/1kme.bmp").unwrap();
     let target = [0, 0, 0, 255];
     let mut points = Vec::<Vec<bool>>::new();
-    let (width, height) = (500, 500);
+    let (width, height) = (1000, 1000);
     for h in 0..height {
         let mut _p = Vec::<bool>::new();
         for w in 0..width {
