@@ -13,128 +13,142 @@
 
 
 
-На рисунке \ref{demonstration} представлен результат работы программы, в которой выводится исходный массив сгенерированный программой и три отсортированных массива.
+На рисунке \ref{demonstration} представлен результат работы программы, в которой выводится время работа алгоритма и количество найденных кластеров.
 
+\begin{figure}[ht!]
+	\begin{center}
+		\captionsetup{singlelinecheck = false, justification=centerfirst}
+		\includegraphics[scale=0.8]{assets/demonstration.png}
+		\caption{Пример работы программы}
+		\label{demonstration}
+	\end{center}
+	
+	
+\end{figure}
 
 \newpage
 
-\section{Процессорное время выполнения реализации алгоритмов}
+\section{Время выполнения реализации алгоритмов}
 
-Результаты замеров времени работы реализаций алгоритмов сортировки на различных входных данных (в мс) приведены в таблицах \ref{tbl:best}, \ref{tbl:worth} и \ref{tbl:random}.
+Результаты замеров времени работы реализаций алгоритмов DBSCAN (в с) приведены в таблице \ref{tbl:best}. Сравнение проводилось между простым алгоритмом и параллельного алгоритма при исполнении на 8 потоках.
 \newcolumntype{d}[1]{D{.}{.}{-1}}
 \begin{table}[ht!]
 	\begin{center}
 			\captionsetup{justification=raggedright,singlelinecheck=off}
-			\caption{Результаты замеров реализаций сортировок, входными данными явллялись отсортированные по возрастанию значений массивы.}
+			\caption{Результаты замеров реализаций алгоритмов DBSCAN}
 			\label{tbl:best}
-			\begin{tabular}{|c|d{6.3}|d{6.3}|d{6.3}|}
+			\begin{tabular}{|c|d{6.3}|d{6.3}|}
 				\hline
-				Размер & \multicolumn{1}{c|}{\text{Подсчетом}} &  \multicolumn{1}{c|}{\text{Поразрядная}} & \multicolumn{1}{c|}{\text{Бинарным деревом}}  \\
+				Размер & \multicolumn{1}{c|}{\text{Простой DBSCAN}} &  \multicolumn{1}{c|}{\text{Параллельный DBSCAN}}  \\
 				\hline
-				100 & 0.1662 & 0.0714 & 0.8650 \\ 
+				100 & 11.765266659 & 11.485497229 \\ 
 				\hline
-				200 & 0.5113 & 0.2058 & 3.3357 \\ 
+				200 & 25.211357678 & 21.986658269 \\ 
 				\hline
-				300 & 1.1026 & 0.3131 & 7.6464 \\ 
+				300 & 43.935717611 & 40.735717611 \\ 
 				\hline
-				400 & 2.0140 & 0.4364 & 13.6841 \\ 
+				400 & 53.180641915 & 49.989895044 \\ 
 				\hline
-				500 & 3.3046 & 0.5591 & 21.5524 \\ 
-				\hline
-				600 & 5.0567 & 0.6798 & 31.3052 \\ 
-				\hline
-				700 & 6.6944 & 0.7852 & 43.0406 \\ 
-				\hline
-				800 & 8.5163 & 0.8766 & 56.4318 \\ 
+				500 & 63.485497229 & 59.765266659
+				\\
 				\hline
 			\end{tabular}
 	\end{center}
 \end{table}
 
-\newcolumntype{d}[1]{D{.}{.}{-1}}
-\begin{table}[ht!]
+На графике \ref{graph:r} представлено время работы параллельного и простого алгоритмов DBSCAN.
+
+\begin{figure}[ht!]
 	\begin{center}
-			\captionsetup{justification=raggedright,singlelinecheck=off}
-			\caption{Результаты замеров реализаций сортировок, входными данными явллялись отсортированные по убыванию значений массивы.}
-			\label{tbl:worth}
-			\begin{tabular}{|c|d{6.3}|d{6.3}|d{6.3}|}
-	\hline
-	Размер & \multicolumn{1}{c|}{\text{Подсчетом}} &  \multicolumn{1}{c|}{\text{Поразрядная}} & \multicolumn{1}{c|}{\text{Бинарным деревом}}  \\
-	\hline
-				100 & 0.1606 & 0.1048 & 0.7138 \\ 
-				\hline
-				200 & 0.5005 & 0.2008 & 2.7633 \\ 
-				\hline
-				300 & 1.0747 & 0.3110 & 6.3060 \\ 
-				\hline
-				400 & 1.9383 & 0.4312 & 11.3831 \\ 
-				\hline
-				500 & 3.1148 & 0.5427 & 18.0577 \\ 
-				\hline
-				600 & 4.6409 & 0.6693 & 26.0260 \\ 
-				\hline
-				700 & 6.7969 & 0.8317 & 36.7397 \\ 
-				\hline
-				800 & 8.7922 & 0.9583 & 47.2628 \\ 
-				\hline
-			\end{tabular}
+		\captionsetup{singlelinecheck = false, justification=centerfirst}
+		\begin{tikzpicture}
+			\begin{axis}[
+				xlabel={Размер},
+				ylabel={время, с},
+				width = 0.95\textwidth,
+				height=0.3\textheight,
+				xmin=0, xmax=600,
+				legend pos=north west,
+				xmajorgrids=true,
+				grid style=dashed,
+				]
+				\addplot[
+				blue,
+				semithick,
+				mark = x,
+				mark size = 3pt,
+				thick,
+				] file {assets/parallel.dat};
+				
+				\addplot[
+				red,
+				semithick,
+				mark = *,
+				] file {assets/simple.dat};
+				
+				
+				\legend{
+					Параллельный DBSCAN,
+					Простой DBSCAN
+				}
+			\end{axis}
+		\end{tikzpicture}
+		\centering
+		\caption{Результаты c числами со случайными значениями массивов.}
+		\label{graph:r}
 	\end{center}
-\end{table}
+	
+\end{figure}
 
-\newpage
-\newcolumntype{d}[1]{D{.}{.}{-1}}
-\begin{table}[ht!]
+На графике \ref{graph:j} представлена зависимоть времени работы параллельного алгоритма DBSCAN от количество потоков на квадратном изображении размера 500 пикселей.
+
+\begin{figure}[ht!]
 	\begin{center}
-			\captionsetup{justification=raggedright,singlelinecheck=off}
-			\caption{Результаты замеров реализаций сортировок, входными данными явллялись заполненные числами со случайными значениями массивы.}
-			\label{tbl:random}
-			\begin{tabular}{|c|d{6.3}|d{6.3}|d{6.3}|}
-	\hline
-	Размер & \multicolumn{1}{c|}{\text{Подсчетом}} &  \multicolumn{1}{c|}{\text{Поразрядная}} & \multicolumn{1}{c|}{\text{Бинарным деревом}}  \\
-	\hline
-				100 & 0.2734 & 0.1043 & 0.1560 \\ 
-				\hline
-				200 & 0.8321 & 0.2090 & 0.3756 \\ 
-				\hline
-				300 & 1.6837 & 0.3142 & 0.6025 \\ 
-				\hline
-				400 & 2.8938 & 0.4281 & 0.9785 \\ 
-				\hline
-				500 & 4.4438 & 0.5419 & 1.1784 \\ 
-				\hline
-				600 & 6.4153 & 0.6704 & 1.5523 \\ 
-				\hline
-				700 & 8.6692 & 0.7678 & 1.9018 \\ 
-				\hline
-				800 & 9.3752 & 0.8992 & 2.2986 \\ 
-				\hline
-			\end{tabular}
+		\captionsetup{singlelinecheck = false, justification=centerfirst}
+		\begin{tikzpicture}
+			\begin{axis}[
+				xlabel={Размер изображения},
+				ylabel={время, с},
+				width = 0.95\textwidth,
+				height=0.3\textheight,
+				xmin=0, xmax=600,
+				legend pos=north west,
+				xmajorgrids=true,
+				grid style=dashed,
+				]
+				\addplot[
+				blue,
+				semithick,
+				mark = x,
+				mark size = 3pt,
+				thick,
+				] file {assets/parallel.dat};
+				
+				\addplot[
+				red,
+				semithick,
+				mark = *,
+				] file {assets/simple.dat};
+				
+				
+				\legend{
+					Параллельный DBSCAN,
+					Простой DBSCAN
+				}
+			\end{axis}
+		\end{tikzpicture}
+		\centering
+		\caption{Результаты c числами со случайными значениями массивов.}
+		\label{graph:j}
 	\end{center}
-\end{table}
-
-
-\section{Результаты выполнения реализаций алгоритмов}
-
-На графике \ref{graph:r} представлено время работы сортировок, входными данными явллялись заполненные числами со случайными значениями массивы.
-
-
-
-На графике \ref{graph:r} представлено время работы сортировок, входными данными являлись отсортированные по возрастанию значений массивы.
-
-
-
-На графике \ref{graph:r} представлено время работы сортировок, входными данными являлись отсортированные по убыванию значений массивы.
-
-
+	
+\end{figure}
 
 \newpage
 
 \section*{Вывод}
 
 В данном разделе были сравнены алгоритмы по времени.
-Сортировка бинарным деревом на отсортированных массивах и сортировка подсчетом работает на случайном массиве дольше всех.
-
-Самая быстрая сортировка поразрядная на любых данных.
-
-
-Теоритические результаты оценки трудоемкости и полученные практическим образом результаты замеров совпадают. 
+Параллельный алгоритм DBSCAN быстрее простого на 20 процентов (0.2 секунды).
+Наилучшее время параллельный алгоритм показывает на 8 потоках.  
+ 

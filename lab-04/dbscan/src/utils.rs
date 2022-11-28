@@ -82,7 +82,7 @@ pub fn dbscan(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, mut imgbuf: Rgb
 }
 
 
-pub fn parallel_for(points: &Vec<Vec<bool>>, 
+pub fn dbscan_parallel(points: &Vec<Vec<bool>>, 
     min_ptx: usize, eps: f64, 
     range: std::ops::Range<usize>, 
     guard_copy: Arc<Mutex<Vec<Vec<bool>>>>, 
@@ -129,7 +129,7 @@ pub fn parallel_for(points: &Vec<Vec<bool>>,
 
 }
 
-pub fn dbscan_parallel(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, imgbuf: RgbImage, nofth: usize) -> u32 {
+pub fn parrallize(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, imgbuf: RgbImage, nofth: usize) -> u32 {
 
     let counter = Arc::new(Mutex::new(0));
     let current_point = Arc::new(Mutex::new(points.clone()));
@@ -143,13 +143,13 @@ pub fn dbscan_parallel(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, imgbuf
             let guard_copy = current_point.clone();
             let counter_copy = counter.clone();
             let img_clone = imgbuf.clone();
-            threads.push(s.spawn(move |_| parallel_for(points, min_ptx, eps, range, guard_copy, counter_copy, img_clone)));
+            threads.push(s.spawn(move |_| dbscan_parallel(points, min_ptx, eps, range, guard_copy, counter_copy, img_clone)));
         }
         let range = (size * nofth)..points.len();
         let guard_copy = current_point.clone();
         let counter_copy = counter.clone();
         let img_clone = imgbuf.clone();
-        parallel_for(points, min_ptx, eps, range, guard_copy, counter_copy, img_clone);
+        dbscan_parallel(points, min_ptx, eps, range, guard_copy, counter_copy, img_clone);
         for th in threads {
             th.join().unwrap();
         }
@@ -162,28 +162,26 @@ pub fn dbscan_parallel(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, imgbuf
 
 
 pub fn dbscan_p(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, imgbuf: RgbImage) -> u32 {
-    let res = dbscan_parallel(points, min_ptx, eps, imgbuf, NUMBER_OF_THREADS - 1);
+    let res = parrallize(points, min_ptx, eps, imgbuf, NUMBER_OF_THREADS - 1);
     res
 }
 
+
 pub fn run_tests(points: Vec<Vec<bool>>, min_ptx: usize, eps: f64, imgbuf: RgbImage) {
-    let n = 10;
+    let n = 100;
     let img_guard = imgbuf.clone();
-    for j in 1..5 {
-        println!("Количество замеров: {} \n", j * n);
-        for (algorithm, description) in MULTS_ARRAY.iter().zip(MULTS_DESCRIPTIONS.iter()) {
-            let time = Instant::now();
-            let mut result = 0;
-            for _ in 0..j * n {
-                let img_clone = img_guard.clone();
-                result = algorithm(&points, min_ptx, eps, img_clone);
-            }
-            let time = time.elapsed().as_nanos();
-            println!("Алгоритм: {}", description);
-            println!("Результат: {} ", result);
-            println!("Время: {} нс \n", time);
+    println!("Количество замеров: {} \n", n);
+    for (algorithm, description) in MULTS_ARRAY.iter().zip(MULTS_DESCRIPTIONS.iter()) {
+        let time = Instant::now();
+        let mut result = 0;
+        for _ in 0..n {
+            let img_clone = img_guard.clone();
+            result = algorithm(&points, min_ptx, eps, img_clone);
         }
-        
+        let time = time.elapsed().as_nanos();
+        println!("Алгоритм: {}", description);
+        println!("Результат: {} ", result);
+        println!("Время: {} нс \n", time);
     }
     // imgbuf.save("./data/dbscan.png").unwrap();
 }

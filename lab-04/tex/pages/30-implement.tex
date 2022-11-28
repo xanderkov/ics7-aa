@@ -6,140 +6,264 @@
 
 Программное обеспечение должно удовлетворять следующим требованиям:
 \begin{itemize}
-	\item на вход подается массив целых чисел в диапозоне от $0$ до $10000$;
-	\item возвращается отсортированный по возрастанию массив;
-	\item в программе возможно измерение процессорного времени.
+	\item на вход подается имя файла;
+	\item возвращается число кластеров;
+	\item в программе возможно измерение реального времени.
 \end{itemize}
 
 \section{Средства реализации} 
-Для реализации ПО был выбран язык программирования Python\cite{python}. 
+Для реализации ПО был выбран язык программирования rust\cite{python}. 
 
 В данном языке есть все требующиеся инструменты для данной лабораторной работы.
 
-В качестве среды разработки была выбрана среда VS Code\cite{vscode}, запуск происходил через команду python main.py.
+В качестве среды разработки была выбрана среда VS Code\cite{vscode}, запуск происходил через команду cargo run.
 
 \section{Средства замера времени}
 
-Замеры времени выполнения реализаций алгоритма будут проводиться при помощи функции process\_time \cite{test} библиотеки time. Данная команда возвращает значения процессорного времени типа int в наносекундах.
+Замеры времени выполнения реализаций алгоритма будут проводиться при помощи функции Instant::now() \cite{test} библиотеки std::time. Данная команда возвращает значения  времени типа int в наносекундах.
 
-Замеры времени для каждой реализации алгоритма и для каждого комплекта входных данных проводились 100 раз.
 \newpage
+
 \begin{lstlisting}[label=bench,caption=Пример замера затраченного времени]
-	def test_simple_mult(A, B):
-	# Start the stopwatch / counter 
-	t1_start = process_time() 
-	for i in range(N_TEST):
-	simple_mult(A, M, B, N, M)
-	# Stop the stopwatch / counter
-	t1_stop = process_time()
+	let n = 10;
+	let img_guard = imgbuf.clone();
+	for j in 1..5 {
+
+		for (algorithm, description) in MULTS_ARRAY.iter().zip(MULTS_DESCRIPTIONS.iter()) {
+			let time = Instant::now();
+			let mut result = 0;
+			for _ in 0..j * n {
+				let img_clone = img_guard.clone();
+				result = algorithm(&points, min_ptx, eps, img_clone);
+			}
+			let time = time.elapsed().as_nanos();
+		}
+		
+	}
 \end{lstlisting}
 
 
 
 \section{Реализации алгоритма}
-На листинг \ref{lst:algebr} демонстрируется реализация алгоритма сортировки подсчетом. 
-
+На листинге \ref{lst:algebr} демонстрируется реализация простого алгоритма DBSCAN. 
+\newpage
 
 \captionsetup{singlelinecheck = false, justification=raggedright}
-\begin{lstlisting}[label=lst:algebr,caption=Алгоритм сортировки подсчетомя]
-def counting_sort(alist, largest):
-	c = [0]*(largest + 1)
-	for i in range(len(alist)):
-		c[alist[i]] += 1
-	c[0] -= 1
-	for i in range(1, largest + 1):
-		c[i] += c[i - 1]
-	result = [0]*len(alist)
-	for x in reversed(alist):
-		result[c[x]] = x
-		c[x] -= 1
-	return result
+\begin{lstlisting}[label=lst:algebr,caption=Реализация простого алгоритма DBSCAN]
+pub fn dbscan(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, mut imgbuf: RgbImage) -> u32 {
+	let mut cluster_count = 0;
+	let mut current_point = points.clone();
+	let mut current_color = get_random_color();
+	for i in 0..points.len() {
+		for j in 0..points[i].len() {
+			if current_point[i][j] {
+				let mut v = Vec::<[usize; 2]>::new();
+				v.push([i, j]);
+				let mut neighbor_count_check = 0;
+				while !v.is_empty() {
+					let p = v.pop().unwrap();
+					if !current_point[p[0]][p[1]] {
+						continue;
+					}
+					current_point[p[0]][p[1]] = false;
+					
+					let mut neighbor_count = 0;
+					
+					regionquery(points, min_ptx, &mut v, &mut neighbor_count, p, eps);
+					
+					if neighbor_count >= min_ptx {
+						neighbor_count_check += 1;
+						*imgbuf.get_pixel_mut(p[1] as u32, p[0] as u32) = image::Rgb(current_color);
+					}
+				}
+				if neighbor_count_check > 0 {
+					cluster_count += 1;
+					current_color = get_random_color();
+				}
+				current_point[i][j] = false;
+			}
+		}
+	}
+	
+	cluster_count
+}
 \end{lstlisting}
 
 
-На листинге \ref{lst:winograd} демонстрируется реализация алгоритма сортировки бинарным деревом.
+На листинге \ref{lst:winograd} демонстрируется реализация функции поиска ближайших точек regionquery.
 
-\begin{lstlisting}[label=lst:winograd,caption=Алгоритм сортировки бинарным дерево]
-def binary_sort(alist):
-	tree = TreeNode()
-	for i in alist:
-		tree.inpurt_in_tree(i)
-	arr = []
-	tree.pre_order(arr)
-	return arr
+\begin{lstlisting}[label=lst:winograd,caption=Реализация функции regionquery]
+fn regionquery(points: &Vec<Vec<bool>>, min_ptx: usize, v: &mut Vec::<[usize; 2]>, neighbor_count: &mut usize, p: [usize; 2], eps: f64)  {
+	let start_x = cmp::max(0, p[0] - min_ptx);
+	let start_y = cmp::max(0, p[1] - min_ptx);
+	let end_x = cmp::min(points.len(), p[0] + min_ptx + 1);
+	let end_y = cmp::min(points[0].len(), p[1] + min_ptx + 1);
+	for _i in start_x..end_x {
+		//check how many neighbors in the distance
+		for _j in start_y..end_y {
+			let distance = get_eculid_distance(_i as i32, _j as i32, p[0] as i32, p[1] as i32);
+			if distance <= eps && points[_i][_j] {
+				*neighbor_count += 1;
+				v.push([_i, _j]);
+			}
+		}
+	}
+}
 \end{lstlisting}	
 
-На листинге \ref{lst:Tree} демонстрируется класс бинарного дерева.
+На листинге \ref{lst:Tree} демонстрируется реализация параллельного алгоритма DBSCAN.
 
-\begin{lstlisting}[label=lst:Tree,caption=Класс бинарного дерев]
-	class TreeNode:
-	def __init__(self, value=None):
-		self.value = value
-		self.left = None
-		self.right = None
+\newpage
+
+\begin{lstlisting}[label=lst:Tree,caption=Реализация параллельного алгоритма DBSCAN]
+pub fn dbscan_parallel(points: &Vec<Vec<bool>>, 
+min_ptx: usize, eps: f64, 
+range: std::ops::Range<usize>, 
+guard_copy: Arc<Mutex<Vec<Vec<bool>>>>, 
+n: Arc<Mutex<u32>>,
+mut imgbuf: RgbImage) 
+{
+	let mut cluster_count = n.lock().unwrap();
+	let mut current_point = guard_copy.lock().unwrap();
+	let mut current_color = get_random_color();
+	for i in range {
+		for j in 0..points[i].len() {
+			if current_point[i][j] {
+				let mut v = Vec::<[usize; 2]>::new();
+				v.push([i, j]);
+				let mut neighbor_count_check = 0;
+				while !v.is_empty() {
+					let p = v.pop().unwrap();
+					if !current_point[p[0]][p[1]] {
+						continue;
+					}
+					current_point[p[0]][p[1]] = false;
+					let mut neighbor_count = 0;
+					regionquery(points, min_ptx, &mut v, &mut neighbor_count, p, eps);
+					if neighbor_count >= min_ptx {
+						neighbor_count_check += 1;
+						*imgbuf.get_pixel_mut(p[1] as u32, p[0] as u32) = image::Rgb(current_color);
+					}
+				}
+				if neighbor_count_check > 0 {
+					*cluster_count += 1;
+				}
+				current_point[i][j] = false;
+			}
+		}
+	}
 	
-	def inpurt_in_tree(self, elem):
-		if self.value is None:
-			self.value = elem
-			return
-		
-		if elem < self.value:
-			if self.left is None:
-				self.left = TreeNode(elem)
-			else:
-				self.left.inpurt_in_tree(elem)
-			
-		elif elem >= self.value:
-			if self.right is None:
-				self.right = TreeNode(elem)
-			else:
-				self.right.inpurt_in_tree(elem)
-	
-	def pre_order(self, arr):
-		if self.value:
-			if self.left:
-				self.left.pre_order(arr)
-			if self.value: 
-				arr.append(self.value)
-			
-			if self.right:
-				self.right.pre_order(arr)
+}
 \end{lstlisting}	
 
 \newpage
-На листинге \ref{lst:winograd-optimized} демонстрируется реализация алгоритма поразрядной сортировки.
-\begin{lstlisting}[label=lst:winograd-optimized,caption=Алгоритм поразрядной сортировки]
-	def radixSort(array):
-    max_element = max(array)
-
-    place = 1
-    while max_element // place > 0:
-        countingSort(array, place)
-        place *= 10
-    return array
-    
+На листинге \ref{lst:winograd-optimized} демонстрируется реализация функции параллелизации матрицы точек для алгоритма DBSCAN.
+\begin{lstlisting}[label=lst:winograd-optimized,caption=Реализация функции параллелизации матрицы точек]
+pub fn parrallize(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, imgbuf: RgbImage, nofth: usize) -> u32 {
+	
+	let counter = Arc::new(Mutex::new(0));
+	let current_point = Arc::new(Mutex::new(points.clone()));
+	let size = points.len() / (nofth + 1);
+	
+	thread::scope(|s| {
+		let mut threads = Vec::with_capacity(nofth);
+		
+		for i in 0..nofth {
+			let range = (i * size)..((i + 1) * size);
+			let guard_copy = current_point.clone();
+			let counter_copy = counter.clone();
+			let img_clone = imgbuf.clone();
+			threads.push(s.spawn(move |_| dbscan_parallel(points, min_ptx, eps, range, guard_copy, counter_copy, img_clone)));
+		}
+		let range = (size * nofth)..points.len();
+		let guard_\_timecopy = current_point.clone();
+		let counter_copy = counter.clone();
+		let img_clone = imgbuf.clone();
+		dbscan_parallel(points, min_ptx, eps, range, guard_copy, counter_copy, img_clone);
+		for th in threads {
+			th.join().unwrap();
+		}
+		
+		let counter_copy = counter.clone();
+		let cluster_count = counter_copy.lock().unwrap();
+		*cluster_count
+	}).unwrap()
+}
 \end{lstlisting}	
 
 \section{Тестовые данные}
 
-В таблице \ref{tbl:functional_test} приведены тесты для функций, реализующих алгоритмы сортировки. Применена методология черного ящика. Тесты для всех сортировок пройдены \textit{успешно}.
-
+В таблице \ref{tbl:functional_test} приведены тесты для функций, реализующих алгоритмы DBSCAN. Применена методология черного ящика. Тесты для всех алгоритмов пройдены \textit{успешно}.
 
 
 \begin{table}[ht!]
 	\begin{center}
 		\captionsetup{justification=raggedright,singlelinecheck=off}
 		\caption{\label{tbl:functional_test} Функциональные тесты}
-		\begin{tabular}{|c|c|c|}
+		\begin{tabular}{|c|c|c|c|}
 			\hline
-			Входной массив & Ожидаемый результат & Результат \\ 
-			\hline
-			$[1, 2, 3, 4, 5, 6, 7]$ & $[1, 2, 3, 4, 5, 6, 7]$  & $[1, 2, 3, 4, 5, 6, 7]$\\
-			$[7, 6, 5, 4, 3, 2, 1]$  & $[1, 2, 3, 4, 5, 6, 7]$ & $[1, 2, 3, 4, 5, 6, 7]$\\
-			$[9, 7, 5, 1, 4]$  & $[1, 4, 5, 7, 9]$  & $[1, 4, 5, 7, 9]$\\
-			$[69]$  & $[69]$  & $[69]$\\
-			$[]$  & $[]$  & $[]$\\
-			\hline
+			Вход & Ожидаемый результат & Результат послед. & Результат паралл. 
+			\\ \hline
+			$\begin{pmatrix}
+				\\
+			\end{pmatrix}$ &
+			0&
+			0 & 0
+			
+			\\ \hline
+			$\begin{pmatrix}
+			0\\
+			\end{pmatrix}$ &
+			0 &
+			0 & 0
+			
+			\\ \hline
+			$\begin{pmatrix}
+				0 & 1
+			\end{pmatrix}$ &
+			1 &
+			1 & 1
+			
+			\\ \hline
+			$\begin{pmatrix}
+				1
+			\end{pmatrix}$ &
+			1 &
+			1 & 1
+			
+			\\ \hline
+			$\begin{pmatrix}
+				1 & 0 & 1\\
+				0 & 0 & 0\\
+				1 & 1 & 1
+			\end{pmatrix}$ &
+			3 &
+			3 &3
+			
+			\\ \hline
+			$\begin{pmatrix}
+				1 & 0 \\
+				0 & 1 
+			\end{pmatrix}$ &
+			2 &
+			2 & 2               
+			
+			\\ \hline
+			$\begin{pmatrix}
+				1 & 0 & 0
+			\end{pmatrix}$ &
+			1&
+			1 & 1
+			
+			\\ \hline
+			$\begin{pmatrix}
+				1 & 0 & 1 \\
+				0 & 0 & 0 \\
+				1 & 0 & 1
+			\end{pmatrix}$ &
+			4 &
+			4  & 4                
+			\\ \hline
 		\end{tabular}
 	\end{center}
 \end{table}
