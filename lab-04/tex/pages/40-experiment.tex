@@ -41,22 +41,22 @@
 				\hline
 				Размер & \multicolumn{1}{c|}{\text{Простой DBSCAN}} &  \multicolumn{1}{c|}{\text{Параллельный DBSCAN}}  \\
 				\hline
-				100 & 0.144135188 & 0.051410407 \\ 
+				100 & 0.155203637 & 0.082057018 \\ 
 				\hline
-				200 & 0.417519720 & 0.173441701 \\ 
+				200 & 1.886091723 & 1.183958677 \\ 
 				\hline
-				300 & 1.874819487 & 1.089510891 \\ 
+				300 & 4.484127943 & 2.792452981 \\ 
 				\hline
-				400 & 53.180641915 & 49.989895044 \\ 
+				400 & 5.975877116 & 3.666312837 \\ 
 				\hline
-				500 & 63.485497229 & 59.765266659
+				500 & 18.801009701 & 13.591029096
 				\\
 				\hline
 			\end{tabular}
 	\end{center}
 \end{table}
 
-На графике \ref{graph:r} представлено время работы параллельного и простого алгоритмов DBSCAN.
+На графике \ref{graph:r} представлено время работы параллельной и простой реализаций алгоритмов DBSCAN.
 
 \begin{figure}[ht!]
 	\begin{center}
@@ -94,7 +94,7 @@
 			\end{axis}
 		\end{tikzpicture}
 		\centering
-		\caption{Результаты c числами со случайными значениями массивов.}
+		\caption{Результаты работы реализации алгоритма DBSCAN.}
 		\label{graph:r}
 	\end{center}
 	
@@ -111,34 +111,25 @@
 				ylabel={время, с},
 				width = 0.95\textwidth,
 				height=0.3\textheight,
-				xmin=0, xmax=600,
+				xmin=0, xmax=128,
 				legend pos=north west,
 				xmajorgrids=true,
 				grid style=dashed,
 				]
 				\addplot[
-				blue,
-				semithick,
-				mark = x,
-				mark size = 3pt,
-				thick,
-				] file {assets/parallel.dat};
-				
-				\addplot[
 				red,
 				semithick,
 				mark = *,
-				] file {assets/simple.dat};
+				mark size = 3pt,
+				thick,
+				] file {assets/time.dat};
 				
 				
-				\legend{
-					Параллельный DBSCAN,
-					Простой DBSCAN
-				}
+				
 			\end{axis}
 		\end{tikzpicture}
 		\centering
-		\caption{Результаты c числами со случайными значениями массивов.}
+		\caption{Результаты работы реализации алгоритма DBSCAN на разном количестве потоков.}
 		\label{graph:j}
 	\end{center}
 	
@@ -149,6 +140,6 @@
 \section*{Вывод}
 
 В данном разделе были сравнены алгоритмы по времени.
-Параллельный алгоритм DBSCAN быстрее простого на 20 процентов (0.2 секунды).
-Наилучшее время параллельный алгоритм показывает на 8 потоках.  
+Параллельный алгоритм DBSCAN быстрее простого на 50 процентов (2.5 секунды) при размере 400 на 400.
+Наилучшее время параллельный алгоритм показывает на 32 потоках.  
  

@@ -25,21 +25,19 @@
 \newpage
 
 \begin{lstlisting}[label=bench,caption=Пример замера затраченного времени]
-	let n = 10;
+pub fn run_tests(points: Vec<Vec<bool>>, min_ptx: usize, eps: f64, imgbuf: RgbImage) {
+	let n = 100;
 	let img_guard = imgbuf.clone();
-	for j in 1..5 {
-
-		for (algorithm, description) in MULTS_ARRAY.iter().zip(MULTS_DESCRIPTIONS.iter()) {
-			let time = Instant::now();
-			let mut result = 0;
-			for _ in 0..j * n {
-				let img_clone = img_guard.clone();
-				result = algorithm(&points, min_ptx, eps, img_clone);
-			}
-			let time = time.elapsed().as_nanos();
+	for (algorithm, description) in MULTS_ARRAY.iter().zip(MULTS_DESCRIPTIONS.iter()) {
+		let time = Instant::now();
+		let mut result = 0;
+		for _ in 0..n {
+			let img_clone = img_guard.clone();
+			result = algorithm(&points, min_ptx, eps, img_clone);
 		}
-		
+		let time = time.elapsed().as_nanos();
 	}
+}
 \end{lstlisting}
 
 

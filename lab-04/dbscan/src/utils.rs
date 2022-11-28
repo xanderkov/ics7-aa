@@ -11,7 +11,7 @@ use std::cmp;
 
 pub static MULTS_ARRAY: [MultFnPtr; 2] = [dbscan, dbscan_p];
 pub static MULTS_DESCRIPTIONS: [&str; 2] = ["Простой dbscan", "Параллельный dbscan"];
-const NUMBER_OF_THREADS: usize = 8;
+const NUMBER_OF_THREADS: usize = 4;
 
 fn get_random_color() -> [u8; 3] {
     let mut rng = rand::thread_rng();
@@ -168,7 +168,7 @@ pub fn dbscan_p(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, imgbuf: RgbIm
 
 
 pub fn run_tests(points: Vec<Vec<bool>>, min_ptx: usize, eps: f64, imgbuf: RgbImage) {
-    let n = 10;
+    let n = 100;
     let img_guard = imgbuf.clone();
     println!("Количество замеров: {} \n", n);
     for (algorithm, description) in MULTS_ARRAY.iter().zip(MULTS_DESCRIPTIONS.iter()) {
