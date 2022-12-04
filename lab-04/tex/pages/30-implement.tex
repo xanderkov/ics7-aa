@@ -1,6 +1,6 @@
-\chapter{Технологический раздел}
+\chapter{Технологический часть}
 
-В данном разделе будут приведены требования к программному обеспечению, средства реализации и листинга кода.
+В данном разделе приведены требования к программному обеспечению, средства реализации и листинга кода.
 
 \section{Требования к программе}
 
@@ -8,19 +8,19 @@
 \begin{itemize}
 	\item на вход подается имя файла;
 	\item возвращается число кластеров;
-	\item в программе возможно измерение реального времени.
+	\item используется параллелизация программы;
+	\item возможно измерение реального времени.
 \end{itemize}
 
 \section{Средства реализации} 
-Для реализации ПО был выбран язык программирования rust\cite{python}. 
-
+Для реализации ПО был выбран язык программирования Rust\cite{python}. 
 В данном языке есть все требующиеся инструменты для данной лабораторной работы.
-
 В качестве среды разработки была выбрана среда VS Code\cite{vscode}, запуск происходил через команду cargo run.
 
 \section{Средства замера времени}
 
-Замеры времени выполнения реализаций алгоритма будут проводиться при помощи функции Instant::now() \cite{test} библиотеки std::time. Данная команда возвращает значения  времени типа int в наносекундах.
+Замеры времени выполнения реализаций алгоритма проводиться при помощи функции Instant::now() \cite{test} библиотеки std::time. 
+Данная команда возвращает значения  времени типа int в наносекундах.
 
 \newpage
 
@@ -43,7 +43,7 @@ pub fn run_tests(points: Vec<Vec<bool>>, min_ptx: usize, eps: f64, imgbuf: RgbIm
 
 
 \section{Реализации алгоритма}
-На листинге \ref{lst:algebr} демонстрируется реализация простого алгоритма DBSCAN. 
+На листинге \ref{lst:algebr} приведена реализация простого алгоритма DBSCAN. 
 \newpage
 
 \captionsetup{singlelinecheck = false, justification=raggedright}
@@ -88,7 +88,7 @@ pub fn dbscan(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, mut imgbuf: Rgb
 \end{lstlisting}
 
 
-На листинге \ref{lst:winograd} демонстрируется реализация функции поиска ближайших точек regionquery.
+На листинге \ref{lst:winograd} приведена реализация функции поиска ближайших точек regionquery.
 
 \begin{lstlisting}[label=lst:winograd,caption=Реализация функции regionquery]
 fn regionquery(points: &Vec<Vec<bool>>, min_ptx: usize, v: &mut Vec::<[usize; 2]>, neighbor_count: &mut usize, p: [usize; 2], eps: f64)  {
@@ -109,7 +109,7 @@ fn regionquery(points: &Vec<Vec<bool>>, min_ptx: usize, v: &mut Vec::<[usize; 2]
 }
 \end{lstlisting}	
 
-На листинге \ref{lst:Tree} демонстрируется реализация параллельного алгоритма DBSCAN.
+На листинге \ref{lst:Tree} приведена реализация параллельного алгоритма DBSCAN.
 
 \newpage
 
@@ -155,7 +155,7 @@ mut imgbuf: RgbImage)
 \end{lstlisting}	
 
 \newpage
-На листинге \ref{lst:winograd-optimized} демонстрируется реализация функции параллелизации матрицы точек для алгоритма DBSCAN.
+На листинге \ref{lst:winograd-optimized} приведена реализация функции параллелизации матрицы точек для алгоритма DBSCAN.
 \begin{lstlisting}[label=lst:winograd-optimized,caption=Реализация функции параллелизации матрицы точек]
 pub fn parrallize(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, imgbuf: RgbImage, nofth: usize) -> u32 {
 	
@@ -267,4 +267,4 @@ pub fn parrallize(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, imgbuf: Rgb
 \end{table}
 
 \section*{Вывод}
-Было написано и протестировано программное обеспечение для решения поставленной задачи.
+Написано и протестировано программное обеспечение для решения поставленной задачи.

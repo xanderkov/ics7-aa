@@ -9,7 +9,7 @@ type MultFnPtr = fn(&Vec<Vec<bool>>, usize, f64, RgbImage) -> u32;
 use crate::rand::Rng;
 use std::cmp;
 
-pub static MULTS_ARRAY: [MultFnPtr; 2] = [dbscan, dbscan_p];
+pub static MULTS_ARRAY: [MultFnPtr; 2] = [dbscan_p, dbscan];
 pub static MULTS_DESCRIPTIONS: [&str; 2] = ["Простой dbscan", "Параллельный dbscan"];
 const NUMBER_OF_THREADS: usize = 4;
 
