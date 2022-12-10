@@ -1,0 +1,146 @@
+\chapter{Исследовательская часть}
+\section{Технические характеристики}
+Тестирование выполнялось на устройстве со следующими техническими характеристиками:
+\begin{itemize}
+	\item Операционная система Pop!\_OS 22.04 LTS \cite{ubuntu} Linux \cite{linux};
+	\item Оперативная память 16 Гбайт;
+	\item Процессор AMD® Ryzen 7 2700 eight-core processor × 16 \cite{amd}.
+\end{itemize}
+
+Во время тестирования устройство было подключено к блоку питания и не нагружено никакими приложениями, кроме встроенных приложений и системой тестирования.
+
+\section{Демонстрация работы программы}
+
+
+
+ Результат работы программы, в которой выводится время работы алгоритма и количество найденных кластеров представлены на рисунке \ref{demonstration}.
+
+\begin{figure}[ht!]
+	\begin{center}
+		\captionsetup{singlelinecheck = false, justification=centerfirst}
+		\includegraphics[scale=0.8]{assets/demonstration.png}
+		\caption{Пример работы программы}
+		\label{demonstration}
+	\end{center}
+	
+	
+\end{figure}
+
+\newpage
+
+\section{Время выполнения реализации алгоритмов}
+
+Результаты замеров времени работы реализаций алгоритмов DBSCAN (в секундах) приведены в таблице \ref{tbl:best}. 
+Сравнение проводилось между простым алгоритмом и параллельного алгоритма при исполнении на 8 потоках.
+\newcolumntype{d}[1]{D{.}{.}{-1}}
+\begin{table}[ht!]
+	\begin{center}
+			\captionsetup{justification=raggedright,singlelinecheck=off}
+			\caption{Результаты замеров реализаций алгоритмов DBSCAN}
+			\label{tbl:best}
+			\begin{tabular}{|c|d{6.3}|d{6.3}|}
+				\hline
+				Размер & \multicolumn{1}{c|}{\text{Простой DBSCAN}} &  \multicolumn{1}{c|}{\text{Параллельный DBSCAN}}  \\
+				\hline
+				100 & 0.155203637 & 0.082057018 \\ 
+				\hline
+				200 & 1.886091723 & 1.183958677 \\ 
+				\hline
+				300 & 4.484127943 & 2.792452981 \\ 
+				\hline
+				400 & 5.975877116 & 3.666312837 \\ 
+				\hline
+				500 & 18.801009701 & 13.591029096
+				\\
+				\hline
+			\end{tabular}
+	\end{center}
+\end{table}
+
+На графике \ref{graph:r} представлены времена работы параллельной и последовательный реализаций алгоритмов DBSCAN.
+
+\begin{figure}[ht!]
+	\begin{center}
+		\captionsetup{singlelinecheck = false, justification=centerfirst}
+		\begin{tikzpicture}
+			\begin{axis}[
+				xlabel={Размер},
+				ylabel={время, с},
+				width = 0.95\textwidth,
+				height=0.3\textheight,
+				xmin=0, xmax=600,
+				legend pos=north west,
+				xmajorgrids=true,
+				grid style=dashed,
+				]
+				\addplot[
+				blue,
+				semithick,
+				mark = x,
+				mark size = 3pt,
+				thick,
+				] file {assets/parallel.dat};
+				
+				\addplot[
+				red,
+				semithick,
+				mark = *,
+				] file {assets/simple.dat};
+				
+				
+				\legend{
+					Параллельный DBSCAN,
+					Простой DBSCAN
+				}
+			\end{axis}
+		\end{tikzpicture}
+		\centering
+		\caption{Результаты работы реализации алгоритма DBSCAN.}
+		\label{graph:r}
+	\end{center}
+	
+\end{figure}
+
+На графике \ref{graph:j} представлена зависимоть времени работы параллельного алгоритма DBSCAN от количество потоков на квадратном изображении размера 500 пикселей.
+
+\begin{figure}[ht!]
+	\begin{center}
+		\captionsetup{singlelinecheck = false, justification=centerfirst}
+		\begin{tikzpicture}
+			\begin{axis}[
+				xlabel={Размер изображения},
+				ylabel={время, с},
+				width = 0.95\textwidth,
+				height=0.3\textheight,
+				xmin=0, xmax=128,
+				legend pos=north west,
+				xmajorgrids=true,
+				grid style=dashed,
+				]
+				\addplot[
+				red,
+				semithick,
+				mark = *,
+				mark size = 3pt,
+				thick,
+				] file {assets/time.dat};
+				
+				
+				
+			\end{axis}
+		\end{tikzpicture}
+		\centering
+		\caption{Результаты работы реализации алгоритма DBSCAN на разном количестве потоков.}
+		\label{graph:j}
+	\end{center}
+	
+\end{figure}
+
+\newpage
+
+\section*{Вывод}
+
+В данном разделе были сравнены алгоритмы по времени.
+Параллельный алгоритм DBSCAN быстрее простого на 50 процентов (2.5 секунды) при размере 400 на 400.
+Наилучшее время параллельный алгоритм показывает на 32 потоках.  
+ 
