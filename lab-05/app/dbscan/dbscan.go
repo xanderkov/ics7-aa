@@ -69,11 +69,14 @@ func DbscanAlgorithm(points structures.Matrix, minPtx int, eps float64) structur
 						_, startY := MinMax([]int{0, v2[k] - minPtx})
 						endX, _ := MinMax([]int{points.Rows, v1[k] + minPtx + 1})
 						endY, _ := MinMax([]int{points.Cols, v2[k] + minPtx + 1})
+
 						for x := startX; x < endX; x++ {
 							for y := startY; y < endY; y++ {
-								distance := math.Sqrt(math.Pow(float64(x - v1[k]), 2) + math.Pow(float64(y - v2[k]), 2))
+								distance := math.Sqrt(math.Pow(float64(startX - endX), 2) + math.Pow(float64(startY - endY), 2))
+								
 								if distance <= eps && currentPoint.Values[x][y] == 1 {
 									neighborCount++
+									
 									v1 = append(v1, x)
 									v2 = append(v2, y)
 								}
