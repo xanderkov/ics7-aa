@@ -3,43 +3,45 @@ package pipeline
 import (
 	"time"
 	"../dbscan"
+	"../structures"
 )
 
-func Pipeline(count int, chan int) *Queue {
-	first := make(chan *PipeTask, count)
-	second := make(chan *PipeTask, count)
-	third := make(chan *PipeTask, count)
 
-	line := initQueue(count)
+func Pipeline(count int, ch chan int) *structures.Queue {
+	first := make(chan *structures.PipeTask, count)
+	second := make(chan *structures.PipeTask, count)
+	third := make(chan *structures.PipeTask, count)
+
+	line := InitQueue(count)
 
 	get_file := func() {
 		for {
 			select {
 			case pipe_task := <- first:
-				pipe_task.generated = true
+				pipe_task.Generated = true
 
-				pipe_task.start_generating = time.Now()
+				pipe_task.Start_generating = time.Now()
 
-				pipe_task.source = dbscan.ReadFile("1.txt")
+				pipe_task.Source = dbscan.ReadFile("data/1.txt")
 				
-				pipe_task.end_generating = time.Now()
+				pipe_task.End_generatig = time.Now()
 
 				second <- pipe_task
 			}
 		}
 	}
 
-	get_dbscan = func() {
+	get_dbscan := func() {
 		for {
 			select {
 			case pipe_task := <- second:
-				pipe_task.dbscan_mode = true
+				pipe_task.Dbscan_mode = true
 
-				pipe_task.start_dbscan = time.Now()
+				pipe_task.Start_dbscan = time.Now()
 
-				pipe_task.dbscan = dbscan.DbscanAlgorithm(pipe_task.source)
+				pipe_task.Dbscan = dbscan.DbscanAlgorithm(pipe_task.Source, 2, 2)
 
-				pipe_task.end_dbscan = time.Now()
+				pipe_task.End_dbscan = time.Now()
 
 				third <- pipe_task
 			}
@@ -50,14 +52,14 @@ func Pipeline(count int, chan int) *Queue {
 		for {
 			select {
 			case pipe_task := <- third:
-				pipe_task.pattern_matched = true
+				pipe_task.Pattern_matched = true
 
-				pipe_task.start_match = time.Now()
-				pipe_task.pattern_index = dbscan.SaveFile(pipe_task.dbscan)
-				pipe_task.end_match = time.Now()
+				pipe_task.Start_match = time.Now()
+				pipe_task.Pattern_index = dbscan.SaveFile(pipe_task.Dbscan)
+				pipe_task.End_match = time.Now()
 
-				line.enqueue(pipe_task)
-				if (pipe_task.num == count - 1) {
+				line.Enqueue(pipe_task)
+				if (pipe_task.Num == count - 1) {
 					ch <- 0
 				}
 			}
@@ -69,8 +71,8 @@ func Pipeline(count int, chan int) *Queue {
 	go match()
 
 	for i := 0; i < count; i++ {
-		pipe_task := new(PipeTask)
-		pipe_task.num = i + 1
+		pipe_task := new(structures.PipeTask)
+		pipe_task.Num = i + 1
 		first <- pipe_task
 	}
 	return line
