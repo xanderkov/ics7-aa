@@ -20,7 +20,7 @@ func ReadFile(filename string) structures.Matrix  {
         lines = append(lines, scanner.Text()) 
     }
 
-	points = structures.Allocate(len(lines), len(lines[0]))
+	points = structures.Allocate(len(lines), len(lines))
 
 	for i := 0; i < len(lines); i++ {
 		line := strings.Split(lines[i], " ")
@@ -37,16 +37,16 @@ func DbscanAlgorithm(points structures.Matrix, minPtx int, eps float64) structur
 }
 
 func SaveFile(points structures.Matrix) int {
-	
-	file, err := os.Create("data/Answer.txt")
-    if err != nil {
-		return 0
-    }
-    defer file.Close()
+	if points.Rows > 0 {
+		file, err := os.Create("data/Answer.txt")
+		if err != nil {
+			return 0
+		}
+		defer file.Close()
 
-    w := bufio.NewWriter(file)
-    for _, line := range points.Values {
-        fmt.Fprintln(w, line)
-    }
+		for _, line := range points.Values {
+			fmt.Fprintln(file, line)
+		}
+	}
 	return 0
 }
