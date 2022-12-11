@@ -12,7 +12,7 @@ func gen_string_sync(task *structures.PipeTask) *structures.PipeTask {
 
 	task.Start_generating = time.Now()
 
-	task.Source = dbscan.ReadFile("1.txt")
+	task.Source = dbscan.ReadFile("100.txt")
 
 	task.End_generatig = time.Now()
 

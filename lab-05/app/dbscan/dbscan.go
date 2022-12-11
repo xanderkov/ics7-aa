@@ -8,6 +8,7 @@ import (
 	"strings"
 	"fmt"
 	"strconv"
+	"math"
 )
 
 func ReadFile(filename string) structures.Matrix  {
@@ -31,9 +32,70 @@ func ReadFile(filename string) structures.Matrix  {
     return points
 }
 
+func MinMax(array []int) (int, int) {
+    var max int = array[0]
+    var min int = array[0]
+    for _, value := range array {
+        if max < value {
+            max = value
+        }
+        if min > value {
+            min = value
+        }
+    }
+    return min, max
+}
+
 
 func DbscanAlgorithm(points structures.Matrix, minPtx int, eps float64) structures.Matrix {
-	return points
+	clusterCount := 0
+	currentPoint := points
+	img := structures.Allocate(points.Rows, points.Cols)
+	color := 0
+	for i := 0; i < points.Rows; i++ {
+		for j:=0; j < points.Cols; j++ {
+			if currentPoint.Values[i][j] == 1 {
+				var v1 []int
+				var v2 []int
+
+				v1 = append(v1, i)
+				v2 = append(v2, j)
+				neighborCountCheck := 0
+				for k := 0; k < len(v1); k++ {
+					if currentPoint.Values[v1[k]][v2[k]] == 1 {
+						currentPoint.Values[v1[k]][v2[k]] = 0
+						neighborCount := 0
+						_, startX := MinMax([]int{0, v1[k] - minPtx})
+						_, startY := MinMax([]int{0, v2[k] - minPtx})
+						endX, _ := MinMax([]int{points.Rows, v1[k] + minPtx + 1})
+						endY, _ := MinMax([]int{points.Cols, v2[k] + minPtx + 1})
+						for x := startX; x < endX; x++ {
+							for y := startY; y < endY; y++ {
+								distance := math.Sqrt(math.Pow(float64(x - v1[k]), 2) + math.Pow(float64(y - v2[k]), 2))
+								if distance <= eps && currentPoint.Values[x][y] == 1 {
+									neighborCount++
+									v1 = append(v1, x)
+									v2 = append(v2, y)
+								}
+							}
+						}
+
+						if neighborCount >= minPtx {
+							neighborCountCheck++
+							img.Values[v1[k]][v2[k]] = color
+						}
+					}
+					
+				}
+				if neighborCountCheck > 0 {
+					clusterCount++
+					color++
+				}
+				currentPoint.Values[i][j] = 0
+			}
+		}
+	}
+	return img
 }
 
 func SaveFile(points structures.Matrix) int {

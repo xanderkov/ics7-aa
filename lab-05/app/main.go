@@ -8,10 +8,18 @@ import (
 func main() {
 
 	fmt.Println("Алгоритм DBSCAN")
-
+	var minPtx int
+	var eps float64
+	var filename string
+	fmt.Print("Имя файла: ")
+	fmt.Scan(&filename)
+	fmt.Print("Радиус: ")
+	fmt.Scan(&minPtx)
+	fmt.Print("EPS: ")
+	fmt.Scan(&eps)
 	ch := make(chan int)
 	count := 20
-	pipeline_queue := pipeline.Pipeline(count, ch)
+	pipeline_queue := pipeline.Pipeline(count, ch, filename, minPtx, eps)
 	_ = pipeline_queue
 	<- ch
 
@@ -19,5 +27,5 @@ func main() {
 	_ = pipeline_queue_sync
 
 	// pipeline.PerfLog(pipeline_queue, pipeline_queue_sync)
-
+	fmt.Println("Done")
 }

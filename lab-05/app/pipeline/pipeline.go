@@ -7,7 +7,7 @@ import (
 )
 
 
-func Pipeline(count int, ch chan int) *structures.Queue {
+func Pipeline(count int, ch chan int, filename string, minPtx int, eps float64) *structures.Queue {
 	first := make(chan *structures.PipeTask, count)
 	second := make(chan *structures.PipeTask, count)
 	third := make(chan *structures.PipeTask, count)
@@ -22,7 +22,7 @@ func Pipeline(count int, ch chan int) *structures.Queue {
 
 				pipe_task.Start_generating = time.Now()
 
-				pipe_task.Source = dbscan.ReadFile("data/1.txt")
+				pipe_task.Source = dbscan.ReadFile(filename)
 				
 				pipe_task.End_generatig = time.Now()
 
@@ -39,7 +39,7 @@ func Pipeline(count int, ch chan int) *structures.Queue {
 
 				pipe_task.Start_dbscan = time.Now()
 
-				pipe_task.Dbscan = dbscan.DbscanAlgorithm(pipe_task.Source, 2, 2)
+				pipe_task.Dbscan = dbscan.DbscanAlgorithm(pipe_task.Source, minPtx, eps)
 
 				pipe_task.End_dbscan = time.Now()
 
