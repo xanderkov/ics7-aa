@@ -1,12 +1,14 @@
 package main
+
 import (
 	"fmt"
+	"runtime"
+
 	"./pipeline"
 )
 
-
 func main() {
-
+	runtime.GOMAXPROCS(runtime.NumCPU())
 	fmt.Println("Алгоритм DBSCAN")
 	var minPtx int
 	var eps float64
@@ -15,18 +17,18 @@ func main() {
 	eps = 7
 	filename = "data/200.txt"
 	/*
-	fmt.Print("Имя файла: ")
-	fmt.Scan(&filename)
-	fmt.Print("Радиус: ")
-	fmt.Scan(&minPtx)
-	fmt.Print("EPS: ")
-	fmt.Scan(&eps)
+		fmt.Print("Имя файла: ")
+		fmt.Scan(&filename)
+		fmt.Print("Радиус: ")
+		fmt.Scan(&minPtx)
+		fmt.Print("EPS: ")
+		fmt.Scan(&eps)
 	*/
 	ch := make(chan int)
 	count := 20
 	pipeline_queue := pipeline.Pipeline(count, ch, filename, minPtx, eps)
 	_ = pipeline_queue
-	<- ch
+	<-ch
 
 	pipeline_queue_sync := pipeline.Sync(count)
 	_ = pipeline_queue_sync
