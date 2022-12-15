@@ -2,23 +2,41 @@
 
 В данном разделе представлены схемы алгоритмов DBSCAN и конвейера.
 
-\section{Разработка алгоритмов} %% что-то сделать
+\section{Разработка алгоритмов}
 
 \subsection{Разработка простого DBSCAN}
  
 На рисунке \ref{fig:alg} приведена схема плотностного алгоритма DBSCAN.
 
 
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=1\linewidth]{assets/graphs/dbscan.pdf}
+	\caption{Схема плотностного алгоритма DBSCAN}
+	\label{fig:alg}
+\end{figure}
+
 На рисунке \ref{fig:alg2} приведена схема функции поиска ближайшей соседний точки в кластере.
 
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=0.5\linewidth]{assets/graphs/regionquery.pdf}
+	\caption{Схема функции regionquery}
+	\label{fig:alg2}
+\end{figure}
 
-\subsection{Разработка параллельного DBSCAN}
+\subsection{Разработка конвейерных вычислений}
 
-На рисунке \ref{fig:alg-p} приведена схема параллельного алгоритма плотностного алгоритма DBSCAN. %% схему именно параллельную
+На рисунке \ref{fig:alg-p} приведена схема конвейерной линии.
 
-
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=0.7\linewidth]{assets/graphs/pipeline.pdf}
+	\caption{Схема алгоритма параллельного DBSCAN}
+	\label{fig:alg-p}
+\end{figure}
 
 
 \section*{Вывод}
 
-На основе теоретических данных, полученных из аналитического раздела, была построена схема алгоритма DBSCAN, а также схема параллельного DBSCAN.
+Были разработаны схемы алгоритмов, необходимых для решения задачи.

@@ -7,39 +7,14 @@
 Программное обеспечение должно удовлетворять следующим требованиям:
 \begin{itemize}
 	\item на вход подается имя файла;
-	\item возвращается число кластеров;
 	\item используется параллелизация программы;
 	\item возможно измерение реального времени.
 \end{itemize}
 
 \section{Средства реализации} 
-Для реализации ПО был выбран язык программирования Rust\cite{python}. 
+Для реализации ПО был выбран язык программирования Golang \cite{golang}. 
 В данном языке есть все требующиеся инструменты для данной лабораторной работы.
-В качестве среды разработки была выбрана среда VS Code\cite{vscode}, запуск происходил через команду cargo run.
-
-\section{Средства замера времени}
-
-Замеры времени выполнения реализаций алгоритма проводиться при помощи функции Instant::now() \cite{test} библиотеки std::time. 
-Данная команда возвращает значения  времени типа int в наносекундах.
-
-\newpage
-
-\begin{lstlisting}[label=bench,caption=Пример замера затраченного времени]
-pub fn run_tests(points: Vec<Vec<bool>>, min_ptx: usize, eps: f64, imgbuf: RgbImage) {
-	let n = 100;
-	let img_guard = imgbuf.clone();
-	for (algorithm, description) in MULTS_ARRAY.iter().zip(MULTS_DESCRIPTIONS.iter()) {
-		let time = Instant::now();
-		let mut result = 0;
-		for _ in 0..n {
-			let img_clone = img_guard.clone();
-			result = algorithm(&points, min_ptx, eps, img_clone);
-		}
-		let time = time.elapsed().as_nanos();
-	}
-}
-\end{lstlisting}
-
+В качестве среды разработки была выбрана среда VS Code \cite{vscode}, запуск происходил через команду go run main.go.
 
 
 \section{Реализации алгоритма}
@@ -48,42 +23,42 @@ pub fn run_tests(points: Vec<Vec<bool>>, min_ptx: usize, eps: f64, imgbuf: RgbIm
 
 \captionsetup{singlelinecheck = false, justification=raggedright}
 \begin{lstlisting}[label=lst:algebr,caption=Реализация простого алгоритма DBSCAN]
-pub fn dbscan(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, mut imgbuf: RgbImage) -> u32 {
-	let mut cluster_count = 0;
-	let mut current_point = points.clone();
-	let mut current_color = get_random_color();
-	for i in 0..points.len() {
-		for j in 0..points[i].len() {
-			if current_point[i][j] {
-				let mut v = Vec::<[usize; 2]>::new();
-				v.push([i, j]);
-				let mut neighbor_count_check = 0;
-				while !v.is_empty() {
-					let p = v.pop().unwrap();
-					if !current_point[p[0]][p[1]] {
-						continue;
-					}
-					current_point[p[0]][p[1]] = false;
-					
-					let mut neighbor_count = 0;
-					
-					regionquery(points, min_ptx, &mut v, &mut neighbor_count, p, eps);
-					
-					if neighbor_count >= min_ptx {
-						neighbor_count_check += 1;
-						*imgbuf.get_pixel_mut(p[1] as u32, p[0] as u32) = image::Rgb(current_color);
+func DbscanAlgorithm(points structures.Matrix, minPtx int, eps float64) structures.Matrix {
+	clusterCount := 0
+	currentPoint := points
+	img := structures.Allocate(points.Rows, points.Cols)
+	color := 0
+	for i := 0; i < points.Rows; i++ {
+		for j:=0; j < points.Cols; j++ {
+			if currentPoint.Values[i][j] == 1 {
+				var v1 []int
+				var v2 []int
+				v1 = append(v1, i)
+				v2 = append(v2, j)
+				neighborCountCheck := 0
+				for k := 0; k < len(v1); k++ {
+					if currentPoint.Values[v1[k]][v2[k]] == 1 {
+						currentPoint.Values[v1[k]][v2[k]] = 0
+						neighborCount := 0
+						_, startX := MinMax([]int{0, v1[k] - minPtx})
+						_, startY := MinMax([]int{0, v2[k] - minPtx})
+						endX, _ := MinMax([]int{points.Rows, v1[k] + minPtx + 1})
+						endY, _ := MinMax([]int{points.Cols, v2[k] + minPtx + 1})
+						if neighborCount >= minPtx {
+							neighborCountCheck++
+							img.Values[v1[k]][v2[k]] = color
+						}
 					}
 				}
-				if neighbor_count_check > 0 {
-					cluster_count += 1;
-					current_color = get_random_color();
+				if neighborCountCheck > 0 {
+					clusterCount++
+					color++
 				}
-				current_point[i][j] = false;
+				currentPoint.Values[i][j] = 0
 			}
 		}
 	}
-	
-	cluster_count
+	return img
 }
 \end{lstlisting}
 
@@ -91,101 +66,133 @@ pub fn dbscan(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, mut imgbuf: Rgb
 На листинге \ref{lst:winograd} приведена реализация функции поиска ближайших точек regionquery.
 
 \begin{lstlisting}[label=lst:winograd,caption=Реализация функции regionquery]
-fn regionquery(points: &Vec<Vec<bool>>, min_ptx: usize, v: &mut Vec::<[usize; 2]>, neighbor_count: &mut usize, p: [usize; 2], eps: f64)  {
-	let start_x = cmp::max(0, p[0] - min_ptx);
-	let start_y = cmp::max(0, p[1] - min_ptx);
-	let end_x = cmp::min(points.len(), p[0] + min_ptx + 1);
-	let end_y = cmp::min(points[0].len(), p[1] + min_ptx + 1);
-	for _i in start_x..end_x {
-		//check how many neighbors in the distance
-		for _j in start_y..end_y {
-			let distance = get_eculid_distance(_i as i32, _j as i32, p[0] as i32, p[1] as i32);
-			if distance <= eps && points[_i][_j] {
-				*neighbor_count += 1;
-				v.push([_i, _j]);
-			}
+for x := startX; x < endX; x++ {
+	for y := startY; y < endY; y++ {
+		distance := math.Sqrt(math.Pow(float64(startX - endX), 2) + math.Pow(float64(startY - endY), 2))
+		
+		if distance <= eps && currentPoint.Values[x][y] == 1 {
+			neighborCount++
+			
+			v1 = append(v1, x)
+			v2 = append(v2, y)
 		}
 	}
 }
 \end{lstlisting}	
 
-На листинге \ref{lst:Tree} приведена реализация параллельного алгоритма DBSCAN.
+На листинге \ref{lst:Tree} приведена реализация параллельного конвейера.
 
-\newpage
 
 \begin{lstlisting}[label=lst:Tree,caption=Реализация параллельного алгоритма DBSCAN]
-pub fn dbscan_parallel(points: &Vec<Vec<bool>>, 
-min_ptx: usize, eps: f64, 
-range: std::ops::Range<usize>, 
-guard_copy: Arc<Mutex<Vec<Vec<bool>>>>, 
-n: Arc<Mutex<u32>>,
-mut imgbuf: RgbImage) 
-{
-	let mut cluster_count = n.lock().unwrap();
-	let mut current_point = guard_copy.lock().unwrap();
-	let mut current_color = get_random_color();
-	for i in range {
-		for j in 0..points[i].len() {
-			if current_point[i][j] {
-				let mut v = Vec::<[usize; 2]>::new();
-				v.push([i, j]);
-				let mut neighbor_count_check = 0;
-				while !v.is_empty() {
-					let p = v.pop().unwrap();
-					if !current_point[p[0]][p[1]] {
-						continue;
-					}
-					current_point[p[0]][p[1]] = false;
-					let mut neighbor_count = 0;
-					regionquery(points, min_ptx, &mut v, &mut neighbor_count, p, eps);
-					if neighbor_count >= min_ptx {
-						neighbor_count_check += 1;
-						*imgbuf.get_pixel_mut(p[1] as u32, p[0] as u32) = image::Rgb(current_color);
-					}
-				}
-				if neighbor_count_check > 0 {
-					*cluster_count += 1;
-				}
-				current_point[i][j] = false;
+func Pipeline(count int, ch chan int, filename string, minPtx int, eps float64) *structures.Queue {
+	first := make(chan *structures.PipeTask, count)
+	second := make(chan *structures.PipeTask, count)
+	third := make(chan *structures.PipeTask, count)
+	line := InitQueue(count)
+	get_file := func() {
+		for {
+			select {
+				case pipe_task := <- first:
+				pipe_task.Generated = true
+				
+				pipe_task.Start_generating = time.Now()
+				
+				pipe_task.Source = dbscan.ReadFile(filename)
+				
+				pipe_task.End_generatig = time.Now()
+				
+				second <- pipe_task
 			}
 		}
 	}
+	get_dbscan := func() {
+		for {
+			select {
+				case pipe_task := <- second:
+				pipe_task.Dbscan_mode = true
+				
+				pipe_task.Start_dbscan = time.Now()
+				
+				pipe_task.Dbscan = dbscan.DbscanAlgorithm(pipe_task.Source, minPtx, eps)
+				
+				pipe_task.End_dbscan = time.Now()
+				
+				third <- pipe_task
+			}
+		}
+	}
+	match := func ()  {
+		for {
+			select {
+				case pipe_task := <- third:
+				pipe_task.Pattern_matched = true
+				
+				pipe_task.Start_match = time.Now()
+				pipe_task.Pattern_index = dbscan.SaveFile(pipe_task.Dbscan)
+				pipe_task.End_match = time.Now()
+				
+				line.Enqueue(pipe_task)
+				if (pipe_task.Num == count - 1) {
+					ch <- 0
+				}
+			}
+		}
+	}
+	go get_file()
+	go get_dbscan()
+	go match()
 	
+	for i := 0; i < count; i++ {
+		pipe_task := new(structures.PipeTask)
+		pipe_task.Num = i + 1
+		first <- pipe_task
+	}
+	return line
 }
 \end{lstlisting}	
 
 \newpage
-На листинге \ref{lst:winograd-optimized} приведена реализация функции параллелизации матрицы точек для алгоритма DBSCAN.
+На листинге \ref{lst:winograd-optimized} приведена реализация синхронного конвейера.
 \begin{lstlisting}[label=lst:winograd-optimized,caption=Реализация функции параллелизации матрицы точек]
-pub fn parrallize(points: &Vec<Vec<bool>>, min_ptx: usize, eps: f64, imgbuf: RgbImage, nofth: usize) -> u32 {
-	
-	let counter = Arc::new(Mutex::new(0));
-	let current_point = Arc::new(Mutex::new(points.clone()));
-	let size = points.len() / (nofth + 1);
-	
-	thread::scope(|s| {
-		let mut threads = Vec::with_capacity(nofth);
-		
-		for i in 0..nofth {
-			let range = (i * size)..((i + 1) * size);
-			let guard_copy = current_point.clone();
-			let counter_copy = counter.clone();
-			let img_clone = imgbuf.clone();
-			threads.push(s.spawn(move |_| dbscan_parallel(points, min_ptx, eps, range, guard_copy, counter_copy, img_clone)));
+func gen_string_sync(task *structures.PipeTask) *structures.PipeTask {
+	task.Generated = true
+	task.Start_generating = time.Now()
+	task.Source = dbscan.ReadFile("100.txt")
+	task.End_generatig = time.Now()
+	return task
+}
+func get_table_sync(task *structures.PipeTask) *structures.PipeTask {
+	task.Dbscan_mode = true
+	task.Start_dbscan = time.Now()
+	task.Dbscan = dbscan.DbscanAlgorithm(task.Source, 2, 2)
+	task.End_dbscan = time.Now()
+	return task
+}
+func match_sync(task *structures.PipeTask) *structures.PipeTask {
+	task.Pattern_matched = true
+	task.Start_match = time.Now()
+	task.Pattern_index = dbscan.SaveFile(task.Dbscan)
+	task.End_match = time.Now()
+	return task
+}
+func Sync(count int) *structures.Queue {
+	line_first := InitQueue(count)
+	line_second := InitQueue(count)
+	line_third := InitQueue(count)
+	for i := 0; i < count; i++ {
+		pipe_task := new(structures.PipeTask)
+		pipe_task = gen_string_sync(pipe_task)
+		line_first.Enqueue(pipe_task)
+		if (len(line_first.Queue) != 0) {
+			pipe_task = get_table_sync(line_first.Dequeue())
+			line_second.Enqueue(pipe_task)
+			if (len(line_second.Queue) != 0) 
+				pipe_task = match_sync(line_second.Dequeue())
+				line_third.Enqueue(pipe_task)
+			}
 		}
-		let range = (size * nofth)..points.len();
-		let guard_\_timecopy = current_point.clone();
-		let counter_copy = counter.clone();
-		let img_clone = imgbuf.clone();
-		dbscan_parallel(points, min_ptx, eps, range, guard_copy, counter_copy, img_clone);
-		for th in threads {
-			th.join().unwrap();
-		}
-		
-		let counter_copy = counter.clone();
-		let cluster_count = counter_copy.lock().unwrap();
-		*cluster_count
-	}).unwrap()
+	}
+	return line_third
 }
 \end{lstlisting}	
 

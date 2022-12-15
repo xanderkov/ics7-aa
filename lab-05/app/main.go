@@ -31,6 +31,6 @@ func main() {
 	pipeline_queue_sync := pipeline.Sync(count)
 	_ = pipeline_queue_sync
 
-	// pipeline.PerfLog(pipeline_queue, pipeline_queue_sync)
+	pipeline.Log(pipeline_queue)
 	fmt.Println("Done")
 }
