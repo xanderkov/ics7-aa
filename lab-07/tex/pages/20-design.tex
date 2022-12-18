@@ -1,40 +1,53 @@
 \chapter{Конструкторский часть}
 
-В данном разделе представлены схемы алгоритмов DBSCAN и конвейера.
+В данном разделе будут представлены требования к разрабатываемому программному обеспечению, описание используемых типов данных, а также схемы алгоритма полного перебора и муравьиного алгоритма.
+
+\section{Описание используемых типов данных}
+При реализации алгоритмов будут использованы следующие типы дан-
+ных:
+\begin{itemize}[label=---]
+	\item размер матрицы смежности --- целое число;
+	\item имя файла --- строка;
+	\item коэффициенты $\alpha, \beta$, \textit{k\_evaporation} --- действительные числа;
+	\item матрица смежности --- матрица целых чисел.
+\end{itemize}
+
 
 \section{Разработка алгоритмов}
 
-\subsection{Разработка простого DBSCAN}
  
-На рисунке \ref{fig:alg} приведена схема плотностного алгоритма DBSCAN.
+На рисунке \ref{fig:full_comb} представлена схема алгоритма полного перебора путей, а на рисунках \ref{fig:angs} схема муравьиного алгоритма поиска путей. Также на рисунках \ref{fig:find_pos}--\ref{fig:update_phero} представлены схемы вспомогательных функций для муравьиного алгоритма.
+
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=0.7\linewidth]{assets/graphs/perebor.pdf}
+	\caption{Схема алгоритма полного перебора путей}
+	\label{fig:full_comb}
+\end{figure}
 
 
 \begin{figure}[ht!]
 	\centering
-	\includegraphics[width=1\linewidth]{assets/graphs/dbscan.pdf}
-	\caption{Схема плотностного алгоритма DBSCAN}
-	\label{fig:alg}
+	\includegraphics[width=1\linewidth]{assets/graphs/angs.pdf}
+	\caption{Схема муравьиного алгоритма}
+	\label{fig:angs}
 \end{figure}
 
-На рисунке \ref{fig:alg2} приведена схема функции поиска ближайшей соседний точки в кластере.
 
 \begin{figure}[ht!]
 	\centering
-	\includegraphics[width=0.5\linewidth]{assets/graphs/regionquery.pdf}
-	\caption{Схема функции regionquery}
-	\label{fig:alg2}
+	\includegraphics[width=0.8\linewidth]{assets/graphs/find_pos.pdf}
+	\caption{Схема нахождения массива вероятностей переходов}
+	\label{fig:find_pos}
 \end{figure}
-
-\subsection{Разработка конвейерных вычислений}
-
-На рисунке \ref{fig:alg-p} приведена схема конвейерной линии.
 
 \begin{figure}[ht!]
 	\centering
-	\includegraphics[width=0.7\linewidth]{assets/graphs/pipeline.pdf}
-	\caption{Схема алгоритма параллельного DBSCAN}
-	\label{fig:alg-p}
+	\includegraphics[width=0.750\linewidth]{assets/graphs/update_ph.pdf}
+	\caption{Схема обновления матрицы феромонов}
+	\label{fig:update_phero}
 \end{figure}
+
 
 
 \section*{Вывод}

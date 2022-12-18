@@ -7,271 +7,215 @@
 Программное обеспечение должно удовлетворять следующим требованиям:
 \begin{itemize}
 	\item на вход подается имя файла;
-	\item используется параллелизация программы;
+	\item программа позволяет определять коэффициенты и количество дней;
 	\item возможно измерение реального времени.
 \end{itemize}
 
 \section{Средства реализации} 
-Для реализации ПО был выбран язык программирования Golang \cite{golang}. 
+Для реализации ПО был выбран язык программирования Python\cite{python}. 
+
 В данном языке есть все требующиеся инструменты для данной лабораторной работы.
-В качестве среды разработки была выбрана среда VS Code \cite{vscode}, запуск происходил через команду go run main.go.
 
+В качестве среды разработки была выбрана среда VS Code\cite{vscode}, запуск происходил через команду python main.py.
 
-\section{Реализации алгоритма}
-На листинге \ref{lst:algebr} приведена реализация простого алгоритма DBSCAN. 
+\section{Средства замера времени}
+
+Замеры времени выполнения реализаций алгоритма будут проводиться при помощи функции process\_time \cite{test} библиотеки time. Данная команда возвращает значения процессорного времени типа int в наносекундах.
+
+Замеры времени для каждой реализации алгоритма и для каждого комплекта входных данных проводились 100 раз.
 \newpage
-
-\captionsetup{singlelinecheck = false, justification=raggedright}
-\begin{lstlisting}[label=lst:algebr,caption=Реализация простого алгоритма DBSCAN]
-func DbscanAlgorithm(points structures.Matrix, minPtx int, eps float64) structures.Matrix {
-	clusterCount := 0
-	currentPoint := points
-	img := structures.Allocate(points.Rows, points.Cols)
-	color := 0
-	for i := 0; i < points.Rows; i++ {
-		for j:=0; j < points.Cols; j++ {
-			if currentPoint.Values[i][j] == 1 {
-				var v1 []int
-				var v2 []int
-				v1 = append(v1, i)
-				v2 = append(v2, j)
-				neighborCountCheck := 0
-				for k := 0; k < len(v1); k++ {
-					if currentPoint.Values[v1[k]][v2[k]] == 1 {
-						currentPoint.Values[v1[k]][v2[k]] = 0
-						neighborCount := 0
-						_, startX := MinMax([]int{0, v1[k] - minPtx})
-						_, startY := MinMax([]int{0, v2[k] - minPtx})
-						endX, _ := MinMax([]int{points.Rows, v1[k] + minPtx + 1})
-						endY, _ := MinMax([]int{points.Cols, v2[k] + minPtx + 1})
-						if neighborCount >= minPtx {
-							neighborCountCheck++
-							img.Values[v1[k]][v2[k]] = color
-						}
-					}
-				}
-				if neighborCountCheck > 0 {
-					clusterCount++
-					color++
-				}
-				currentPoint.Values[i][j] = 0
-			}
-		}
-	}
-	return img
-}
+\begin{lstlisting}[label=bench,caption=Пример замера затраченного времени]
+	def test_simple_mult(A, B):
+	# Start the stopwatch / counter 
+	t1_start = process_time() 
+	for i in range(N_TEST):
+	simple_mult(A, M, B, N, M)
+	# Stop the stopwatch / counter
+	t1_stop = process_time()
 \end{lstlisting}
 
+\section{Реализации алгоритма}
+В листинге \ref{lst:full_comb} представлен алгоритм полного перебора путей, а в листингах \ref{lst:ant_alg}--\ref{lst:upd_pher} --- муравьиный алгоритм и дополнительные к нему функции.
 
-На листинге \ref{lst:winograd} приведена реализация функции поиска ближайших точек regionquery.
 
-\begin{lstlisting}[label=lst:winograd,caption=Реализация функции regionquery]
-for x := startX; x < endX; x++ {
-	for y := startY; y < endY; y++ {
-		distance := math.Sqrt(math.Pow(float64(startX - endX), 2) + math.Pow(float64(startY - endY), 2))
+\begin{center}
+	\captionsetup{justification=raggedright,singlelinecheck=off}
+	\begin{lstlisting}[label=lst:full_comb,caption=Реализация алгоритма полного перебора путей]
+	def fullCombinationAlg(matrix, size):
+		places = np.arange(size)
+		placesCombinations = list()
 		
-		if distance <= eps && currentPoint.Values[x][y] == 1 {
-			neighborCount++
-			
-			v1 = append(v1, x)
-			v2 = append(v2, y)
-		}
-	}
-}
-\end{lstlisting}	
-
-На листинге \ref{lst:Tree} приведена реализация параллельного конвейера.
-
-
-\begin{lstlisting}[label=lst:Tree,caption=Реализация параллельного алгоритма DBSCAN]
-func Pipeline(count int, ch chan int, filename string, minPtx int, eps float64) *structures.Queue {
-	first := make(chan *structures.PipeTask, count)
-	second := make(chan *structures.PipeTask, count)
-	third := make(chan *structures.PipeTask, count)
-	line := InitQueue(count)
-	get_file := func() {
-		for {
-			select {
-				case pipe_task := <- first:
-				pipe_task.Generated = true
-				
-				pipe_task.Start_generating = time.Now()
-				
-				pipe_task.Source = dbscan.ReadFile(filename)
-				
-				pipe_task.End_generatig = time.Now()
-				
-				second <- pipe_task
-			}
-		}
-	}
-	get_dbscan := func() {
-		for {
-			select {
-				case pipe_task := <- second:
-				pipe_task.Dbscan_mode = true
-				
-				pipe_task.Start_dbscan = time.Now()
-				
-				pipe_task.Dbscan = dbscan.DbscanAlgorithm(pipe_task.Source, minPtx, eps)
-				
-				pipe_task.End_dbscan = time.Now()
-				
-				third <- pipe_task
-			}
-		}
-	}
-	match := func ()  {
-		for {
-			select {
-				case pipe_task := <- third:
-				pipe_task.Pattern_matched = true
-				
-				pipe_task.Start_match = time.Now()
-				pipe_task.Pattern_index = dbscan.SaveFile(pipe_task.Dbscan)
-				pipe_task.End_match = time.Now()
-				
-				line.Enqueue(pipe_task)
-				if (pipe_task.Num == count - 1) {
-					ch <- 0
-				}
-			}
-		}
-	}
-	go get_file()
-	go get_dbscan()
-	go match()
-	
-	for i := 0; i < count; i++ {
-		pipe_task := new(structures.PipeTask)
-		pipe_task.Num = i + 1
-		first <- pipe_task
-	}
-	return line
-}
-\end{lstlisting}	
-
-\newpage
-На листинге \ref{lst:winograd-optimized} приведена реализация синхронного конвейера.
-\begin{lstlisting}[label=lst:winograd-optimized,caption=Реализация функции параллелизации матрицы точек]
-func gen_string_sync(task *structures.PipeTask) *structures.PipeTask {
-	task.Generated = true
-	task.Start_generating = time.Now()
-	task.Source = dbscan.ReadFile("100.txt")
-	task.End_generatig = time.Now()
-	return task
-}
-func get_table_sync(task *structures.PipeTask) *structures.PipeTask {
-	task.Dbscan_mode = true
-	task.Start_dbscan = time.Now()
-	task.Dbscan = dbscan.DbscanAlgorithm(task.Source, 2, 2)
-	task.End_dbscan = time.Now()
-	return task
-}
-func match_sync(task *structures.PipeTask) *structures.PipeTask {
-	task.Pattern_matched = true
-	task.Start_match = time.Now()
-	task.Pattern_index = dbscan.SaveFile(task.Dbscan)
-	task.End_match = time.Now()
-	return task
-}
-func Sync(count int) *structures.Queue {
-	line_first := InitQueue(count)
-	line_second := InitQueue(count)
-	line_third := InitQueue(count)
-	for i := 0; i < count; i++ {
-		pipe_task := new(structures.PipeTask)
-		pipe_task = gen_string_sync(pipe_task)
-		line_first.Enqueue(pipe_task)
-		if (len(line_first.Queue) != 0) {
-			pipe_task = get_table_sync(line_first.Dequeue())
-			line_second.Enqueue(pipe_task)
-			if (len(line_second.Queue) != 0) 
-				pipe_task = match_sync(line_second.Dequeue())
-				line_third.Enqueue(pipe_task)
-			}
-		}
-	}
-	return line_third
-}
-\end{lstlisting}	
-
-\section{Тестовые данные}
-
-В таблице \ref{tbl:functional_test} приведены тесты для функций, реализующих алгоритмы DBSCAN. Применена методология черного ящика. Тесты для всех алгоритмов пройдены \textit{успешно}.
+		for combination in it.permutations(places):
+		combArr = list(combination)
+		placesCombinations.append(combArr)
+		minDist = float("inf")
+		for i in range(len(placesCombinations)):
+			placesCombinations[i].append(\
+			placesCombinations[i][0])
+			curDist = 0
+			for j in range(size):
+				startCity = placesCombinations[i][j]
+				endCity = placesCombinations[i][j + 1]
+				curDist += matrix[startCity][endCity]
+			if (curDist < minDist):
+				minDist = curDist
+		bestWay = placesCombinations[i]
+		return minDist, bestWay
+	\end{lstlisting}
+\end{center}
 
 
-\begin{table}[ht!]
-	\begin{center}
-		\captionsetup{justification=raggedright,singlelinecheck=off}
-		\caption{\label{tbl:functional_test} Функциональные тесты}
-		\begin{tabular}{|c|c|c|c|}
-			\hline
-			Вход & Ожидаемый результат & Результат послед. & Результат паралл. 
-			\\ \hline
-			$\begin{pmatrix}
-				\\
-			\end{pmatrix}$ &
-			0&
-			0 & 0
-			
-			\\ \hline
-			$\begin{pmatrix}
-			0\\
-			\end{pmatrix}$ &
-			0 &
-			0 & 0
-			
-			\\ \hline
-			$\begin{pmatrix}
-				0 & 1
-			\end{pmatrix}$ &
-			1 &
-			1 & 1
-			
-			\\ \hline
-			$\begin{pmatrix}
-				1
-			\end{pmatrix}$ &
-			1 &
-			1 & 1
-			
-			\\ \hline
-			$\begin{pmatrix}
-				1 & 0 & 1\\
-				0 & 0 & 0\\
-				1 & 1 & 1
-			\end{pmatrix}$ &
-			3 &
-			3 &3
-			
-			\\ \hline
-			$\begin{pmatrix}
-				1 & 0 \\
-				0 & 1 
-			\end{pmatrix}$ &
-			2 &
-			2 & 2               
-			
-			\\ \hline
-			$\begin{pmatrix}
-				1 & 0 & 0
-			\end{pmatrix}$ &
-			1&
-			1 & 1
-			
-			\\ \hline
-			$\begin{pmatrix}
-				1 & 0 & 1 \\
-				0 & 0 & 0 \\
-				1 & 0 & 1
-			\end{pmatrix}$ &
-			4 &
-			4  & 4                
-			\\ \hline
-		\end{tabular}
-	\end{center}
-\end{table}
+\begin{center}
+	\captionsetup{justification=raggedright,singlelinecheck=off}
+	\begin{lstlisting}[label=lst:ant_alg,caption=Реализация муравьиного алгоритма]
+	def antAlgorithm(matrix, places, alpha, beta, k_evaporation, days):
+		q = calcQ(matrix, places)
+		bestWay = []
+		minDist = float("inf")
+		pheromones = calcPheromones(places)
+		visibility = calcVisibility(matrix, places)
+		ants = places
+		for day in range(days):
+		route = np.arange(places)
+		visited = calcVisitedPlaces(route, ants)
+		for ant in range(ants):
+		while (len(visited[ant]) != ants):
+		pk = findWays(pheromones, visibility, visited, places, ant, alpha, beta)
+		chosenPlace = chooseNextPlaceByPosibility(pk)
+		visited[ant].append(chosenPlace - 1)
+		
+		visited[ant].append(visited[ant][0])
+		
+		curLength = calcLength(matrix, visited[ant])
+		
+		if (curLength < minDist):
+		minDist = curLength
+		bestWay = visited[ant]
+		
+		pheromones = updatePheromones(matrix, places, visited, pheromones, q, k_evaporation)
+		
+		return minDist, bestWay
+	\end{lstlisting}
+\end{center}
+
+
+\clearpage
+
+
+\begin{center}
+	\captionsetup{justification=raggedright,singlelinecheck=off}
+	\begin{lstlisting}[label=lst:prob_arr,caption=Реализация алгоритма нахождения массива вероятностей переходов в непосещенные города]
+	def findWays(pheromones, visibility, visited, places, ant, alpha, beta):
+		pk = [0] * places
+		
+		for place in range(places):
+		if place not in visited[ant]:
+		ant_place = visited[ant][-1]
+		pk[place] = pow(pheromones[ant_place][place], alpha) * \
+		pow(visibility[ant_place][place], beta)
+		else:
+		pk[place] = 0
+		
+		sum_pk = sum(pk)
+		
+		for place in range(places):
+		pk[place] /= sum_pk
+		
+		return pk
+	\end{lstlisting}
+\end{center}
+
+\begin{center}
+	\captionsetup{justification=raggedright,singlelinecheck=off}
+	\begin{lstlisting}[label=lst:pheromone_above_Zero,caption=Реализация алгоритма нахождения массива вероятностей переходов в непосещенные города]
+		def calcPheromones(size):
+		min_phero = 1
+		pheromones = [[min_phero for i in range(size)] for j in range(size)]
+		return pheromones
+	\end{lstlisting}
+\end{center}
+
+
+\clearpage
+
+\begin{center}
+	\captionsetup{justification=raggedright,singlelinecheck=off}
+	\begin{lstlisting}[label=lst:choose_next,caption=Реализация алгоритма выбора следующего города]
+	def chooseNextPlaceByPosibility(pk):
+		posibility = random()
+		choice = 0
+		chosenPlace = 0
+		
+		while ((choice < posibility) and (chosenPlace < len(pk))):
+		choice += pk[chosenPlace]
+		chosenPlace += 1
+		
+		return chosenPlace
+	\end{lstlisting}
+\end{center}
+
+
+\begin{center}
+	\captionsetup{justification=raggedright,singlelinecheck=off}
+	\begin{lstlisting}[label=lst:upd_pher,caption=Реализация алгоритма обновления матрицы феромонов]
+	def updatePheromones(matrix, places, visited, pheromones, q, k_evaporation):
+		ants = places
+		
+		for i in range(places):
+		for j in range(places):
+		delta = 0
+		for ant in range(ants):
+		length = calcLength(matrix, visited[ant])
+		delta += q / length
+		
+		pheromones[i][j] *= (1 - k_evaporation)
+		pheromones[i][j] += delta
+		if (pheromones[i][j] < MIN_PHEROMONE):
+		pheromones[i][j] = MIN_PHEROMONE
+		
+		return pheromones
+	\end{lstlisting}
+\end{center}
+
+\section{Функциональные тесты}
+
+В таблице \ref{tbl:functional_test} приведены тесты для функций, реализующих алгоритмы сортировки. Применена методология черного ящика. Тесты для всех сортировок пройдены \textit{успешно}.
+
+\begin{center}
+	\captionsetup{justification=raggedright,singlelinecheck=off}
+	\begin{longtable}[c]{|c|c|c|c|c|}
+		\caption{Функциональные тесты\label{tbl:functional_test}} \\ \hline
+		Матрица смежности & Ожидаемый результат & Результат программы \\
+		\hline
+		$ \begin{pmatrix}
+			0 &  4 &  2 &  1 & 7 \\
+			4 &  0 &  3 &  7 & 2 \\
+			2 &  3 &  0 & 10 & 3 \\
+			1 &  7 & 10 &  0 & 9 \\
+			7 &  2 &  3 &  9 & 0
+		\end{pmatrix}$ &
+		15, [0, 2, 4, 1, 3, 0] &
+		15, [0, 2, 4, 1, 3, 0] \\
+		
+		$ \begin{pmatrix}
+			0 & 1 & 2 \\
+			1 & 0 & 1 \\
+			2 & 1 & 0	
+		\end{pmatrix}$ &
+		4, [0, 1, 2, 0] &
+		4, [0, 1, 2, 0] \\
+		
+		$ \begin{pmatrix}
+			0 & 15 & 19 & 20 \\
+			15 &  0 & 12 & 13 \\
+			19 & 12 &  0 & 17 \\
+			20 & 13 & 17 &  0
+		\end{pmatrix}$ &
+		64, [0, 1, 2, 3, 0] &
+		64, [0, 1, 2, 3, 0] \\
+		\hline
+	\end{longtable}
+\end{center}
 
 \section*{Вывод}
 Написано и протестировано программное обеспечение для решения поставленной задачи.
