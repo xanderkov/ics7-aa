@@ -1,136 +1,128 @@
 import nltk
+# nltk.download('punkt')
 from string import punctuation
 from termcolor import colored
 
-students_akadem = {
-    "Щербина": 1,
-    "Кузнецов": 1,
-    "Кузнецова": 1,
-    "Иванов": 5,
-    "Петров": 3,
-    "Сидоров": 2,
-    "Сидорова": 8,
-    "Алексеев": 5,
-    "Романов": 3,
-    "Романова": 3,
-    "Сергеев": 2,
-    "Сергеева": 5,
-    "Александров": 2,
-    "Александрова": 9,
-    "Андреев": 1,
+conties_murav = {
+    'Балтика 3': 3,
+    'Балтика 1': 1,
+    'Балтика 2': 2,
+    'Балтика 6': 5,
+    'Мартини': 4,
+    'Балтика 5': 3,
+    'Старый мельник': 2,
+    'Клинское': 3,
+    'Деревенька': 5,
+    'Крушовиче': 3,
+    'Апсент': 5,
+    'Мотор': 3,
+    'Аррарат': 4,
+    'Озерная': 5,
+    'Нету меда': 1
 }
 
-# эксп часть
-# фамилии в принимающие в участие
-# график
-# Примеры запросов
-# обязательно вопрос не распознается
 
 def expert_opinion(feature):
-    if feature == 'много':
-        return 8
-    elif feature == 'средне':
-        return 5
-    elif feature == 'мало':
-        return 2
-    elif feature == 'немало':
-        return 7
-    elif feature == 'немного':
-        return 4
-    elif feature == 'оченьнемало':
-        return 8
-    elif feature == 'оченьмного':
-        return 9
-    elif feature == 'оченьмало':
-        return 0
-    elif feature == 'оченьнемного':
+    if feature == 'легкий':
         return 1
-    elif feature == 'неоченьмного':
+    elif feature == 'средний':
+        return 2
+    elif feature == 'интеренсный':
         return 3
-    elif feature == 'неоченьмало':
-        return 7
+    elif feature == 'высокий':
+        return 4
+    elif feature == 'не употребительный':
+        return 5
     return None
 
-def replace_merged_words(toks):
-    new_toks = []
-    for i in range(len(toks)):
-        if toks[i] == "немного":
-            new_toks.append("не")
-            new_toks.append("много")
-        elif toks[i] == "немало":
-            new_toks.append("не")
-            new_toks.append("мало")
-        else:
-            new_toks.append(toks[i])
-    return new_toks
-
-
-def mb_before_word(tokens, feat_index, offset=-1):
-    if feat_index + offset < 0:
-        return ""
-    if tokens[feat_index + offset] not in ["не", "очень"]:
-        return ""
-    return tokens[feat_index + offset]
+def mass_to_feature(mass):
+    ret = []
+    prov = []
+    for i in mass:
+        if i not in prov:
+            prov.append(i)
+    for i in prov:
+        
+        if i == 1:
+            ret.append('легкий')
+        if i == 2:
+            ret.append('средний')
+        if i == 3:
+            ret.append('интеренсный')
+        if i == 4:
+            ret.append('высокий')
+        if i == 5:
+            ret.append('не употребительный')
+            
+    return ret
 
 def perror(*msg):
     if not isinstance(msg, str):
         msg = " ".join([str(m) for m in msg if not isinstance(m, str) or m])
     print(colored(msg, 'red'))
 
-text = "Кто немного раз ходил в академ?"
+def take_murav(feature):
+    slov = 'спирт'
+    for i in range(len(slov)):
+        if slov[i] != feature[i]:
+            return False
+    return True
+
+def take_murav_from_tokens(tokens):
+    for i in tokens:
+        if take_murav(i):
+            return True
+    return False
+
+
+def find_terms(tokens):
+    ret = []
+    flag = 0
+    for token in tokens:
+        if flag == 5    :
+            if token == 'употребительный':
+                ret.append(5)
+        if token == 'легкий':
+            ret.append(1)
+        elif token == 'средний':
+            ret.append(2)
+        elif token == 'интеренсный':
+            ret.append(3)
+            flag = 0
+        elif token == 'высокий':
+            ret.append(4)
+        elif token == 'не':
+            
+            flag = 5
+        else:
+            flag == 0
+    return ret
+
+text = "не употребительный интеренсный спирт"
+print("Введите терм: ")
+text = input()
 
 tokens = nltk.word_tokenize(text.lower(), language="russian")
 tokens = [token for token in tokens if token not in punctuation]
-tokens = replace_merged_words(tokens)
 
-# В вопросе спрашивают про академ?
+# В вопросе спрашивают про спирт?
 print('Разбитые токены:', tokens)
 
-if not 'академ' in tokens:
-    perror("В вопросе нет слова 'академ'")
+if not take_murav_from_tokens(tokens):
+    perror("В вопросе нет слова 'спирт'")
     exit(1)
 
-# определяем базовый признак
-# мало, средне, много
-base_words = ['много', 'мало', 'средне']
-base_words_count = {i: 0 for i in base_words}
+mass = find_terms(tokens)
+terms = mass_to_feature(mass)
 
-# Считаем количество вхождений слов из base_words
-# в список токенов
-for token in tokens:
-    if token in base_words:
-        base_words_count[token] += 1
+print('Найденные термы: ')
+for i in range(len(terms) - 1):
+    print('>   ' + terms[i] + '(%d), '%mass[i])
+print(terms)
+print(mass)
+print('>   ' + terms[len(terms) - 1] + '(%d)'%mass[len(terms) - 1])
 
-if sum(base_words_count.values()) == 0:
-    perror('В вопросе нет слов из списка', base_words)
-    exit(1)
-
-# Если в вопросе есть одно вхождение слова из base_words
-# то это признак
-
-found_base_word = None
-for word, count in base_words_count.items():
-    if count == 1:
-        found_base_word = word
-        break
-
-for other_word, count in base_words_count.items():
-    if count > 0 and other_word != found_base_word:
-        perror('В вопросе больше одного вхождения слова', other_word, 'и слова', found_base_word)
-        exit(1)
-
-existing_features = [i for i in base_words_count if base_words_count[i] != 0]
-feature = existing_features[0]
-feature_index_in_sentence = tokens.index(feature)
-
-
-feature = mb_before_word(tokens, feature_index_in_sentence, -2) + mb_before_word(tokens, feature_index_in_sentence) + feature
-
-print("Количество уходов в академ")
-print('Признак:', feature)
-print('Оценка:', expert_opinion(feature))
-
-print("Студенты которые ушли в академ ", feature, f", ({expert_opinion(feature)}) раз")
-for student, akadem in students_akadem.items():
-    if akadem == expert_opinion(feature):
-        print(student)
+print('Подпадающие под условия участки:')
+for uch, mur in conties_murav.items():
+    if mur in mass:
+        print(uch + ' с ' + mass_to_feature([mur])[0] + '(%d)'%mur)
